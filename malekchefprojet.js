@@ -1,14 +1,13 @@
 let h = "AK0vliwS7xT3vK7YXrbM6DUz4QtjWrkTPoTmb88qF5XxpoANURBlTf8A86G9c7zhmboJpwvb";
-let WEB_APP_URL = "https://script.google.com/macros/s/passkey/exec";
+const  WEB_APP_URL = "https://script.google.com/macros/s/passkey/exec";
 function sendData(dataElement) {
-  WEB_APP_URL = WEB_APP_URL.replace("passkey", decoderX(h));
+  let WEB_APP_URLD = WEB_APP_URL.replace("passkey", decoderX(h));
   const formData = new FormData();
   const payload = {
-    newData: dataElement,
-    timestamp: new Date().toLocaleString('ar-EG')
+    newData: dataElement, timestamp: new Date().toLocaleString('ar-EG')
   };
   formData.append('jsonPayload', JSON.stringify(payload));
-  fetch(WEB_APP_URL, {
+  fetch(WEB_APP_URLD, {
     method: 'POST',
     mode: 'cors',
     body: formData
@@ -17,9 +16,12 @@ function sendData(dataElement) {
   .then(result => {
     if (result.status === 'success') {
       //`${JSON.stringify(result.content, null, 2)}`;
+      console.log(result.status, result.message);
     } else {
       //`${result.message}`;
+      console.log(result.status, result.message);
     }
+    //result.message
   })
   .catch(error => {
     console.error('Error:', error);
@@ -122,6 +124,18 @@ function setitemx(id) {
   document.getElementById(id).removeAttribute("onclick");
   document.getElementById(id).setAttribute("class", "eleypro");
   document.getElementById(id).setAttribute("onclick", "viewer(this.id)");
+  if (exp == "SONIC") {
+    document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
+  }
+  else if (exp == "CORE SAMPLE") {
+    document.getElementById(key).setAttribute("style", "background:coral;");
+  }
+  else if (exp == "RISK") {
+    document.getElementById(key).setAttribute("style", "background:rgb(255,20,20);");
+  }
+  else if (exp == "ATRISK") {
+    document.getElementById(key).setAttribute("style", "background:rgb(255,100,65);");
+  }
   closediag();
 }
 function editdialog(id) {
@@ -233,12 +247,17 @@ function setEDITED(id) {
   document.getElementById(id).removeAttribute("onclick");
   document.getElementById(id).setAttribute("class", "eleypro");
   document.getElementById(id).setAttribute("onclick", "viewer(this.id)");
+  if (exp == "SONIC") {
+    document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
+  }
+  else if (exp == "CORE SAMPLE") {
+    document.getElementById(key).setAttribute("style", "background:coral;");
+  }
+  else if (exp == "RISK") {
+    document.getElementById(key).setAttribute("style", "background:rgb(255,20,20);");
+  }
+  else if (exp == "ATRISK") {
+    document.getElementById(key).setAttribute("style", "background:rgb(255,100,65);");
+  }
   closediag();
 }
-
-
-
-
-
-
-

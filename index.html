@@ -65,6 +65,19 @@
             document.getElementById(key).removeAttribute("onclick");
             document.getElementById(key).setAttribute("class", "eleypro");
             document.getElementById(key).setAttribute("onclick", "viewer(this.id)");
+            let arr = jsonDataOBJ[key];
+            if (arr[1] == "SONIC") {
+              document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
+            }
+            else if (arr[1] == "CORE SAMPLE") {
+              document.getElementById(key).setAttribute("style", "background:coral;");
+            }
+            else if (arr[1] == "RISK") {
+              document.getElementById(key).setAttribute("style", "background:rgb(255,20,20);");
+            }
+            else if (arr[1] == "ATRISK") {
+              document.getElementById(key).setAttribute("style", "background:rgb(255,100,65);");
+            }
             //key = key.replace("%", "'");key = key.replace("#", "\"");
           });
         } else {
@@ -344,5 +357,6 @@
     opening();
   </script>
 </html>
+
 
 

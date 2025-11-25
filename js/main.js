@@ -1,0 +1,348 @@
+let dec = new Object();let cryppassKey,passKey;
+//creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
+function startupset() {
+  const WEB_APP_URLS = "https://script.google.com/macros/s/AKfycbyKX3MQPGZS_6UrFaUk9WS7eiy2kwwBuLEGOW94AkxXHvc0nFO7CLFYG_4hONtMIbvjFw/exec";
+  const formData = new FormData();let jsonDataOBJ;
+  const payload = { newData: "PullData", timestamp: new Date().toLocaleString('ar-EG')};
+  formData.append('jsonPayload', JSON.stringify(payload));
+  fetch(WEB_APP_URLS, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(result => {
+    if (result.status === 'success') {
+      //`${JSON.stringify(result.content, null, 2)`;
+      jsonDataOBJ = result.content;
+      dec  = result.content;
+      let keys = Object.keys(jsonDataOBJ);
+      keys.forEach((key) => {
+        document.getElementById(key).removeAttribute("class");
+        document.getElementById(key).removeAttribute("onclick");
+        document.getElementById(key).setAttribute("class", "eleypro");
+        document.getElementById(key).setAttribute("onclick", "viewer(this.id)");
+        //key = key.replace("%", "'");key = key.replace("#", "\"");
+      });
+      creatAnaly(keys);
+    } else {
+      //`${result.message}`;
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+function opening() {
+  let fille = "ABCDEFGHIJK";fille = fille.split("");
+  let bat = ["", "%", "#"];
+  let axe = document.createElement('div');
+  axe.setAttribute('class', "battey");
+  for (var y = 0; y < 12; y++) {
+    let divx = document.createElement('div');
+    divx.setAttribute('class', "axey");
+    let divz = document.createElement('div');
+    divz.setAttribute('class', "");
+    let part = document.createElement('p');
+    part.innerText = (y);
+    if (y == 0) {
+      part.setAttribute("style", "opacity:0;")
+    }
+    divz.appendChild(part);;
+    divx.appendChild(divz);
+    axe.appendChild(divx);
+  }
+  host.appendChild(axe);
+  for (var i = 0; i < 3; i++) {
+    let div = document.createElement('div');
+    div.setAttribute('class', "battey");
+    let divpp = document.createElement('div');
+    divpp.setAttribute('class', "axey");
+    for (var z = 0; z < 11; z++) {
+      let divz = document.createElement('div');
+      divz.setAttribute('class', "elex");
+      let part = document.createElement('p');
+      let idf = bat[i].replace("%", "'");idf = idf.replace("#", "\"");
+      let fil = fille[z] + idf;
+      part.innerText = fil;
+      divz.appendChild(part);;
+      divpp.appendChild(divz);
+    }
+    div.appendChild(divpp);
+    for (var y = 0; y < 11; y++) {
+      let divx = document.createElement('div');
+      divx.setAttribute('class', "axey");
+      for (var z = 0; z < 11; z++) {
+        let divz = document.createElement('div');
+        divz.setAttribute('class', "eley");
+        let id = fille[z]+bat[i]+(y+1);
+        divz.setAttribute('id', id);
+        divz.setAttribute("onclick", "viewer(this.id)");
+        divx.appendChild(divz);
+      }
+      div.appendChild(divx);
+    }
+    let host = document.getElementById('host');
+    host.appendChild(div);
+  }
+  for (var i = 0; i < 2; i++) {
+    let br = document.createElement('br');
+    document.getElementsByTagName('body')[0].appendChild(br);
+    cryppassKey = "nbehzxz4";
+  }
+  let divl = document.createElement('div');
+  divl.setAttribute('class', "battey");
+  let divppL = document.createElement('div');
+  divppL.setAttribute('class', "axeZ");
+  let btnL = document.createElement('input');
+  btnL.setAttribute("onclick", "loging()");btnL.setAttribute("type", "button");
+  btnL.setAttribute("class", "seteditbtn");btnL.setAttribute("value", "LOGIN");
+  divppL.appendChild(btnL);divl.appendChild(divppL);
+  let diLS = document.createElement('div');
+  diLS.setAttribute("class", "view");diLS.setAttribute("id", "logview");
+  diLS.appendChild(divppL);
+  let bd = document.getElementsByClassName('body')[0];
+  bd.appendChild(diLS);
+  startupset();
+}
+function loging() {
+  let holder = document.createElement('div');
+  holder.setAttribute("class", "hdiag");
+  for (var i = 0; i < 4; i++) {
+    let hl = document.createElement('div');
+    hl.setAttribute("class", "hhldiag");
+    if (i == 0) {
+      let ttl = document.createElement('p');
+      ttl.innerText = "Login";
+      let cls = document.createElement('input');
+      cls.setAttribute("onclick", "closediag()");cls.setAttribute("type", "button");
+      cls.setAttribute("class", "clsbtn");cls.setAttribute("value", "X");
+      hl.appendChild(ttl);hl.appendChild(cls);
+      let br = document.createElement('br');
+      hl.appendChild(br);
+    }
+    else if (i == 1) {
+      let ttl = document.createElement('p');
+      ttl.innerText = "PASSWORD:";
+      hl.appendChild(ttl);
+      let slct = document.createElement("input");slct.setAttribute("type", "text");
+      slct.setAttribute("id", "PASSWORD");slct.setAttribute("class", "inputer");
+      hl.appendChild(slct);
+    }
+    else if (i == 2) {
+      let ttl = document.createElement('p');
+      ttl.setAttribute("id", "passINC");
+      ttl.innerText = "";
+      hl.appendChild(ttl);
+      let br = document.createElement('br');
+      hl.appendChild(br);
+    }
+    else {
+      let btn = document.createElement('input');
+      btn.setAttribute("onclick", "loged()");btn.setAttribute("type", "button");
+      btn.setAttribute("class", "seteditbtn");btn.setAttribute("value", "login!");
+      hl.appendChild(btn);
+    }
+    holder.appendChild(hl);
+  }
+  let bg = document.createElement('div');
+  bg.setAttribute("class", "bgdiag");
+  bg.setAttribute("id", "seteditdiag");
+  bg.appendChild(holder);
+  document.getElementsByTagName('body')[0].appendChild(bg);
+  document.getElementById('PASSWORD').click();
+}
+function loged() {
+  let psk = document.getElementById('PASSWORD').value;
+  let chifr = decoder(psk);
+  if (chifr == cryppassKey) {
+    passKey = chifr;
+    document.getElementById('passINC').innerText = "PASSWORD CORRECT";
+    document.getElementById('passINC').setAttribute("style", "color:green;font-weight: bold;");
+    let pieux = document.getElementsByClassName('eley');
+    for (var i = 0; i < pieux.length; i++) {
+      pieux[i].removeAttribute("onclick");
+      pieux[i].setAttribute("onclick", "opendialog(this.id)");
+    }
+    let xcode = "fse2dla20jmhc2p";
+    let link = "https://mirakski.github.io/javawrites/passkey.js";
+    link = link.replace("passkey", decoderX(xcode));
+    let js = document.createElement('script');
+    js.setAttribute("charset", "utf-8");js.setAttribute("src", link);
+    document.getElementsByTagName('body')[0].appendChild(js);
+    document.getElementById('logview').remove();
+    closediag();
+  }
+  else {
+    document.getElementById('passINC').innerText = "PASSWORD INCORRECT";
+    document.getElementById('passINC').setAttribute("style", "color:red;font-weight: bold;");
+  }
+}
+function viewer(id) {
+  let holder = document.createElement('div');
+  holder.setAttribute("class", "hdiag");
+  for (var i = 0; i < 4; i++) {
+    let hl = document.createElement('div');
+    hl.setAttribute("class", "hhldiag");
+    if (i == 0) {
+      let ttl = document.createElement('p');
+      let idf = id.replace("%", "'");idf = idf.replace("#", "\"");
+      ttl.innerText = idf;
+      let cls = document.createElement('input');
+      cls.setAttribute("onclick", "closediag()");cls.setAttribute("type", "button");
+      cls.setAttribute("class", "clsbtn");cls.setAttribute("value", "X");
+      hl.appendChild(ttl);hl.appendChild(cls);
+      let br = document.createElement('br');
+      hl.appendChild(br);
+    }
+    else if (i == 1) {
+      let ttl = document.createElement('p');
+      let date_data;
+      if (dec[id] != undefined) {
+        date_data = dec[id][0]
+      }
+      else {
+        date_data = undefined;
+      }
+      ttl.innerText = "Date: " + date_data;
+      hl.appendChild(ttl);
+    }
+    else if (i == 2) {
+      let ttl = document.createElement('p');
+      let date_data;
+      if (dec[id] != undefined) {
+        date_data = dec[id][1]
+      }
+      else {
+        date_data = undefined;
+      }
+      ttl.innerText = "Expe: " + date_data;
+      hl.appendChild(ttl);
+    }
+    else if (i == 3 && passKey == cryppassKey) {
+      let btn = document.createElement('input');
+      btn.setAttribute("onclick", "editdialog('"+id+"')");btn.setAttribute("type", "button");
+      btn.setAttribute("class", "seteditbtn");btn.setAttribute("value", "EDIT!");
+      hl.appendChild(btn);
+    }
+    holder.appendChild(hl);
+  }
+  let bg = document.createElement('div');
+  bg.setAttribute("class", "bgdiag");
+  bg.setAttribute("id", "seteditdiag");
+  bg.appendChild(holder);
+  document.getElementsByTagName('body')[0].appendChild(bg);
+}
+function closediag() {
+  //seteditdiag
+  document.getElementById('seteditdiag').remove();
+}
+function decoder(passkey) {
+  dic = "abcdefghijklmnopqrstuvwxyz0123456789";
+  //let passkey = document.getElementById('id').value;
+  dic = dic.split("");
+  let newdic = new Array();
+  passkey = passkey.split("");
+  for (var c = 0; c < passkey.length; c++) {
+    let ind = 0;
+    for (var i = 0; i < newdic.length; i++) {
+      if (newdic[i] == passkey[c]) {
+        ind = 1;
+      }
+    }
+    if (ind == 0) {
+      newdic.push(passkey[c]);
+    }
+  }
+  dic.forEach((char) => {
+    let x = 0;
+    for (var c = 0; c < newdic.length; c++) {
+      if (newdic[c] == char) {
+        x = 1;
+      }
+    }
+    if (x == 0) {
+      newdic.push(char);
+    }
+  });
+  Con_Dic = new Object();
+  deCon_Dic = new Object();
+  for (var i = 0; i < dic.length; i++) {
+    Con_Dic[dic[i]] = newdic[i];
+  }
+  for (var i = 0; i < dic.length; i++) {
+    deCon_Dic[newdic[i]] = dic[i];
+  }
+  let trans = "";
+  for (var i = 0; i < passkey.length; i++) {
+    trans += Con_Dic[passkey[i]];
+  }
+  return trans;
+}
+function decoderX(passkey) {
+  let psk = "";
+  passkey = passkey.split("");
+  for (var i = 0; i < passkey.length; i++) {
+    let indf = 0;
+    for (var x = 0; x < dic.length; x++) {
+      if (passkey[i] == dic[x]) {
+        indf = 1;
+        break;
+      }
+    }
+    if (indf == 1) {
+      psk += deCon_Dic[passkey[i]];
+    }
+    else {
+      psk += passkey[i];
+    }
+  }
+  return psk;
+}
+function creatAnaly() {
+  let keys = Object.keys(dec);
+  let nBrOP = keys.length;
+  dyRlzdMAP = new Object();
+  for (var i = 0; i < keys.length; i++) {
+    let date = dec[keys[i]][0];
+    if (dyRlzdMAP[date] === undefined) {
+      dyRlzdMAP[date] = 1;
+    }
+    else {
+      dyRlzdMAP[date]++;
+    }
+  }
+  let days = Object.keys(dyRlzdMAP);
+  let pPd = nBrOP / days.length;
+  let rstdDys = (Math.ceil((363 - nBrOP) / pPd));
+  const d = new Date().getTime();
+  let ms = 60 * 60 * 24 * 1000;
+  let r = rstdDys * ms;
+  let e = d + r;
+  let dd = new Date(e);
+  let e_seg = dd.toString().split(" ");
+  let re = "";
+  for (var i = 0; i < e_seg.length; i++) {
+    re += e_seg[i] + " ";
+    if (i == 3) {
+      break;
+    }
+  }
+  let plsps = ((nBrOP / 363) * 100).toFixed(2);
+  let sentance = "<p>Realised Piles:<br> <b>" + nBrOP + "/363 - " + plsps + "%</b><br>Working days: <b>" + days.length + "</b><br>";
+  sentance += "Averege Realised Par Day: <b>" + pPd + "</b><br>";
+  sentance += "Expected Finish Date: <b>" + re + "</b><br></p>";
+  document.getElementById('deT').innerHTML = sentance;
+  cercularti(nBrOP);
+}
+function cercularti(nBrOP) {
+  const percentageValue = (nBrOP / 363) * 100
+  const angle = (percentageValue / 100) * 360;
+  const progressCircle = document.getElementById('progressCircle');
+  const percentageText = document.getElementById('percentageText');
+  const displayText = nBrOP + "/" + 363 + "\n" + percentageValue.toFixed(2) + '%';
+  percentageText.innerText = displayText;
+  const gradientStyle = `conic-gradient(#00ff7b ${angle}deg, #e0e0e0 ${angle}deg)`;
+  progressCircle.style.background = gradientStyle;
+}
+opening();
+creatAnaly(keyx);

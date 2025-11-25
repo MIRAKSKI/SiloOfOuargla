@@ -345,4 +345,3 @@ function cercularti(nBrOP) {
   progressCircle.style.background = gradientStyle;
 }
 opening();
-creatAnaly(keyx);

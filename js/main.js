@@ -1,4 +1,59 @@
-let dec = new Object();let cryppassKey,passKey;
+let dec = new Object();let cryppassKey,passKey;let supportsaving = false;let saved = false;
+if (typeof(Storage) !== "undefined") {
+  supportsaving = true;
+  saved = window.localStorage.getItem("saved");
+}
+function loaduphandler() {
+  if (supportsaving) {
+    if (saved) {
+      let last_update_ms = window.localStorage.getItem("lastUpdate");
+      let last_update = new Date(last_update_ms).getTime();
+      let now_update = new Date().getTime();
+      let hr = Math.floor((now_update - last_update) / (60 * 60 * 1000));
+      if (hr < 2) {
+        let encr_dec = window.localStorage.getItem("dec");//key:i,i,i,i#
+        let obj_items = encr_dec.split("#");
+        for (var i = 0; i < obj_items.length; i++) {
+          if (i == (obj_items.length - 1)) {
+            break;
+          }
+          let obj_seg = obj_items[i].split(":");
+          let key = obj_seg[0];let aary = obj_seg[1].split(",");
+        }
+        let keys = Object.keys(jsonDataOBJ);
+        keys.forEach((key) => {
+          document.getElementById(key).removeAttribute("class");
+          document.getElementById(key).removeAttribute("onclick");
+          document.getElementById(key).setAttribute("class", "eleypro");
+          document.getElementById(key).setAttribute("onclick", "viewer(this.id)");
+          let arr = dec[key];
+          if (arr[1] == "SONIC") {
+            document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
+          }
+          else if (arr[1] == "CORE SAMPLE") {
+            document.getElementById(key).setAttribute("style", "background:coral;");
+          }
+          else if (arr[1] == "RISK") {
+            document.getElementById(key).setAttribute("style", "background:rgb(255,20,20);");
+          }
+          else if (arr[1] == "ATRISK") {
+            document.getElementById(key).setAttribute("style", "background:rgb(255,100,65);");
+          }
+        });
+        creatAnaly(keys);
+      }
+      else {
+        startupset();
+      }
+    }
+    else {
+      startupset();
+    }
+  }
+  else {
+    startupset();
+  }
+}
 //creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
 function startupset() {
   const WEB_APP_URLS = "https://script.google.com/macros/s/AKfycbyKX3MQPGZS_6UrFaUk9WS7eiy2kwwBuLEGOW94AkxXHvc0nFO7CLFYG_4hONtMIbvjFw/exec";
@@ -15,14 +70,41 @@ function startupset() {
       //`${JSON.stringify(result.content, null, 2)`;
       jsonDataOBJ = result.content;
       dec  = result.content;
-      let keys = Object.keys(jsonDataOBJ);
+      let keys = Object.keys(jsonDataOBJ);let long_keys = "";
       keys.forEach((key) => {
         document.getElementById(key).removeAttribute("class");
         document.getElementById(key).removeAttribute("onclick");
         document.getElementById(key).setAttribute("class", "eleypro");
         document.getElementById(key).setAttribute("onclick", "viewer(this.id)");
+        let arr = dec[key];
+        long_keys += key +":";
+        for (var i = 0; i < arr.length; i++) {
+          if (i != (arr.length-1)) {
+            long_keys += arr[i] + ",";
+          }
+          else {
+            long_keys += arr[i];
+          }
+        }
+        long_keys += "#";
+        if (arr[1] == "SONIC") {
+          document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
+        }
+        else if (arr[1] == "CORE SAMPLE") {
+          document.getElementById(key).setAttribute("style", "background:coral;");
+        }
+        else if (arr[1] == "RISK") {
+          document.getElementById(key).setAttribute("style", "background:rgb(255,20,20);");
+        }
+        else if (arr[1] == "ATRISK") {
+          document.getElementById(key).setAttribute("style", "background:rgb(255,100,65);");
+        }
         //key = key.replace("%", "'");key = key.replace("#", "\"");
       });
+      window.localStorage.setItem("dec", long_keys);
+      window.localStorage.setItem("saved", true);
+      let last_update_ms = new Date().getTime();
+      window.localStorage.setItem("lastUpdate", last_update_ms);
       creatAnaly(keys);
     } else {
       //`${result.message}`;
@@ -102,7 +184,7 @@ function opening() {
   diLS.appendChild(divppL);
   let bd = document.getElementsByClassName('body')[0];
   bd.appendChild(diLS);
-  startupset();
+  loaduphandler();
 }
 function loging() {
   let holder = document.createElement('div');
@@ -164,7 +246,7 @@ function loged() {
       pieux[i].setAttribute("onclick", "opendialog(this.id)");
     }
     let xcode = "fse2dla20jmhc2p";
-    let link = "https://mirakski.github.io/javawrites/passkey.js";
+    let link = "https://mirakski.github.io/SiloOfOuargla/passkey.js";
     link = link.replace("passkey", decoderX(xcode));
     let js = document.createElement('script');
     js.setAttribute("charset", "utf-8");js.setAttribute("src", link);

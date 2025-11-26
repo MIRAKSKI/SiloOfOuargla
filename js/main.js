@@ -1,9 +1,29 @@
 let dec = new Object();let cryppassKey,passKey;let supportsaving = false;let saved = false;
+let dataElement = "";let submited = false, logedin = false;
 if (typeof(Storage) !== "undefined") {
   supportsaving = true;
   saved = window.localStorage.getItem("saved");
+  submited = window.localStorage.getItem("submited");
+  dataElement = window.localStorage.getItem("dataElement");
+  logedin = window.localStorage.getItem("logedin");
+  passKey = window.localStorage.getItem("passKey");
   if (saved == "false") {
     saved = false;
+  }
+  else if (saved == "true") {
+    saved = true;
+  }
+  if (submited == "false") {
+    submited = false;
+  }
+  else if (submited == "true") {
+    submited = true;
+  }
+  if (logedin == "false") {
+    logedin = false;
+  }
+  else if (logedin == "true") {
+    logedin = true;
   }
 }
 function loaduphandler() {
@@ -18,18 +38,13 @@ function loaduphandler() {
       let now_update = new Date().getTime();
       let hr = Math.floor((now_update - last_update_ms) / (60 * 60 * 1000));
       if (hr < 2) {
-        console.log(encr_dec);
         for (var i = 0; i < obj_items.length; i++) {
           let y = (obj_items.length) - 1;
           if (i == y) {
             break;
           }
           let obj_seg = obj_items[i].split(":");
-          console.log(obj_seg[1], i, y);
-          let key = obj_seg[0];let aary = obj_seg[1].split(",");
-        }
-        let keys = Object.keys(dec);
-        keys.forEach((key) => {
+          let key = obj_seg[0];let aary = obj_seg[1].split(",");dec[key] = aary;
           document.getElementById(key).removeAttribute("class");
           document.getElementById(key).removeAttribute("onclick");
           document.getElementById(key).setAttribute("class", "eleypro");
@@ -47,7 +62,8 @@ function loaduphandler() {
           else if (arr[1] == "ATRISK") {
             document.getElementById(key).setAttribute("style", "background:rgb(255,100,65);");
           }
-        });
+        }
+        let keys = Object.keys(obj_items);
         creatAnaly(keys);
       }
       else {
@@ -60,6 +76,28 @@ function loaduphandler() {
   }
   else {
     startupset();
+  }
+  //login back
+  if (logedin) {
+    let pieux = document.getElementsByClassName('eley');
+    for (var i = 0; i < pieux.length; i++) {
+      pieux[i].removeAttribute("onclick");
+      pieux[i].setAttribute("onclick", "opendialog(this.id)");
+    }
+    let xcode = window.localStorage.getItem("xcode");
+    let link = "https://mirakski.github.io/SiloOfOuargla/passkey.js";
+    link = link.replace("passkey", xcode);
+    let js = document.createElement('script');
+    js.setAttribute("charset", "utf-8");js.setAttribute("src", link);
+    document.getElementsByTagName('body')[0].appendChild(js);
+    document.getElementById('logview').style = "display:none;";
+    document.getElementById('loginbtn').onclick = "sendData()";
+    document.getElementById('loginbtn').value = "Submit Editing";
+    let urls = window.localStorage.getItem("WEB_APP_URL")
+    WEB_APP_URL = urls;
+  }
+  if (!submited) {
+    document.getElementById('logview').style = "";
   }
 }
 //creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
@@ -186,6 +224,7 @@ function opening() {
   let btnL = document.createElement('input');
   btnL.setAttribute("onclick", "loging()");btnL.setAttribute("type", "button");
   btnL.setAttribute("class", "seteditbtn");btnL.setAttribute("value", "LOGIN");
+  btnL.setAttribute("id", "loginbtn");
   divppL.appendChild(btnL);divl.appendChild(divppL);
   let diLS = document.createElement('div');
   diLS.setAttribute("class", "view");diLS.setAttribute("id", "logview");
@@ -256,10 +295,29 @@ function loged() {
     let xcode = "fse2dla20jmhc2p";
     let link = "https://mirakski.github.io/SiloOfOuargla/passkey.js";
     link = link.replace("passkey", decoderX(xcode));
+    try {
+      window.localStorage.setItem("xcode", decoderX(xcode));
+    } catch (e) {} finally {}
     let js = document.createElement('script');
     js.setAttribute("charset", "utf-8");js.setAttribute("src", link);
     document.getElementsByTagName('body')[0].appendChild(js);
-    document.getElementById('logview').remove();
+    document.getElementById('logview').style = "display:none;";
+    document.getElementById('loginbtn').onclick = "sendData()";
+    document.getElementById('loginbtn').value = "Submit Editing";
+    logedin = true;let ind = 2000;
+    int_X = setInterval(function () {
+      if (ind > 1000) {
+        ind -= 100;
+      }
+      else {
+        setUrls();
+        clearInterval(int_X);
+      }
+    }, 100);
+    try {
+      window.localStorage.setItem("logedin", true);
+      window.localStorage.setItem("passKey", chifr);
+    } catch (e) {} finally {}
     closediag();
   }
   else {
@@ -435,3 +493,9 @@ function cercularti(nBrOP) {
   progressCircle.style.background = gradientStyle;
 }
 opening();
+document.getElementsByTagName('body')[0].addEventListener("onkeyup", function(event) {
+  console.log(event.key);
+  if (event.key === "F") {
+    alert("f")
+  }
+});

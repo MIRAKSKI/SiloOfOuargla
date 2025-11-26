@@ -1,7 +1,6 @@
 let h = "AK0vliwS7xT3vK7YXrbM6DUz4QtjWrkTPoTmb88qF5XxpoANURBlTf8A86G9c7zhmboJpwvb";
 let WEB_APP_URL = "https://script.google.com/macros/s/passkey/exec";
-function sendData(dataElement) {
-  WEB_APP_URL = WEB_APP_URL.replace("passkey", decoderX(h));
+function sendData() {
   const formData = new FormData();
   const payload = {
     newData: dataElement,
@@ -17,6 +16,12 @@ function sendData(dataElement) {
   .then(result => {
     if (result.status === 'success') {
       //`${JSON.stringify(result.content, null, 2)}`;
+      submited = true;
+      try {
+        window.localStorage.setItem("submited", submited);
+      } catch (e) {} finally {}
+      document.getElementById('logview').style = "display:none;";
+      dataElement = "";
     } else {
       //`${result.message}`;
     }
@@ -114,9 +119,14 @@ function setitemx(id) {
   let mm = document.getElementById('MM').value;
   let yy = document.getElementById('YYYY').value;
   let exp = document.getElementById('exp').value;
-  let fulldate = dd+"/"+mm+"/"+yy;
+  let month = {"Jan":1, "Feb":2, "Mar":3, "Apr":4,"May":5,"Jun":6,"Jul":7,"Aug":9,"Sep":9,"Oct":10,"Nov":11,"Dec":12};
+  let fulldate = dd+"/"+month[mm]+"/"+yy;
   let log = id+":"+fulldate+":"+exp;
-  sendData(log);
+  dataElement += log + "@";
+  try {
+    window.localStorage.setItem("dataElement", dataElement);
+  } catch (e) {} finally {}
+  document.getElementById('logview').style = "";
   dec[id] = [fulldate, exp];
   document.getElementById(id).removeAttribute("class");
   document.getElementById(id).removeAttribute("onclick");
@@ -134,6 +144,26 @@ function setitemx(id) {
   else if (exp == "ATRISK") {
     document.getElementById(id).setAttribute("style", "background:rgb(255,100,65);");
   }
+  let keys = Object.keys(dec);let long_keys = "";
+  keys.forEach((key, i) => {
+    let arr = dec[key];
+    long_keys += key +":";
+    for (var i = 0; i < arr.length; i++) {
+      if (i != (arr.length-1)) {
+        long_keys += arr[i] + ",";
+      }
+      else {
+        long_keys += arr[i];
+      }
+    }
+    long_keys += "@";
+  });
+  try {
+    window.localStorage.setItem("dec", long_keys);
+    window.localStorage.setItem("saved", true);
+    let last_update_ms = new Date().getTime();
+    window.localStorage.setItem("lastUpdate", last_update_ms);
+  } catch (e) {} finally {}
   closediag();
 }
 function editdialog(id) {
@@ -145,6 +175,7 @@ function editdialog(id) {
   let mm = fulldatede[1];
   let yyyy = fulldatede[2];
   let exprt = dec[id][1];
+  let month = {1:"Jan", 2:"Feb", 3:"Mar", 4:"Apr",5:"May",6:"Jun",7:"Jul",8:"Aug",9:"Sep",10:"Oct",11:"Nov",12:"Dec"};
   let holder = document.createElement('div');
   holder.setAttribute("class", "hdiag");
   for (var i = 0; i < 4; i++) {
@@ -183,7 +214,7 @@ function editdialog(id) {
         pp.innerText = month[d];
         slctt.appendChild(pp);
       }
-      slctt.value = mm;
+      slctt.value = month[mm];
       hl.appendChild(slctt);
       let year = ["2025", "2026"];
       let slcttt = document.createElement("select");
@@ -239,7 +270,11 @@ function setEDITED(id) {
   let exp = document.getElementById('exp').value;
   let fulldate = dd+"/"+mm+"/"+yy;
   let log = id+":"+fulldate+":"+exp;
-  sendData(log);
+  dataElement += log + "@";
+  try {
+    window.localStorage.setItem("dataElement", dataElement);
+  } catch (e) {} finally {}
+  document.getElementById('logview').style = "";
   dec[id] = [fulldate, exp];
   document.getElementById(id).removeAttribute("class");
   document.getElementById(id).removeAttribute("onclick");
@@ -257,5 +292,32 @@ function setEDITED(id) {
   else if (exp == "ATRISK") {
     document.getElementById(id).setAttribute("style", "background:rgb(255,100,65);");
   }
+  let keys = Object.keys(dec);let long_keys = "";
+  keys.forEach((key, i) => {
+    let arr = dec[key];
+    long_keys += key +":";
+    for (var i = 0; i < arr.length; i++) {
+      if (i != (arr.length-1)) {
+        long_keys += arr[i] + ",";
+      }
+      else {
+        long_keys += arr[i];
+      }
+    }
+    long_keys += "@";
+  });
+  try {
+    window.localStorage.setItem("dec", long_keys);
+    window.localStorage.setItem("saved", true);
+    let last_update_ms = new Date().getTime();
+    window.localStorage.setItem("lastUpdate", last_update_ms);
+  } catch (e) {} finally {}
   closediag();
+}
+function setUrls() {
+  WEB_APP_URL = WEB_APP_URL.replace("passkey", decoderX(h));
+  window.localStorage.setItem("WEB_APP_URL", WEB_APP_URL);
+  try {
+    clearInterval(int_X);
+  } catch (e) {} finally {}
 }

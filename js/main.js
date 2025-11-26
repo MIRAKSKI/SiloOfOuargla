@@ -2,25 +2,33 @@ let dec = new Object();let cryppassKey,passKey;let supportsaving = false;let sav
 if (typeof(Storage) !== "undefined") {
   supportsaving = true;
   saved = window.localStorage.getItem("saved");
+  if (saved == "false") {
+    saved = false;
+  }
 }
 function loaduphandler() {
   if (supportsaving) {
-    if (saved) {
+    let encr_dec = window.localStorage.getItem("dec");//key:i,i,i,i#
+    let obj_items = encr_dec.split("@");let securite = false;
+    if (obj_items.length > 1) {
+      securite = true;
+    }
+    if (saved && securite) {
       let last_update_ms = window.localStorage.getItem("lastUpdate");
-      let last_update = new Date(last_update_ms).getTime();
       let now_update = new Date().getTime();
-      let hr = Math.floor((now_update - last_update) / (60 * 60 * 1000));
+      let hr = Math.floor((now_update - last_update_ms) / (60 * 60 * 1000));
       if (hr < 2) {
-        let encr_dec = window.localStorage.getItem("dec");//key:i,i,i,i#
-        let obj_items = encr_dec.split("#");
+        console.log(encr_dec);
         for (var i = 0; i < obj_items.length; i++) {
-          if (i == (obj_items.length - 1)) {
+          let y = (obj_items.length) - 1;
+          if (i == y) {
             break;
           }
           let obj_seg = obj_items[i].split(":");
+          console.log(obj_seg[1], i, y);
           let key = obj_seg[0];let aary = obj_seg[1].split(",");
         }
-        let keys = Object.keys(jsonDataOBJ);
+        let keys = Object.keys(dec);
         keys.forEach((key) => {
           document.getElementById(key).removeAttribute("class");
           document.getElementById(key).removeAttribute("onclick");
@@ -86,7 +94,7 @@ function startupset() {
             long_keys += arr[i];
           }
         }
-        long_keys += "#";
+        long_keys += "@";
         if (arr[1] == "SONIC") {
           document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
         }
@@ -394,7 +402,7 @@ function creatAnaly() {
     }
   }
   let days = Object.keys(dyRlzdMAP);
-  let pPd = nBrOP / days.length;
+  let pPd = (nBrOP / days.length).toFixed(2);
   let rstdDys = (Math.ceil((363 - nBrOP) / pPd));
   const d = new Date().getTime();
   let ms = 60 * 60 * 24 * 1000;

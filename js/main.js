@@ -43,6 +43,7 @@ function loaduphandler() {
           if (i == y) {
             break;
           }
+          console.log(obj_items[i]);
           let obj_seg = obj_items[i].split(":");
           let key = obj_seg[0];let aary = obj_seg[1].split(",");dec[key] = aary;
           document.getElementById(key).removeAttribute("class");

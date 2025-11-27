@@ -79,7 +79,9 @@ function loaduphandler() {
   }
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   if (isMobile) {
-    document.getElementById('swipeview').style.display = "block";
+    try {
+      document.getElementById('swipeview').style.display = "block";
+    } catch (e) {} finally {}
   }
   //login back
   if (logedin && logedin != null) {
@@ -277,6 +279,7 @@ function opening() {
     document.getElementsByTagName('body')[0].appendChild(br);
     cryppassKey = "nbehzxz4";
   }
+  let bdG = document.getElementsByClassName('body')[0];
   try {
     let divlS = document.createElement('div');
     divlS.setAttribute('class', "battey");
@@ -295,8 +298,7 @@ function opening() {
     let diLSV = document.createElement('div');
     diLSV.setAttribute("class", "view");diLSV.setAttribute("id", "swipeview");
     diLSV.appendChild(divppLS);
-    let bd = document.getElementsByClassName('body')[0];
-    bd.appendChild(diLS);
+    bdG.appendChild(diLSV);
   } catch (e) {} finally {}
   try {
     let divl = document.createElement('div');
@@ -311,8 +313,7 @@ function opening() {
     let diLS = document.createElement('div');
     diLS.setAttribute("class", "view");diLS.setAttribute("id", "logview");
     diLS.appendChild(divppL);
-    let bd = document.getElementsByClassName('body')[0];
-    bd.appendChild(diLS);
+    bdG.appendChild(diLS);
   } catch (e) {} finally {}
   loaduphandler();
 }

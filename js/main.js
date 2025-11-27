@@ -103,7 +103,6 @@ function loaduphandler() {
     let urls = window.localStorage.getItem("WEB_APP_URL")
     WEB_APP_URL = urls;
   }
-  console.log(submited);
   if (!submited && submited != null) {
     document.getElementById('logview').style = "";
   }
@@ -159,6 +158,8 @@ function startupset() {
       });
       window.localStorage.setItem("dec", long_keys);
       window.localStorage.setItem("saved", true);
+      window.localStorage.setItem("submited", true);
+      window.localStorage.setItem("dataElement", "");
       let last_update_ms = new Date().getTime();
       window.localStorage.setItem("lastUpdate", last_update_ms);
       creatAnaly(keys);

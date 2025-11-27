@@ -1,5 +1,5 @@
 let dec = new Object();let cryppassKey,passKey;let supportsaving = false;let saved = false;
-let dataElement = "";let submited = false, logedin = false;
+let dataElement = "";let submited = false, logedin = false;let moposition = 0
 if (typeof(Storage) !== "undefined") {
   supportsaving = true;
   saved = window.localStorage.getItem("saved");
@@ -170,7 +170,7 @@ function opening() {
     let divx = document.createElement('div');
     divx.setAttribute('class', "axey");
     let divz = document.createElement('div');
-    divz.setAttribute('class', "");
+    divz.setAttribute('class', "nbrEL");
     let part = document.createElement('p');
     part.innerText = (y);
     if (y == 0) {
@@ -184,6 +184,8 @@ function opening() {
   for (var i = 0; i < 3; i++) {
     let div = document.createElement('div');
     div.setAttribute('class', "battey");
+    let btrID = "battey" + i;
+    div.setAttribute('id', btrID);
     let divpp = document.createElement('div');
     divpp.setAttribute('class', "axey");
     for (var z = 0; z < 11; z++) {
@@ -218,21 +220,86 @@ function opening() {
     document.getElementsByTagName('body')[0].appendChild(br);
     cryppassKey = "nbehzxz4";
   }
-  let divl = document.createElement('div');
-  divl.setAttribute('class', "battey");
-  let divppL = document.createElement('div');
-  divppL.setAttribute('class', "axeZ");
-  let btnL = document.createElement('input');
-  btnL.setAttribute("onclick", "loging()");btnL.setAttribute("type", "button");
-  btnL.setAttribute("class", "seteditbtn");btnL.setAttribute("value", "LOGIN");
-  btnL.setAttribute("id", "loginbtn");
-  divppL.appendChild(btnL);divl.appendChild(divppL);
-  let diLS = document.createElement('div');
-  diLS.setAttribute("class", "view");diLS.setAttribute("id", "logview");
-  diLS.appendChild(divppL);
-  let bd = document.getElementsByClassName('body')[0];
-  bd.appendChild(diLS);
+  try {
+    let divl = document.createElement('div');
+    divl.setAttribute('class', "battey");
+    let divppL = document.createElement('div');
+    divppL.setAttribute('class', "axeZ");
+    let btnL = document.createElement('input');
+    btnL.setAttribute("onclick", "mobi('L')");btnL.setAttribute("type", "button");
+    btnL.setAttribute("class", "swipeBTN");btnL.setAttribute("value", "<");
+    //
+    let btnR = document.createElement('input');
+    btnR.setAttribute("onclick", "mobi('R')");btnR.setAttribute("type", "button");
+    btnR.setAttribute("class", "swipeBTN");btnR.setAttribute("value", ">");
+    //
+    divppL.appendChild(btnL);divppL.appendChild(btnR);
+    divl.appendChild(divppL);
+    let diLS = document.createElement('div');
+    diLS.setAttribute("class", "view");diLS.setAttribute("id", "swipeview");
+    diLS.appendChild(divppL);
+    let bd = document.getElementsByClassName('body')[0];
+    bd.appendChild(diLS);
+  } catch (e) {} finally {}
+  try {
+    let divl = document.createElement('div');
+    divl.setAttribute('class', "battey");
+    let divppL = document.createElement('div');
+    divppL.setAttribute('class', "axeZ");
+    let btnL = document.createElement('input');
+    btnL.setAttribute("onclick", "loging()");btnL.setAttribute("type", "button");
+    btnL.setAttribute("class", "seteditbtn");btnL.setAttribute("value", "LOGIN");
+    btnL.setAttribute("id", "loginbtn");
+    divppL.appendChild(btnL);divl.appendChild(divppL);
+    let diLS = document.createElement('div');
+    diLS.setAttribute("class", "view");diLS.setAttribute("id", "logview");
+    diLS.appendChild(divppL);
+    let bd = document.getElementsByClassName('body')[0];
+    bd.appendChild(diLS);
+  } catch (e) {} finally {}
   loaduphandler();
+}
+function mobi(mod) {
+  if (mod == "R") {
+    if (moposition == 0) {
+      document.getElementById("battey0").style.display = "none";
+      document.getElementById("battey1").style.display = "grid";
+      document.getElementById("battey2").style.display = "none";
+      moposition++;
+    }
+    else if (moposition == 1) {
+      document.getElementById("battey0").style.display = "none";
+      document.getElementById("battey1").style.display = "none";
+      document.getElementById("battey2").style.display = "grid";
+      moposition++;
+    }
+    else if (moposition == 2) {
+      document.getElementById("battey0").style.display = "grid";
+      document.getElementById("battey1").style.display = "none";
+      document.getElementById("battey2").style.display = "none";
+      moposition = 0;
+    }
+  }
+  else if (mod == "L") {
+    if (moposition == 0) {
+      document.getElementById("battey0").style.display = "none";
+      document.getElementById("battey1").style.display = "none";
+      document.getElementById("battey2").style.display = "grid";
+      moposition = 2;
+    }
+    else if (moposition == 1) {
+      document.getElementById("battey0").style.display = "grid";
+      document.getElementById("battey1").style.display = "none";
+      document.getElementById("battey2").style.display = "none";
+      moposition--;
+    }
+    else if (moposition == 2) {
+      document.getElementById("battey0").style.display = "none";
+      document.getElementById("battey1").style.display = "grid";
+      document.getElementById("battey2").style.display = "none";
+      moposition--;
+    }
+  }
 }
 function loging() {
   let holder = document.createElement('div');

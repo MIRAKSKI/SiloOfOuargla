@@ -561,6 +561,38 @@ function cercularti(nBrOP) {
   progressCircle.style.background = gradientStyle;
   Waiter(1)//0=set; 1=remove;
 }
+function refreshFun() {
+  let holder = document.createElement('div');
+  holder.setAttribute("class", "hdiag");
+  for (var i = 0; i < 2; i++) {
+    let hl = document.createElement('div');
+    hl.setAttribute("class", "hhldiag");
+    if (i == 0) {
+      let ttl = document.createElement('p');
+      ttl.innerText = "FORCE REFRESH";
+      let cls = document.createElement('input');
+      cls.setAttribute("onclick", "closediag()");cls.setAttribute("type", "button");
+      cls.setAttribute("class", "clsbtn");cls.setAttribute("value", "X");
+      hl.appendChild(ttl);hl.appendChild(cls);
+      let br = document.createElement('br');
+      hl.appendChild(br);
+    }
+    else {
+      let btn = document.createElement('input');
+      btn.setAttribute("onclick", "startupset()");btn.setAttribute("type", "button");
+      btn.setAttribute("class", "seteditbtn");btn.setAttribute("value", "REFRESH!");
+      hl.appendChild(btn);
+    }
+    holder.appendChild(hl);
+  }
+  let bg = document.createElement('div');
+  bg.setAttribute("class", "bgdiag");
+  bg.setAttribute("id", "seteditdiag");
+  bg.appendChild(holder);
+  document.getElementsByTagName('body')[0].appendChild(bg);
+  force_update_ms = new Date().getTime();
+  window.localStorage.setItem("force_update_ms", force_update_ms);
+}
 function Waiter(mod) {
   if (mod == 0) {
     let p = creatanelemn("p", "", "waitP", "", "", "", "", "", "", "", "", "");

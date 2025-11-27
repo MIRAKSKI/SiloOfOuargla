@@ -145,6 +145,8 @@ function startupset() {
         else if (arr[1] == "ATRISK") {
           document.getElementById(key).setAttribute("style", "background:rgb(255,100,65);");
         }
+        force_update_ms = new Date().getTime();
+        window.localStorage.setItem("force_update_ms", force_update_ms);
         //key = key.replace("%", "'");key = key.replace("#", "\"");
       });
       window.localStorage.setItem("dec", long_keys);
@@ -179,7 +181,7 @@ function refreshFun() {
     }
     else {
       let btn = document.createElement('input');
-      btn.setAttribute("onclick", "startupset();closediag();");btn.setAttribute("type", "button");
+      btn.setAttribute("onclick", "refreshCal()");btn.setAttribute("type", "button");
       btn.setAttribute("class", "seteditbtn");btn.setAttribute("value", "REFRESH!");
       hl.appendChild(btn);
     }
@@ -190,8 +192,26 @@ function refreshFun() {
   bg.setAttribute("id", "seteditdiag");
   bg.appendChild(holder);
   document.getElementsByTagName('body')[0].appendChild(bg);
-  force_update_ms = new Date().getTime();
-  window.localStorage.setItem("force_update_ms", force_update_ms);
+}
+function refreshCal() {
+  force_update_ms = eval(window.localStorage.getItem("force_update_ms"));let hr;
+  if (force_update_ms == null) {
+    hr = 1;
+  }
+  else {
+    let now_update = new Date().getTime();
+    hr = ((now_update - force_update_ms) / (60 * 60 * 1000)).toFixed(2);
+  }
+  if (hr > 0.16) {
+    startupset();closediag();
+  }
+  else {
+    closediag();
+    let now_update = new Date().getTime();
+    hr = ((now_update - force_update_ms) / (60 * 60 * 1000)).toFixed(2);
+    hr = Math.ceil(60 * hr);
+    alert("Wait " + hr + " minute.");
+  }
 }
 function opening() {
   let fille = "ABCDEFGHIJK";fille = fille.split("");
@@ -481,8 +501,9 @@ function viewer(id) {
   document.getElementsByTagName('body')[0].appendChild(bg);
 }
 function closediag() {
-  //seteditdiag
-  document.getElementById('seteditdiag').remove();
+  try {
+    document.getElementById('seteditdiag').remove();
+  } catch (e) {} finally {}
 }
 function decoder(passkey) {
   dic = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -619,20 +640,6 @@ function Waiter(mod) {
 opening();
 document.getElementsByTagName('body')[0].addEventListener("keydown", function(event) {
   if (event.key === "F" || event.key === "f") {
-    force_update_ms = window.localStorage.getItem("force_update_ms");let hr;
-    if (force_update_ms == null) {
-      hr = 1;
-    }
-    else {
-      let now_update = new Date().getTime();
-      hr = ((now_update - last_update_ms) / (60 * 60 * 1000)).toFixed(2);
-    }
-    if (hr > 0.16) {
-      refreshFun();
-    }
-    else {
-      closediag();
-      alert("Wait 10 minute.");
-    }
+    refreshFun();
   }
 });

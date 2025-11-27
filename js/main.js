@@ -278,10 +278,10 @@ function opening() {
     cryppassKey = "nbehzxz4";
   }
   try {
-    let divl = document.createElement('div');
-    divl.setAttribute('class', "battey");
-    let divppL = document.createElement('div');
-    divppL.setAttribute('class', "axeZ");
+    let divlS = document.createElement('div');
+    divlS.setAttribute('class', "battey");
+    let divppLS = document.createElement('div');
+    divppLS.setAttribute('class', "axeZ");
     let btnL = document.createElement('input');
     btnL.setAttribute("onclick", "mobi('L')");btnL.setAttribute("type", "button");
     btnL.setAttribute("class", "swipeBTN");btnL.setAttribute("value", "<");
@@ -290,11 +290,11 @@ function opening() {
     btnR.setAttribute("onclick", "mobi('R')");btnR.setAttribute("type", "button");
     btnR.setAttribute("class", "swipeBTN");btnR.setAttribute("value", ">");
     //
-    divppL.appendChild(btnL);divppL.appendChild(btnR);
-    divl.appendChild(divppL);
-    let diLS = document.createElement('div');
-    diLS.setAttribute("class", "view");diLS.setAttribute("id", "swipeview");
-    diLS.appendChild(divppL);
+    divppLS.appendChild(btnL);divppLS.appendChild(btnR);
+    divlS.appendChild(divppLS);
+    let diLSV = document.createElement('div');
+    diLSV.setAttribute("class", "view");diLSV.setAttribute("id", "swipeview");
+    diLSV.appendChild(divppLS);
     let bd = document.getElementsByClassName('body')[0];
     bd.appendChild(diLS);
   } catch (e) {} finally {}

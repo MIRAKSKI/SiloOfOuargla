@@ -103,6 +103,7 @@ function loaduphandler() {
     let urls = window.localStorage.getItem("WEB_APP_URL")
     WEB_APP_URL = urls;
   }
+  console.log(submited);
   if (!submited && submited != null) {
     document.getElementById('logview').style = "";
   }
@@ -299,6 +300,12 @@ function opening() {
     diLSV.setAttribute("class", "view");diLSV.setAttribute("id", "swipeview");
     diLSV.appendChild(divppLS);
     bdG.appendChild(diLSV);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (!isMobile) {
+      try {
+        document.getElementById('swipeview').style.display = "none";
+      } catch (e) {} finally {}
+    }
   } catch (e) {} finally {}
   try {
     let divl = document.createElement('div');

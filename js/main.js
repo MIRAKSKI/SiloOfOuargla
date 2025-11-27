@@ -37,7 +37,7 @@ function loaduphandler() {
       let last_update_ms = window.localStorage.getItem("lastUpdate");
       let now_update = new Date().getTime();
       let hr = Math.floor((now_update - last_update_ms) / (60 * 60 * 1000));
-      if (hr < 2) {
+      if (hr < 1) {
         for (var i = 0; i < obj_items.length; i++) {
           let y = (obj_items.length) - 1;
           if (i == y) {
@@ -78,7 +78,7 @@ function loaduphandler() {
     startupset();
   }
   //login back
-  if (logedin) {
+  if (logedin && logedin != null) {
     let pieux = document.getElementsByClassName('eley');
     for (var i = 0; i < pieux.length; i++) {
       pieux[i].removeAttribute("onclick");
@@ -96,7 +96,7 @@ function loaduphandler() {
     let urls = window.localStorage.getItem("WEB_APP_URL")
     WEB_APP_URL = urls;
   }
-  if (!submited) {
+  if (!submited && submited != null) {
     document.getElementById('logview').style = "";
   }
 }
@@ -159,6 +159,7 @@ function startupset() {
   .catch(error => {
     console.error('Error:', error);
   });
+  Waiter(0)//0=set; 1=remove;
 }
 function opening() {
   let fille = "ABCDEFGHIJK";fille = fille.split("");
@@ -491,11 +492,48 @@ function cercularti(nBrOP) {
   percentageText.innerText = displayText;
   const gradientStyle = `conic-gradient(#00ff7b ${angle}deg, #e0e0e0 ${angle}deg)`;
   progressCircle.style.background = gradientStyle;
+  Waiter(1)//0=set; 1=remove;
+}
+function Waiter(mod) {
+  if (mod == 0) {
+    let p = creatanelemn("p", "", "waitP", "", "", "", "", "", "", "", "", "");
+    let waitdiv = creatanelemn("div", "", "waitdiv", "", "", "", "", "", p, "", "", "");
+    document.getElementsByTagName('body')[0].appendChild(waitdiv);
+    let post = ["/", "-", "\\", "|", ";)", "¯", "-", "_", "-", "¯"], ind = 0;
+    waiterInt = setInterval(function () {
+      document.getElementById('waitP').innerText = post[ind];
+      ind++;
+      let cpm = post.length;
+      if (ind == cpm) {
+        ind = 0;
+      }
+    }, 100);
+  }
+  else if (mod == 1) {
+    try {
+      clearInterval(waiterInt);
+      document.getElementById('waitdiv').remove();
+    }
+    catch (e) {} finally {}
+  }
 }
 opening();
-document.getElementsByTagName('body')[0].addEventListener("onkeyup", function(event) {
-  console.log(event.key);
-  if (event.key === "F") {
-    alert("f")
+document.getElementsByTagName('body')[0].addEventListener("keydown", function(event) {
+  if (event.key === "F" || event.key === "f") {
+    force_update_ms = window.localStorage.getItem("force_update_ms");let hr;
+    if (force_update_ms == null) {
+      hr = 1;
+    }
+    else {
+      let now_update = new Date().getTime();
+      hr = ((now_update - last_update_ms) / (60 * 60 * 1000)).toFixed(2);
+    }
+    if (hr > 0.16) {
+      refreshFun();
+    }
+    else {
+      closediag();
+      alert("Wait 10 minute.");
+    }
   }
 });

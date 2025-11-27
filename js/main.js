@@ -77,6 +77,10 @@ function loaduphandler() {
   else {
     startupset();
   }
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    document.getElementById('swipeview').style.display = "block";
+  }
   //login back
   if (logedin && logedin != null) {
     let pieux = document.getElementsByClassName('eley');

@@ -22,6 +22,7 @@ function sendData() {
       } catch (e) {} finally {}
       document.getElementById('logview').style = "display:none;";
       dataElement = "";
+      window.localStorage.setItem("dataElement", "");
     } else {
       //`${result.message}`;
     }
@@ -321,3 +322,4 @@ function setUrls() {
     clearInterval(int_X);
   } catch (e) {} finally {}
 }
+

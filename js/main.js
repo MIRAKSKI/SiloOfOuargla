@@ -95,7 +95,8 @@ function loaduphandler() {
     js.setAttribute("charset", "utf-8");js.setAttribute("src", link);
     document.getElementsByTagName('body')[0].appendChild(js);
     document.getElementById('logview').style = "display:none;";
-    document.getElementById('loginbtn').onclick = "sendData()";
+    document.getElementById('loginbtn').removeAttribute("onclick");
+    document.getElementById('loginbtn').setAttribute("onclick", "submithandlerT()");
     document.getElementById('loginbtn').value = "Submit Editing";
     let urls = window.localStorage.getItem("WEB_APP_URL")
     WEB_APP_URL = urls;
@@ -426,7 +427,8 @@ function loged() {
     js.setAttribute("charset", "utf-8");js.setAttribute("src", link);
     document.getElementsByTagName('body')[0].appendChild(js);
     document.getElementById('logview').style = "display:none;";
-    document.getElementById('loginbtn').onclick = "sendData()";
+    document.getElementById('loginbtn').removeAttribute("onclick");
+    document.getElementById('loginbtn').setAttribute("onclick", "submithandlerT()");
     document.getElementById('loginbtn').value = "Submit Editing";
     logedin = true;let ind = 2000;
     int_X = setInterval(function () {
@@ -448,6 +450,10 @@ function loged() {
     document.getElementById('passINC').innerText = "PASSWORD INCORRECT";
     document.getElementById('passINC').setAttribute("style", "color:red;font-weight: bold;");
   }
+}
+function submithandlerT() {
+  sendData();
+  document.getElementById('logview').style = "display:none;";
 }
 function viewer(id) {
   let holder = document.createElement('div');

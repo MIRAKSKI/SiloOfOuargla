@@ -30,8 +30,9 @@ span {margin: 0;padding: 0;border: 0;max-width: 250px;font-size: 9px;font: inher
 .percentage-text {position: relative;font-size: 1em;font-weight: bold;color: #333;z-index: 10;}
 b {color: #00dd77;}
 #waitdiv {position: absolute;top: 10px;left: 10px;z-index: 99;}
-#waitP {font-size: 1.5rem; font-weight: bold;}
+#waitP {font-size: 2rem; font-weight: bold;}
 .swipeBTN {border-radius: 50%;width: 30px;height: 30px;border: 1px solid rgb(20,200,150);transition: 0.2s;}
 .swipeBTN:hover {border: 1px solid rgb(200,150,20);background: rgb(20,200,150);color: white;cursor: pointer;}
-#swipeview {display: none;}
+#swipeview {display: block;}
 .nbrEL {display: flex;justify-content: center;place-items:center;}
+.view {margin: 4px 0;}

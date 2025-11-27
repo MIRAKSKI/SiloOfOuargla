@@ -25,8 +25,12 @@ if (typeof(Storage) !== "undefined") {
   else if (logedin == "true") {
     logedin = true;
   }
+  if (dataElement == null) {
+    dataElement = "";
+  }
 }
 function loaduphandler() {
+  startupset();return;
   if (supportsaving) {
     let encr_dec = window.localStorage.getItem("dec");//key:i,i,i,i#
     let obj_items = encr_dec.split("@");let securite = false;
@@ -100,8 +104,11 @@ function loaduphandler() {
     document.getElementById('loginbtn').removeAttribute("onclick");
     document.getElementById('loginbtn').setAttribute("onclick", "submithandlerT()");
     document.getElementById('loginbtn').value = "Submit Editing";
-    let urls = window.localStorage.getItem("WEB_APP_URL")
+    let urls = window.localStorage.getItem("WEB_APP_URL");
     WEB_APP_URL = urls;
+  }
+  else {
+    passKey = "";
   }
   if (!submited && submited != null) {
     document.getElementById('logview').style = "";

@@ -30,7 +30,7 @@ if (typeof(Storage) !== "undefined") {
   }
 }
 function loaduphandler() {
-  startupset();return;
+  //startupset();return;
   if (supportsaving) {
     let encr_dec = window.localStorage.getItem("dec");//key:i,i,i,i#
     let obj_items = encr_dec.split("@");let securite = false;
@@ -109,6 +109,7 @@ function loaduphandler() {
   }
   else {
     passKey = "";
+    window.localStorage.setItem("passKey", "");
   }
   if (!submited && submited != null) {
     document.getElementById('logview').style = "";
@@ -593,9 +594,22 @@ function decoderX(passkey) {
   }
   return psk;
 }
+function checkbat(key) {
+  let tr = key.split("");
+  console.log(tr);
+  for (var i = 0; i < tr.length; i++) {
+    if (tr[i] == "%") {
+      return "%";
+    }
+    else if (tr[i] == "#") {
+      return "#";
+    }
+  }
+  return "_";
+}
 function creatAnaly() {
   let keys = Object.keys(dec);
-  let nBrOP = keys.length;
+  let nBrOP = keys.length,batteries = {"bat0":0, "bat1":0, "bat2":0};
   dyRlzdMAP = new Object();
   for (var i = 0; i < keys.length; i++) {
     let date = dec[keys[i]][0];
@@ -604,6 +618,16 @@ function creatAnaly() {
     }
     else {
       dyRlzdMAP[date]++;
+    }
+    let tst0 = checkbat(keys[i].toString());
+    if ("%" == tst0) {
+      batteries["bat1"]++;
+    }
+    else if ("#" == tst0) {
+      batteries["bat2"]++;
+    }
+    else if ("_" == tst0) {
+      batteries["bat0"]++;
     }
   }
   let days = Object.keys(dyRlzdMAP);
@@ -624,6 +648,9 @@ function creatAnaly() {
   }
   let plsps = ((nBrOP / 363) * 100).toFixed(2);
   let sentance = "<p>Realised Piles:<br> <b>" + nBrOP + "/363 - " + plsps + "%</b><br>Working days: <b>" + days.length + "</b><br>";
+  sentance += "Battery one : <b>" + batteries["bat0"] + " - " + ((batteries["bat0"]/121) * 100).toFixed(2) + "% </b><br>";
+  sentance += "Battery two : <b>" + batteries["bat1"] + " - " + ((batteries["bat1"]/121) * 100).toFixed(2) + "% </b><br>";
+  sentance += "Battery three : <b>" + batteries["bat2"] + " - " + ((batteries["bat2"]/121) * 100).toFixed(2) + "% </b><br>";
   sentance += "Averege Realised Par Day: <b>" + pPd + "</b><br>";
   sentance += "Expected Finish Date: <b>" + re + "</b><br></p>";
   document.getElementById('deT').innerHTML = sentance;

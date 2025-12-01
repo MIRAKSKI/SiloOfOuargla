@@ -514,10 +514,15 @@ function viewer(id) {
       hl.appendChild(ttl);
     }
     else if (i == 3 && passKey == cryppassKey) {
+      let btns = document.createElement('input');
+      id = id.replace("'", "%");id = id.replace("\"", "#");
+      btns.setAttribute("onclick", "dEleteIT('"+id+"')");btns.setAttribute("type", "button");
+      btns.setAttribute("class", "seteditbtn");btns.setAttribute("value", "DELETE!");
+      //
       let btn = document.createElement('input');
       btn.setAttribute("onclick", "editdialog('"+id+"')");btn.setAttribute("type", "button");
       btn.setAttribute("class", "seteditbtn");btn.setAttribute("value", "EDIT!");
-      hl.appendChild(btn);
+      hl.appendChild(btns);hl.appendChild(btn);
     }
     holder.appendChild(hl);
   }

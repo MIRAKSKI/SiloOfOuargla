@@ -31,7 +31,7 @@ span {margin: 0;padding: 0;border: 0;max-width: 250px;font-size: 9px;font: inher
 b {color: #00dd77;}
 #waitdiv {position: absolute;top: 10px;left: 10px;z-index: 99;}
 #waitP {font-size: 2rem; font-weight: bold;}
-.swipeBTN {border-radius: 50%;width: 30px;height: 30px;border: 1px solid rgb(20,200,150);transition: 0.2s;}
+.swipeBTN {border-radius: 50%;width: 75px;height: 75px;border: 1px solid rgb(20,200,150);transition: 0.2s;margin: 0 5px;}
 .swipeBTN:hover {border: 1px solid rgb(200,150,20);background: rgb(20,200,150);color: white;cursor: pointer;}
 #swipeview {display: block;}
 .nbrEL {display: flex;justify-content: center;place-items:center;}

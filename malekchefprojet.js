@@ -123,7 +123,7 @@ function setitemx(id) {
   let month = {"Jan":1, "Feb":2, "Mar":3, "Apr":4,"May":5,"Jun":6,"Jul":7,"Aug":9,"Sep":9,"Oct":10,"Nov":11,"Dec":12};
   let fulldate = dd+"/"+month[mm]+"/"+yy;
   if (exp == "Nul") {
-    exp = null
+    exp = null;
   }
   let log = id+":"+fulldate+":"+exp;
   dataElement += log + "@";
@@ -251,7 +251,6 @@ function editdialog(id) {
     }
     else {
       let btn = document.createElement('input');
-      id = id.replace("'", "%");id = id.replace("\"", "#");
       btn.setAttribute("onclick", "setEDITED('"+id+"')");btn.setAttribute("type", "button");
       btn.setAttribute("class", "seteditbtn");btn.setAttribute("value", "CONFORM!");
       hl.appendChild(btn);
@@ -263,6 +262,51 @@ function editdialog(id) {
   bg.setAttribute("id", "seteditdiag");
   bg.appendChild(holder);
   document.getElementsByTagName('body')[0].appendChild(bg);
+}
+function dEleteIT(id) {
+  let log = id+":"+"REMOVE:REMOVE";
+  let arr = dataElement.split("@");
+  dataElement = "";
+  for (var i = 0; i < arr.length; i++) {
+    let itms = arr[i].split(":");
+    if (id != itms[0]) {
+      dataElement += arr[i] + "@";
+    }
+    else {
+      dataElement += log + "@";
+    }
+  }
+  ////////////////
+  try {
+    window.localStorage.setItem("dataElement", dataElement);
+  } catch (e) {} finally {}
+  document.getElementById('logview').style = "";
+  delete dec[id];
+  document.getElementById(id).removeAttribute("class");
+  document.getElementById(id).removeAttribute("onclick");
+  document.getElementById(id).setAttribute("class", "eley");
+  document.getElementById(id).setAttribute("onclick", "viewer(this.id)");
+  let keys = Object.keys(dec);let long_keys = "";
+  keys.forEach((key, i) => {
+    let arr = dec[key];
+    long_keys += key +":";
+    for (var i = 0; i < arr.length; i++) {
+      if (i != (arr.length-1)) {
+        long_keys += arr[i] + ",";
+      }
+      else {
+        long_keys += arr[i];
+      }
+    }
+    long_keys += "@";
+  });
+  try {
+    window.localStorage.setItem("dec", long_keys);
+    window.localStorage.setItem("saved", true);
+    let last_update_ms = new Date().getTime();
+    window.localStorage.setItem("lastUpdate", last_update_ms);
+  } catch (e) {} finally {}
+  closediag();
 }
 function setEDITED(id) {
   if (cryppassKey != passKey) {

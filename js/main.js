@@ -31,8 +31,8 @@ if (typeof(Storage) !== "undefined") {
 }
 function loaduphandler() {
   //startupset();return;
-  if (supportsaving) {
-    let encr_dec = window.localStorage.getItem("dec");//key:i,i,i,i#
+  let encr_dec = window.localStorage.getItem("dec");//key:i,i,i,i#
+  if (supportsaving && encr_dec != null) {
     let obj_items = encr_dec.split("@");let securite = false;
     if (obj_items.length > 1) {
       securite = true;
@@ -596,7 +596,6 @@ function decoderX(passkey) {
 }
 function checkbat(key) {
   let tr = key.split("");
-  console.log(tr);
   for (var i = 0; i < tr.length; i++) {
     if (tr[i] == "%") {
       return "%";
@@ -654,7 +653,7 @@ function creatAnaly() {
   sentance += "Averege Realised Par Day: <b>" + pPd + "</b><br>";
   sentance += "Expected Finish Date: <b>" + re + "</b><br></p>";
   document.getElementById('deT').innerHTML = sentance;
-  cercularti(nBrOP);
+  cercularti(nBrOP);calnder();
 }
 function cercularti(nBrOP) {
   const percentageValue = (nBrOP / 363) * 100
@@ -666,6 +665,86 @@ function cercularti(nBrOP) {
   const gradientStyle = `conic-gradient(#00ff7b ${angle}deg, #e0e0e0 ${angle}deg)`;
   progressCircle.style.background = gradientStyle;
   Waiter(1)//0=set; 1=remove;
+}
+function parseDDMMYYYY(dateString) {
+    const parts = dateString.split('/');
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parseInt(parts[2], 10);
+    return new Date(year, month, day);
+}
+function dateComparator(a, b) {
+    const dateA = parseDDMMYYYY(a);
+    const dateB = parseDDMMYYYY(b);
+    return dateA.getTime() - dateB.getTime();
+}
+function calnder() {
+  return;
+  let keys = Object.keys(dec);
+  dates = new Object();
+  for (var i = 0; i < keys.length; i++) {
+    let date = dec[keys[i]][0];
+    if (dates[date] === undefined) {
+      dates[date] = [keys[i]];
+    }
+    else {
+      dates[date].push(keys[i]);
+    }
+  }
+  let mnts_len = [31,28,31,30,31,30,31,31,30,31,30,31];
+  let dates_keys = Object.keys(dates);
+  dates_keys.sort(dateComparator);let last_item = dates_keys[dates_keys.length - 1];
+  let cal_dates = new Array();let ref_item = dates_keys[0];
+  cal_dates.push(dates_keys[0]);
+  for (var i = 0; i < 3630; i++) {
+    let date_seg = ref_item.split("/");
+    let max_day = mnts_len[eval(date_seg[1]) - 1];///31or30-28
+    let next_day = eval(date_seg[0]) + 1;
+    if (next_day <= max_day) {
+      let trt = next_day + "/" + date_seg[1] + "/" + date_seg[2];
+      let tst = [last_item, trt];
+      tst.sort(dateComparator);
+      if (tst[0] == trt) {
+        cal_dates.push(trt);
+        ref_item = trt;
+      }
+      else {
+        break;
+      }
+    }
+    else {
+      let next_day = 1;
+      let next_mnt = (eval(date_seg[1]) + 1);
+      if (next_mnt <= 12) {
+        let trt = next_day + "/" + next_mnt + "/" + date_seg[2];
+        let tst = [last_item, trt];
+        tst.sort(dateComparator);
+        if (tst[0] == trt) {
+          cal_dates.push(trt);
+          ref_item = trt;
+        }
+        else {
+          break;
+        }
+      }
+      else {
+        let next_day = 1;
+        let next_mnt = 1;
+        let next_year = (eval(date_seg[2]) + 1);
+        let trt = next_day + "/" + next_mnt + "/" + next_year;
+        let tst = [last_item, trt];
+        tst.sort(dateComparator);
+        if (tst[0] == trt) {
+          cal_dates.push(trt);
+          ref_item = trt;
+        }
+        else {
+          break;
+        }
+      }
+    }
+  }
+  console.log(cal_dates, dates_keys);
 }
 function Waiter(mod) {
   if (mod == 0) {

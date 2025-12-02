@@ -1,6 +1,7 @@
 let h = "AK0vliwS7xT3vK7YXrbM6DUz4QtjWrkTPoTmb88qF5XxpoANURBlTf8A86G9c7zhmboJpwvb";
 let WEB_APP_URL = "https://script.google.com/macros/s/passkey/exec";
 function sendData() {
+  WEB_APP_URL = WEB_APP_URL.replace("passkey", decoderX(h));
   const formData = new FormData();
   const payload = {
     newData: dataElement,
@@ -362,11 +363,4 @@ function setEDITED(id) {
     window.localStorage.setItem("lastUpdate", last_update_ms);
   } catch (e) {} finally {}
   closediag();
-}
-function setUrls() {
-  WEB_APP_URL = WEB_APP_URL.replace("passkey", decoderX(h));
-  window.localStorage.setItem("WEB_APP_URL", WEB_APP_URL);
-  try {
-    clearInterval(int_X);
-  } catch (e) {} finally {}
 }

@@ -33,6 +33,6 @@
   .swipeBTN {border-radius: 50%;width: 30px;height: 30px;border: 1px solid rgb(20,200,150);transition: 0.2s;}
   .swipeBTN:hover {border: 1px solid rgb(200,150,20);background: rgb(20,200,150);color: white;cursor: pointer;}
   .body .axeZ {display:flex;width: 100%;justify-content: center;}
-  .swipeBTN:hover {}
+  .swipeBTN:hover {border: 1px solid rgb(20,200,150);}
   .swipeBTN:active {border: 1px solid rgb(200,150,20);background: rgb(20,200,150);color: white;cursor: pointer;}
 }

@@ -5,8 +5,6 @@ if (typeof(Storage) !== "undefined") {
   saved = window.localStorage.getItem("saved");
   submited = window.localStorage.getItem("submited");
   dataElement = window.localStorage.getItem("dataElement");
-  logedin = window.localStorage.getItem("logedin");
-  passKey = window.localStorage.getItem("passKey");
   if (saved == "false") {
     saved = false;
   }
@@ -18,12 +16,6 @@ if (typeof(Storage) !== "undefined") {
   }
   else if (submited == "true") {
     submited = true;
-  }
-  if (logedin == "false") {
-    logedin = false;
-  }
-  else if (logedin == "true") {
-    logedin = true;
   }
   if (dataElement == null) {
     dataElement = "";
@@ -87,30 +79,6 @@ function loaduphandler() {
       document.getElementById('swipeview').style.display = "block";
     } catch (e) {} finally {}
   }
-  //login back
-  if (logedin && logedin != null) {
-    let pieux = document.getElementsByClassName('eley');
-    for (var i = 0; i < pieux.length; i++) {
-      pieux[i].removeAttribute("onclick");
-      pieux[i].setAttribute("onclick", "opendialog(this.id)");
-    }
-    let xcode = window.localStorage.getItem("xcode");
-    let link = "https://mirakski.github.io/SiloOfOuargla/passkey.js";
-    link = link.replace("passkey", xcode);
-    let js = document.createElement('script');
-    js.setAttribute("charset", "utf-8");js.setAttribute("src", link);
-    document.getElementsByTagName('body')[0].appendChild(js);
-    document.getElementById('logview').style = "display:none;";
-    document.getElementById('loginbtn').removeAttribute("onclick");
-    document.getElementById('loginbtn').setAttribute("onclick", "submithandlerT()");
-    document.getElementById('loginbtn').value = "Submit Editing";
-    let urls = window.localStorage.getItem("WEB_APP_URL");
-    WEB_APP_URL = urls;
-  }
-  else {
-    passKey = "";
-    window.localStorage.setItem("passKey", "");
-  }
   if (!submited && submited != null) {
     document.getElementById('logview').style = "";
   }
@@ -133,35 +101,37 @@ function startupset() {
       dec  = result.content;
       let keys = Object.keys(jsonDataOBJ);let long_keys = "";
       keys.forEach((key) => {
-        document.getElementById(key).removeAttribute("class");
-        document.getElementById(key).removeAttribute("onclick");
-        document.getElementById(key).setAttribute("class", "eleypro");
-        document.getElementById(key).setAttribute("onclick", "viewer(this.id)");
         let arr = dec[key];
-        long_keys += key +":";
-        for (var i = 0; i < arr.length; i++) {
-          if (i != (arr.length-1)) {
-            long_keys += arr[i] + ",";
+        if (arr[0] != "REMOVE") {
+          document.getElementById(key).removeAttribute("class");
+          document.getElementById(key).removeAttribute("onclick");
+          document.getElementById(key).setAttribute("class", "eleypro");
+          document.getElementById(key).setAttribute("onclick", "viewer(this.id)");
+          long_keys += key +":";
+          for (var i = 0; i < arr.length; i++) {
+            if (i != (arr.length-1)) {
+              long_keys += arr[i] + ",";
+            }
+            else {
+              long_keys += arr[i];
+            }
           }
-          else {
-            long_keys += arr[i];
+          long_keys += "@";
+          if (arr[1] == "SONIC") {
+            document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
           }
+          else if (arr[1] == "CORE SAMPLE") {
+            document.getElementById(key).setAttribute("style", "background:coral;");
+          }
+          else if (arr[1] == "RISK") {
+            document.getElementById(key).setAttribute("style", "background:rgb(255,20,20);");
+          }
+          else if (arr[1] == "ATRISK") {
+            document.getElementById(key).setAttribute("style", "background:rgb(255,100,65);");
+          }
+          force_update_ms = new Date().getTime();
+          window.localStorage.setItem("force_update_ms", force_update_ms);
         }
-        long_keys += "@";
-        if (arr[1] == "SONIC") {
-          document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
-        }
-        else if (arr[1] == "CORE SAMPLE") {
-          document.getElementById(key).setAttribute("style", "background:coral;");
-        }
-        else if (arr[1] == "RISK") {
-          document.getElementById(key).setAttribute("style", "background:rgb(255,20,20);");
-        }
-        else if (arr[1] == "ATRISK") {
-          document.getElementById(key).setAttribute("style", "background:rgb(255,100,65);");
-        }
-        force_update_ms = new Date().getTime();
-        window.localStorage.setItem("force_update_ms", force_update_ms);
         //key = key.replace("%", "'");key = key.replace("#", "\"");
       });
       window.localStorage.setItem("dec", long_keys);
@@ -177,6 +147,14 @@ function startupset() {
   })
   .catch(error => {
     console.error('Error:', error);
+    try {
+      clearInterval(waiterInt);
+      document.getElementById('waitP').innerText = "Error Loading Check your internet conection!";
+      setTimeout(function () {
+        document.getElementById('waitdiv').remove();
+      }, 3000);
+    }
+    catch (e) {} finally {}
   });
   Waiter(0)//0=set; 1=remove;
 }
@@ -447,20 +425,6 @@ function loged() {
     document.getElementById('loginbtn').removeAttribute("onclick");
     document.getElementById('loginbtn').setAttribute("onclick", "submithandlerT()");
     document.getElementById('loginbtn').value = "Submit Editing";
-    logedin = true;let ind = 2000;
-    int_X = setInterval(function () {
-      if (ind > 1000) {
-        ind -= 100;
-      }
-      else {
-        setUrls();
-        clearInterval(int_X);
-      }
-    }, 100);
-    try {
-      window.localStorage.setItem("logedin", true);
-      window.localStorage.setItem("passKey", chifr);
-    } catch (e) {} finally {}
     closediag();
   }
   else {

@@ -38,3 +38,6 @@ b {color: #00dd77;}
 #swipeview {display: block;}
 .nbrEL {display: flex;justify-content: center;place-items:center;}
 .view {margin: 4px 0;}
+table {font-family: arial;border-collapse: collapse;width: 100%;font-size: 0.9rem;}
+tr:nth-child(even) {background-color: #dddddd;}
+td, th {border: 0.1rem solid #dddddd;text-align: center;word-wrap: break-word;padding: 0;padding: 0.2rem;height: 2rem;min-width: 7rem;}

@@ -614,8 +614,26 @@ function creatAnaly() {
     }
   }
   let days = Object.keys(dyRlzdMAP);
-  let pPd = (nBrOP / days.length).toFixed(2);
+  let datess = new Object();
+  for (var f = 0; f < keys.length; f++) {
+    if (datess[dec[keys[f]][0]] === undefined) {
+      datess[dec[keys[f]][0]] = [keys[f]];
+    }
+    else {
+      datess[dec[keys[f]][0]].push(keys[f]);
+    }
+  }
+  let dates_kys = Object.keys(datess);
+  let max_pPd = 0;
+  for (var i = 0; i < dates_kys.length; i++) {
+    let std_len = datess[dates_kys[i]].length;
+    if (std_len > max_pPd) {
+      max_pPd = std_len;
+    }
+  }
+  let pPd = max_pPd;
   let rstdDys = (Math.ceil((363 - nBrOP) / pPd));
+  rstdDys = rstdDys + Math.ceil(rstdDys/6);
   const d = new Date().getTime();
   let ms = 60 * 60 * 24 * 1000;
   let r = rstdDys * ms;

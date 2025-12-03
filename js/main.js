@@ -1,5 +1,5 @@
 let dec = new Object();let cryppassKey,passKey;let supportsaving = false;let saved = false;
-let dataElement = "";let submited = false, logedin = false;let moposition = 0
+let dataElement = "";let submited = false, logedin = false;let moposition = 0, tapotition = 0;
 if (typeof(Storage) !== "undefined") {
   supportsaving = true;
   saved = window.localStorage.getItem("saved");
@@ -267,6 +267,7 @@ function opening() {
     document.getElementsByTagName('body')[0].appendChild(br);
     cryppassKey = "nbehzxz4";
   }
+  addRePiles();
   let bdG = document.getElementsByClassName('body')[0];
   try {
     let divlS = document.createElement('div');
@@ -310,6 +311,20 @@ function opening() {
     bdG.appendChild(diLS);
   } catch (e) {} finally {}
   loaduphandler();
+}
+function addRePiles() {
+  document.getElementById('battey2').style.position = "relative";
+  let additive = ["K#11A", "K#11B"];
+  let pst = ["position:absolute;right:0%;bottom:6%;", "position:absolute;right:5%;bottom:1.5%;"]
+  for (var z = 0; z < additive.length; z++) {
+    let divz = document.createElement('div');
+    divz.setAttribute('class', "eley");
+    divz.style = pst[z];
+    let id = additive[z];
+    divz.setAttribute('id', id);
+    divz.setAttribute("onclick", "viewer(this.id)");
+    document.getElementById('battey2').appendChild(divz);
+  }
 }
 function mobi(mod) {
   if (mod == "R") {
@@ -648,7 +663,7 @@ function dateComparator(a, b) {
     return dateA.getTime() - dateB.getTime();
 }
 function calnder() {
-  return;
+  //return;
   let keys = Object.keys(dec);
   dates = new Object();
   for (var i = 0; i < keys.length; i++) {
@@ -713,7 +728,129 @@ function calnder() {
       }
     }
   }
-  console.log(cal_dates, dates_keys);
+  try {
+    let tabels = document.getElementsByClassName('cal_table');
+    for (var i = 0; i < tabels.length; i++) {
+      tabels[i].remove();
+    }
+  } catch (e) {} finally {}
+  //all days = cal_dates
+  // start from 155 = 22/10/2025;
+  cal_dates.splice(0, 155);
+  //start ;)
+  let tbls_nbr = Math.ceil(cal_dates.length / 35), ind = 0;
+  let week = 1,getOutCal = false;
+  for (var d = 0; d < tbls_nbr; d++) {
+    if (getOutCal) {
+      break;
+    }
+    let h_th = creatanelemn("th", "", "", "", "", "", "", "", "", "", "", "Calendar");
+    h_th.setAttribute("colspan", 8);
+    let h_tr = creatanelemn("tr", "", "", "", "", "", "", "", h_th, "", "", "");
+    let tab_ID = "cal_tab_" + d;
+    let table = creatanelemn("table", "cal_table", tab_ID, "", "", "", "", "", h_tr, "", "", "");
+    if (d != 0) {
+      table.setAttribute("style", "display:none;");
+    }
+    for (var i = 0; i < 5; i++) {
+      if (getOutCal) {
+        break;
+      }
+      let r_tr = creatanelemn("tr", "", "", "", "", "", "", "", "", "", "", "");
+      for (var x = 0; x < 8; x++) {
+        if (getOutCal) {
+          break;
+        }
+        if (x == 0) {
+          let name_wk = "Week"
+          if (week < 10) {
+            name_wk += "0" + week;
+          }
+          else {
+            name_wk += week;
+          }
+          let r_td = creatanelemn("td", "", "", "", "", "", "", "", "", "", "", name_wk);
+          r_tr.appendChild(r_td);
+        }
+        else {
+          let td_nm = "";
+          if (dates[cal_dates[ind]] === undefined) {
+            if (cal_dates[ind] === undefined) {
+              getOutCal = true;
+            }
+            else {
+              td_nm += cal_dates[ind] + "\n#" + 0 + "\n /";
+            }
+          }
+          else {
+            td_nm += cal_dates[ind] + "\n#OfPiles: " + dates[cal_dates[ind]].length + "\n";
+            for (var y = 0; y < dates[cal_dates[ind]].length; y++) {
+              if (y != (dates[cal_dates[ind]].length - 1)) {
+                let tdy = dates[cal_dates[ind]][y].replace("#", "\"");
+                tdy = tdy.replace("%", "'");
+                td_nm += tdy + " - ";
+              }
+              else {
+                let tdy = dates[cal_dates[ind]][y].replace("#", "\"");
+                tdy = tdy.replace("%", "'");
+                td_nm += tdy;
+              }
+            }
+          }
+          let r_td = creatanelemn("td", "", "", "", "", "", "", "", "", "", "", td_nm);
+          r_tr.appendChild(r_td);
+          ind++;
+        }
+      }
+      table.appendChild(r_tr);
+      week++;
+    }
+    document.getElementById('calndr').appendChild(table);
+  }
+  try {
+    let divlS = document.createElement('div');
+    divlS.setAttribute('class', "battey");
+    let divppLS = document.createElement('div');
+    divppLS.setAttribute('class', "axeZ");
+    let btnL = document.createElement('input');
+    btnL.setAttribute("onclick", "cal_tabs('L')");btnL.setAttribute("type", "button");
+    btnL.setAttribute("class", "swipeBTN");btnL.setAttribute("value", "<");
+    //
+    let btnR = document.createElement('input');
+    btnR.setAttribute("onclick", "cal_tabs('R')");btnR.setAttribute("type", "button");
+    btnR.setAttribute("class", "swipeBTN");btnR.setAttribute("value", ">");
+    //
+    divppLS.appendChild(btnL);divppLS.appendChild(btnR);
+    divlS.appendChild(divppLS);
+    let diLSV = document.createElement('div');
+    diLSV.setAttribute("class", "view");diLSV.setAttribute("id", "swipeview");
+    diLSV.appendChild(divppLS);
+    document.getElementById('swpanels').appendChild(diLSV);
+  } catch (e) {} finally {}
+}
+function cal_tabs(mod) {
+  if (mod == "R") {
+    tapotition++;
+    let tabs = document.getElementsByClassName('cal_table');
+    if (tapotition >= tabs.length) {
+      tapotition = 0;
+    }
+    for (var i = 0; i < tabs.length; i++) {
+      tabs[i].style = "display:none;";
+    }
+    document.getElementById("cal_tab_" + tapotition).style = "display:block;";
+  }
+  else if (mod == "L") {
+    tapotition--;
+    let tabs = document.getElementsByClassName('cal_table');
+    if (tapotition < 0) {
+      tapotition = (tabs.length - 1);
+    }
+    for (var i = 0; i < tabs.length; i++) {
+      tabs[i].style = "display:none;";
+    }
+    document.getElementById("cal_tab_" + tapotition).style = "display:block;";
+  }
 }
 function Waiter(mod) {
   if (mod == 0) {

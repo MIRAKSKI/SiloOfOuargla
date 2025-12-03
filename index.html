@@ -2,17 +2,13 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Silos Of OUARGLA</title>
-    <link rel="stylesheet" href="css/table.css">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
 		<link rel="stylesheet" href="css/masterials.css">
 		<link rel="stylesheet" href="css/phone.css">
-    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/styles.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1, shrink-to-fit=no"
-		/>
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link rel="icon" href="">
@@ -29,6 +25,11 @@
 			<li>
 				<a class="" href="#s-two">
 					<span class="hover-text">ANALYSES</span>
+				</a>
+			</li>
+			<li>
+				<a class="" href="#s-three">
+					<span class="hover-text">CALENDAR</span>
 				</a>
 			</li>
 		</ul>
@@ -49,7 +50,7 @@
 
 		<section class="scroll s-two" data-section-name="s-two">
 			<div class="container">
-				</br></br>
+        </br></br>
         <div class="hold" id="hold">
           <div class="details" id="deT"></div>
           <div class="round_an" id="Rdisplay">
@@ -70,6 +71,23 @@
             </div>
           </div>
         </div>
+			</div>
+		</section>
+
+    <section class="scroll s-one" data-section-name="s-three">
+      <div class="container">
+				<div class="content-a">
+					</br></br></br></br>
+          <div class="body">
+            <div class="view" id="calndr">
+
+            </div>
+            <div class="view" id="swpanels" style="justify-content:center;">
+
+            </div>
+          </div>
+				</div>
+				<div class="footert"></div>
 			</div>
 		</section>
 
@@ -230,14 +248,10 @@
         document.documentElement.scrollTop = 0;
       }
       let window_w = window.innerWidth;
-      let p = `.s-one, .s-two, .s-ten {width:${window_w}px;} .hold {width:${(window_w*0.9)}px;} p {margin: 0.01rem}`;
+      let p = `.s-one, .s-two {width:${window_w}px;} .hold {width:${(window_w*0.9)}px;} p {margin: 0.01rem}`;
       p += ` .container {width:${(window_w*0.98)}px;} .ltdX {padding: 0 0 0 0.1rem;} .Tab_hder {padding: 0.1rem;} p {margin: 0.1rem;}`;
-      p += `.row {width:${(window_w*0.8)}px;}`;
       let sty = creatanelemn("style", "", "style1", "", "", "", "", "", "", "", "", p);
       document.getElementsByTagName('body')[0].appendChild(sty);
   </script>
-  <script src="js/data.js" charset="utf-8"></script>
   <script src="js/main.js" charset="utf-8"></script>
 </html>
-
-

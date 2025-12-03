@@ -3,9 +3,9 @@
 .body .battey {display:grid;margin: 0 3px;}
 .body .axey {display:flex;}
 .body .axeZ {display:flex;width: 100%;justify-content: center;}
-.body .eley, .elex {border-radius:50%;background: rgb(100,100,100);width:20px;height:20px;margin:1px;}
+.body .eley, .elex {border-radius:50%;background: rgb(100,100,100);width:25px;height:25px;margin:1px;}
 .body .elex {background: transparent;}
-.body .eleypro {border-radius:50%;background: rgb(100,255,100);width:20px;height:20px;margin:1px;}
+.body .eleypro {border-radius:50%;background: rgb(100,255,100);width:25px;height:25px;margin:1px;}
 .body .clamo {width:100%;display:grid}
 .body .ttlmo {display:flex;width:100%;}
 .body .grmo {display:flex;width:100%;}

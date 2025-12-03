@@ -893,6 +893,14 @@ function Waiter(mod) {
     catch (e) {} finally {}
   }
 }
+function open_cal(mod) {
+  if (mod == 0) {
+    document.getElementById('calender').style.display = "none";
+  }
+  else {
+    document.getElementById('calender').style.display = "block";
+  }
+}
 opening();
 document.getElementsByTagName('body')[0].addEventListener("keydown", function(event) {
   if (event.key === "F" || event.key === "f") {

@@ -105,7 +105,12 @@ function startupset() {
         if (arr[0] != "REMOVE") {
           document.getElementById(key).removeAttribute("class");
           document.getElementById(key).removeAttribute("onclick");
-          document.getElementById(key).setAttribute("class", "eleypro");
+          if (key =="K#11A" || key == "K#11B") {
+            document.getElementById(key).setAttribute("class", "addeleypro");
+          }
+          else {
+            document.getElementById(key).setAttribute("class", "eleypro");
+          }
           document.getElementById(key).setAttribute("onclick", "viewer(this.id)");
           long_keys += key +":";
           for (var i = 0; i < arr.length; i++) {
@@ -318,7 +323,7 @@ function addRePiles() {
   let pst = ["position:absolute;right:0%;bottom:6%;", "position:absolute;right:5%;bottom:1.5%;"]
   for (var z = 0; z < additive.length; z++) {
     let divz = document.createElement('div');
-    divz.setAttribute('class', "eley");
+    divz.setAttribute('class', "addeley");
     divz.style = pst[z];
     let id = additive[z];
     divz.setAttribute('id', id);

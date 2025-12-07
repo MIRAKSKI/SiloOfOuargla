@@ -313,12 +313,13 @@ function setEDITED(id) {
   if (cryppassKey != passKey) {
     return;
   }
+  let month = {"Jan":1, "Feb":2, "Mar":3, "Apr":4,"May":5,"Jun":6,"Jul":7,"Aug":9,"Sep":9,"Oct":10,"Nov":11,"Dec":12};
   ids = id.replace("%", "'");ids = ids.replace("#", "\"");
   let dd = document.getElementById('DD').value;
   let mm = document.getElementById('MM').value;
   let yy = document.getElementById('YYYY').value;
   let exp = document.getElementById('exp').value;
-  let fulldate = dd+"/"+mm+"/"+yy;
+  let fulldate = dd+"/"+month[mm]+"/"+yy;
   let log = id+":"+fulldate+":"+exp;
   dataElement += log + "@";
   try {

@@ -43,7 +43,12 @@ function loaduphandler() {
           let key = obj_seg[0];let aary = obj_seg[1].split(",");dec[key] = aary;
           document.getElementById(key).removeAttribute("class");
           document.getElementById(key).removeAttribute("onclick");
-          document.getElementById(key).setAttribute("class", "eleypro");
+          if (key == "K#11A" || key == "K#11B") {
+            document.getElementById(key).setAttribute("class", "addeleypro");
+          }
+          else {
+            document.getElementById(key).setAttribute("class", "eleypro");
+          }
           document.getElementById(key).setAttribute("onclick", "viewer(this.id)");
           let arr = dec[key];
           if (arr[1] == "SONIC") {
@@ -105,7 +110,7 @@ function startupset() {
         if (arr[0] != "REMOVE") {
           document.getElementById(key).removeAttribute("class");
           document.getElementById(key).removeAttribute("onclick");
-          if (key =="K#11A" || key == "K#11B") {
+          if (key == "K#11A" || key == "K#11B") {
             document.getElementById(key).setAttribute("class", "addeleypro");
           }
           else {
@@ -320,7 +325,7 @@ function opening() {
 function addRePiles() {
   document.getElementById('battey2').style.position = "relative";
   let additive = ["K#11A", "K#11B"];
-  let pst = ["position:absolute;right:0%;bottom:6%;", "position:absolute;right:5%;bottom:1.5%;"]
+  let pst = ["position:absolute;right:0.8%;bottom:6%;", "position:absolute;right:5%;bottom:1%;"]
   for (var z = 0; z < additive.length; z++) {
     let divz = document.createElement('div');
     divz.setAttribute('class', "addeley");
@@ -754,7 +759,7 @@ function calnder() {
   try {
     let tabels = document.getElementsByClassName('cal_table');
     for (var i = 0; i < tabels.length; i++) {
-      tabels[i].remove();
+      document.getElementById("cal_tab_"+i).remove();
     }
   } catch (e) {} finally {}
   //all days = cal_dates
@@ -831,6 +836,9 @@ function calnder() {
     document.getElementById('calndr').appendChild(table);
   }
   try {
+    document.getElementById("swipeview").remove();
+  } catch (e) {} finally {}
+  try {
     let divlS = document.createElement('div');
     divlS.setAttribute('class', "battey");
     let divppLS = document.createElement('div');
@@ -850,6 +858,125 @@ function calnder() {
     diLSV.appendChild(divppLS);
     document.getElementById('swpanels').appendChild(diLSV);
   } catch (e) {} finally {}
+  seveneight();
+}
+function seveneight() {
+  //dates[dd/mm/yyyy] = [obj1, obj2, obj3, ....];
+  let keys = Object.keys(dates);
+  keys.sort(dateComparator);
+  let seven_days = new Object(), twght_days = new Object();let dt7dys = false, dt28dys = false;
+  let mnts_len = [31,28,31,30,31,30,31,31,30,31,30,31];let start7Dating = false,start28Dating = false;
+  for (var i = 0; i < keys.length; i++) {
+    let parts = keys[i].split("/");
+    let next_day = eval(parts[0]) + 7;
+    let next_28day = eval(parts[0]) + 28;
+    let this_mnth = eval(parts[1]) - 1;
+    if (!start28Dating) {
+      ////////handle 28 days
+      date28Days = new Array();
+      if (next_28day > mnts_len[this_mnth]) {
+        next_dayDT = next_28day - mnts_len[this_mnth];
+        let next_mnth = this_mnth + 1;
+        if (next_mnth < mnts_len.length) {
+          date28Days[0] = next_dayDT;
+          date28Days[1] = next_mnth + 1;
+          date28Days[2] = eval(parts[2]);
+        }
+        else {
+          date28Days[0] = next_dayDT;
+          date28Days[1] = 1;
+          date28Days[2] = eval(parts[2]) + 1;
+        }
+      }
+      else {
+        date28Days[0] = next_28day;
+        date28Days[1] = eval(parts[1]);
+        date28Days[2] = eval(parts[2]);
+      }
+      ////////////////////////////////////////
+      const d = new Date();
+      let today = [d.getDate(), (d.getMonth() + 1), d.getFullYear()];
+      console.log(today, date28Days);
+      if (date28Days[0] >= today[0] && date28Days[1] >= today[1] && date28Days[2] >= today[2]) {
+        dt28dys = true;
+      }
+      if (dt28dys) {
+        start28Dating = true;
+      }
+    }
+    if (!start7Dating) {
+      ////////handle 7 days
+      date7Days = new Array();
+      if (next_day > mnts_len[this_mnth]) {
+        next_dayDT = next_day - mnts_len[this_mnth];
+        let next_mnth = this_mnth + 1;
+        if (next_mnth < mnts_len.length) {
+          date7Days[0] = next_dayDT;
+          date7Days[1] = next_mnth + 1;
+          date7Days[2] = eval(parts[2]);
+        }
+        else {
+          date7Days[0] = next_dayDT;
+          date7Days[1] = 1;
+          date7Days[2] = eval(parts[2]) + 1;
+        }
+      }
+      else {
+        date7Days[0] = next_day;
+        date7Days[1] = eval(parts[1]);
+        date7Days[2] = eval(parts[2]);
+      }
+      ////////////////////////////////////////
+      const d = new Date();
+      let today = [d.getDate(), (d.getMonth() + 1), d.getFullYear()];
+      console.log(date7Days, today);
+      if (date7Days[0] >= today[0] && date7Days[1] >= today[1] && date7Days[2] >= today[2]) {
+        dt7dys = true;
+      }
+      if (dt7dys) {
+        start7Dating = true;
+      }
+    }
+    if (start7Dating) {
+      //seven days
+      if (next_day <= mnts_len[this_mnth]) {
+        let full_date = next_day + "/" + parts[1] + "/" + parts[2];
+        seven_days[full_date] = dates[keys[i]];
+      }
+      else {
+        next_day = next_day - mnts_len[this_mnth];
+        next_mnt = eval(parts[1]) + 1;
+        next_yer = eval(parts[2]);
+        if (next_mnt > mnts_len.length) {
+          next_mnt = 1;
+          next_yer++;
+        }
+        let full_date = next_day + "/" + next_mnt + "/" + next_yer;
+        seven_days[full_date] = dates[keys[i]];
+      }
+    }
+    if (start28Dating) {
+      //twenty-eight days
+      if (next_28day <= mnts_len[this_mnth]) {
+        let full_date = next_28day + "/" + parts[1] + "/" + parts[2];
+        twght_days[full_date] = dates[keys[i]];
+      }
+      else {
+        next_28day = next_28day - mnts_len[this_mnth];
+        next_mnt = eval(parts[1]) + 1;
+        next_yer = eval(parts[2]);
+        if (next_mnt > mnts_len.length) {
+          next_mnt = 1;
+          next_yer++;
+        }
+        let full_date = next_28day + "/" + next_mnt + "/" + next_yer;
+        twght_days[full_date] = dates[keys[i]];
+      }
+    }
+  }
+  ///add foreach
+  console.log("twght_days", twght_days);
+  console.log("seven_days", seven_days);
 }
 function cal_tabs(mod) {
   if (mod == "R") {

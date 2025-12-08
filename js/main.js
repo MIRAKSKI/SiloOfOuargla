@@ -836,7 +836,7 @@ function calnder() {
     document.getElementById('calndr').appendChild(table);
   }
   try {
-    document.getElementById("swpanels").remove();
+    document.getElementById("swipeviewxx").remove();
   } catch (e) {} finally {}
   try {
     let divlS = document.createElement('div');
@@ -854,7 +854,7 @@ function calnder() {
     divppLS.appendChild(btnL);divppLS.appendChild(btnR);
     divlS.appendChild(divppLS);
     let diLSV = document.createElement('div');
-    diLSV.setAttribute("class", "view");diLSV.setAttribute("id", "swipeview");
+    diLSV.setAttribute("class", "view");diLSV.setAttribute("id", "swipeviewxx");
     diLSV.appendChild(divppLS);
     document.getElementById('swpanels').appendChild(diLSV);
   } catch (e) {} finally {}

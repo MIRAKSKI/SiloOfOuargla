@@ -836,7 +836,7 @@ function calnder() {
     document.getElementById('calndr').appendChild(table);
   }
   try {
-    document.getElementById("swipeview").remove();
+    document.getElementById("swpanels").remove();
   } catch (e) {} finally {}
   try {
     let divlS = document.createElement('div');

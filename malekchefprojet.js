@@ -125,7 +125,7 @@ function opendialog(id) {
     lexep = "SONIC";
   }
   else if (checkIfIn(id, corPiles)) {
-    lexep = "SONIC";
+    lexep = "CORE SAMPLE";
   }
   document.getElementById('exp').value = lexep;
 }
@@ -385,3 +385,4 @@ function setEDITED(id) {
   } catch (e) {} finally {}
   closediag();
 }
+

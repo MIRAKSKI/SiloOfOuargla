@@ -35,6 +35,10 @@ function sendData() {
 function opendialog(id) {
   let holder = document.createElement('div');
   holder.setAttribute("class", "hdiag");
+  let sncPiles = ["A1", "A2", "A10", "A11", "B1", "B11", "D4", "D8", "F5", "F7", "H4", "H8", "J1", "J11", "K1", "K2", "K10", "K11",
+                "A%1", "A%2", "A%10", "A%11", "B%1", "B%11", "D%4", "D%8", "F%5", "F%7", "H%4", "H%8", "J%1", "J%11", "K%1", "K%2", "K%10", "K%11",
+                "A#1", "A#2", "A#10", "A#11", "B#1", "B#11", "D#4", "D#8", "F#5", "F#7", "H#4", "H#8", "J#1", "J#11", "K#1", "K#2", "K#10", "K#11"];
+  let corPiles = ["A6","E6", "F1", "F11", "G6","K6", "A%6", "E%6", "F%1", "F%11", "G%6", "K%6", "A#6", "E#6", "F#1", "F#11", "G#6", "K#6"];
   for (var i = 0; i < 4; i++) {
     let hl = document.createElement('div');
     hl.setAttribute("class", "hhldiag");
@@ -116,6 +120,14 @@ function opendialog(id) {
   document.getElementById('DD').value = dSR.getDate();
   document.getElementById('MM').value = month[dSR.getMonth()];
   document.getElementById('YYYY').value = dSR.getFullYear();
+  let lexep = "Nul";
+  if (checkIfIn(id, sncPiles)) {
+    lexep = "SONIC";
+  }
+  else if (checkIfIn(id, corPiles)) {
+    lexep = "SONIC";
+  }
+  document.getElementById('exp').value = lexep;
 }
 function setitemx(id) {
   if (cryppassKey != passKey) {

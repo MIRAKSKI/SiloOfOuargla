@@ -29,10 +29,14 @@
   p {font-size:16px;}
   #swipeview {display: block;}
   #battey1, #battey2 {display: none;}
+  .calviv {max-width: 100%;overflow-y: hidden;overflow-x: scroll;}
+  .body {max-width: 100%;overflow-y: hidden;overflow-x: hidden;;}
   .body .eley, .elex {width:45px;height:45px;margin:1px;}
-  .swipeBTN {border-radius: 50%;width: 30px;height: 30px;border: 1px solid rgb(20,200,150);transition: 0.2s;}
-  .swipeBTN:hover {border: 1px solid rgb(200,150,20);background: rgb(20,200,150);color: white;cursor: pointer;}
   .body .axeZ {display:flex;width: 100%;justify-content: center;}
+  .swipeBTN {border-radius: 50%;width: 30px;height: 30px;border: 1px solid rgb(20,200,150);transition: 0.2s;}
   .swipeBTN:hover {border: 1px solid rgb(20,200,150);}
   .swipeBTN:active {border: 1px solid rgb(200,150,20);background: rgb(20,200,150);color: white;cursor: pointer;}
+  .dayHSR {min-width: 100%;}
+  .dayHSRST {min-width: 100%;min-height: 80px;
+  }
 }

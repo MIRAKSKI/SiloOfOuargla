@@ -272,9 +272,7 @@ function opening() {
     let host = document.getElementById('host');
     host.appendChild(div);
   }
-  for (var i = 0; i < 2; i++) {
-    let br = document.createElement('br');
-    document.getElementsByTagName('body')[0].appendChild(br);
+  for (var i = 0; i < 1; i++) {
     cryppassKey = "nbehzxz4";
   }
   addRePiles();
@@ -836,7 +834,7 @@ function calnder() {
     document.getElementById('calndr').appendChild(table);
   }
   try {
-    document.getElementById("swipeviewxx").remove();
+    document.getElementById("swipanelsSR").remove();
   } catch (e) {} finally {}
   try {
     let divlS = document.createElement('div');
@@ -854,7 +852,7 @@ function calnder() {
     divppLS.appendChild(btnL);divppLS.appendChild(btnR);
     divlS.appendChild(divppLS);
     let diLSV = document.createElement('div');
-    diLSV.setAttribute("class", "view");diLSV.setAttribute("id", "swipeviewxx");
+    diLSV.setAttribute("class", "view");diLSV.setAttribute("id", "swipanelsSR");
     diLSV.appendChild(divppLS);
     document.getElementById('swpanels').appendChild(diLSV);
   } catch (e) {} finally {}
@@ -896,7 +894,6 @@ function seveneight() {
       ////////////////////////////////////////
       const d = new Date();
       let today = [d.getDate(), (d.getMonth() + 1), d.getFullYear()];
-      console.log(today, date28Days);
       if (date28Days[0] >= today[0] && date28Days[1] >= today[1] && date28Days[2] >= today[2]) {
         dt28dys = true;
       }
@@ -929,7 +926,6 @@ function seveneight() {
       ////////////////////////////////////////
       const d = new Date();
       let today = [d.getDate(), (d.getMonth() + 1), d.getFullYear()];
-      console.log(date7Days, today);
       if (date7Days[0] >= today[0] && date7Days[1] >= today[1] && date7Days[2] >= today[2]) {
         dt7dys = true;
       }
@@ -975,8 +971,127 @@ function seveneight() {
     }
   }
   ///add foreach
-  console.log("twght_days", twght_days);
-  console.log("seven_days", seven_days);
+  let seday = Object.keys(seven_days);
+  let ghday = Object.keys(twght_days);
+  let totsKeys = new Object();
+  for (var i = 0; i < seday.length; i++) {
+    if (totsKeys[seday[i]] === undefined) {
+      totsKeys[seday[i]] = 1;
+    }
+    else {
+      totsKeys[seday[i]]++;
+    }
+  }
+  for (var i = 0; i < ghday.length; i++) {
+    if (totsKeys[ghday[i]] === undefined) {
+      totsKeys[ghday[i]] = 1;
+    }
+    else {
+      totsKeys[ghday[i]]++;
+    }
+  }
+  let keysTotsKeys = Object.keys(totsKeys);
+  keysTotsKeys.sort(dateComparator);
+  let holDer = creatanelemn("div", "daysH", "", "", "", "", "", "", "", "", "", "");
+  for (var i = 0; i < keysTotsKeys.length; i++) {
+    let classy = "dayHSR"
+    if (i == 0) {
+      classy = "dayHSRST";
+    }
+    let dayHSR = creatanelemn("div", classy, "", "", "", "", "", "", "", "", "", "");
+    let paRa = keysTotsKeys[i];
+    if (seven_days[keysTotsKeys[i]] !== undefined) {
+      let rRr = "";
+      for (var x = 0; x < seven_days[keysTotsKeys[i]].length; x++) {
+        let letter = seven_days[keysTotsKeys[i]][x].replace("#", "\"");
+        letter = letter.replace("%", "'");
+        rRr += letter;
+        if (x < (seven_days[keysTotsKeys[i]].length - 1)) {
+          rRr += ", ";
+        }
+        else {
+          rRr += ".";
+        }
+      }
+      paRa += "\n7 Days crushing: " + rRr;
+    }
+    if (twght_days[keysTotsKeys[i]] !== undefined) {
+      let rRr = "";
+      for (var x = 0; x < twght_days[keysTotsKeys[i]].length; x++) {
+        let letter = twght_days[keysTotsKeys[i]][x].replace("#", "\"");
+        letter = letter.replace("%", "'");
+        rRr += letter;
+        if (x < (twght_days[keysTotsKeys[i]].length - 1)) {
+          rRr += ", ";
+        }
+        else {
+          rRr += ".";
+        }
+      }
+      paRa += "\n28 Days crushing: " + rRr;
+    }
+    let txt = "#" + (i + 1);
+    let ptxt = creatanelemn("p", "nDsvp", "", "", "", "", "", "", "", "", "", txt);
+    if (i == 0) {
+      ptxt.style = "font-size:25px;color: rgb(0, 200, 0);"
+    }
+    else {
+      ptxt.style = "font-size:25px;"
+    }
+    let numbDiv = creatanelemn("div", "nDsv", "", "", "", "", "", "", ptxt, "", "", "");
+    dayHSR.appendChild(numbDiv);
+    ///spliter
+    let brdr = creatanelemn("div", "brdr", "", "", "", "", "", "", "", "", "", "");
+    dayHSR.appendChild(brdr);
+    ///
+    let ptxtSR = creatanelemn("p", "nDsvSRp", "", "", "", "", "", "", "", "", "", paRa);
+    if (i == 0) {
+      ptxtSR.style = "margin: 0 0 0 10px;text-align:left;color: rgb(0, 200, 0);"
+    }
+    else {
+      ptxtSR.style = "margin: 0 0 0 10px;text-align:left;";
+    }
+    let numbDivSR = creatanelemn("div", "nDsvSR", "", "", "", "", "", "", ptxtSR, "", "", "");
+    dayHSR.appendChild(numbDivSR);
+    holDer.appendChild(dayHSR);
+  }
+  document.getElementById('supportsaving').appendChild(holDer);
+  let d = new Date();
+  let tday = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+  let content = "Today is you have:";
+  if (keysTotsKeys[0] == tday) {
+    if (seven_days[keysTotsKeys[0]] !== undefined) {
+      let rRr = "";
+      for (var x = 0; x < seven_days[keysTotsKeys[0]].length; x++) {
+        let letter = seven_days[keysTotsKeys[0]][x].replace("#", "\"");
+        letter = letter.replace("%", "'");
+        rRr += letter;
+        if (x < (seven_days[keysTotsKeys[0]].length - 1)) {
+          rRr += ", ";
+        }
+        else {
+          rRr += ".";
+        }
+      }
+      content += "\n7 Days crushing: " + rRr;
+    }
+    if (twght_days[keysTotsKeys[0]] !== undefined) {
+      let rRr = "";
+      for (var x = 0; x < twght_days[keysTotsKeys[0]].length; x++) {
+        let letter = twght_days[keysTotsKeys[0]][x].replace("#", "\"");
+        letter = letter.replace("%", "'");
+        rRr += letter;
+        if (x < (twght_days[keysTotsKeys[0]].length - 1)) {
+          rRr += ", ";
+        }
+        else {
+          rRr += ".";
+        }
+      }
+      content += "\n28 Days crushing: " + rRr;
+    }
+    ayanotifiys("REMINDER", content, "shoenotiynow");
+  }
 }
 function cal_tabs(mod) {
   if (mod == "R") {
@@ -1032,6 +1147,123 @@ function open_cal(mod) {
   else {
     document.getElementById('calender').style.display = "block";
   }
+}
+var windowWidth = window.innerWidth;
+async function ayanotifiys(title, content, callback) {
+  const elem = document.getElementsByClassName('notificatins').length;
+  const elems = document.getElementsByClassName('notificatinsf').length;
+  const count = elem + elems;var monteris;
+  const idiv = "notify" + count;closeid = "notifyclosy" + count;
+  if (windowWidth > 600) {
+    //show it from right
+    const clobtn = await creatanelemn("input", "notifyclosy", closeid, "", "", "", "button", "X", "", "closenotifi(this.id)", "", "");
+    const titlep = await creatanelemn("p", "notifytitle", "", "", "", "", "", "", "", "", "", title);
+    const contentx = await creatanelemn("p", "notifycontnt", "", "", "", "", "", "", "", "", "", content);
+    const notificatins = await creatanelemn("div", "notificatins", idiv, "", "", "", "", "", titlep, "", "", "");
+    notificatins.appendChild(contentx);notificatins.appendChild(clobtn);
+    document.getElementById('karive').appendChild(notificatins);
+    monteris = 0-270;
+    shoenotiynow(monteris, idiv, "hidentermnite");
+  }
+  else {
+    //show it form top
+    const clobtn = await creatanelemn("input", "notifyclosy", closeid, "", "", "", "button", "X", "", "closenotifi(this.id)", "", "");
+    const titlep = await creatanelemn("p", "notifytitle", "", "", "", "", "", "", "", "", "", title);
+    const contentx = await creatanelemn("p", "notifycontnt", "", "", "", "", "", "", "", "", "", content);
+    const notificatins = await creatanelemn("div", "notificatinsf", idiv, "", "", "", "", "", titlep, "", "", "");
+    notificatins.appendChild(contentx);notificatins.appendChild(clobtn);
+    document.getElementById('karive').appendChild(notificatins);
+    monteris = 0-270;
+    return shoenotiynow(monteris, idiv, "hidentermnite");
+  }
+  return true;
+}
+function shoenotiynow(monteris, idiv, callback) {
+  if (windowWidth > 600) {
+    var inerd = setInterval(function () {
+      if (monteris < 20) {
+        document.getElementById(idiv).style.right = monteris + "px";
+        monteris += 2.7;
+      }
+      else {
+        document.getElementById(idiv).style.right = 20 + "px";
+        clearInterval(inerd);
+      }
+    }, 10);
+    return hidentermnite("deletenotify")
+  }
+  else {
+    var interv = setInterval(function () {
+      if (monteris < 20) {
+        document.getElementById(idiv).style.top = monteris + "px";
+        monteris += 2.7
+      }
+      else {
+        document.getElementById(idiv).style.top = 20 + "px";
+        clearInterval(interv);
+      }
+    }, 10);
+    return hidentermnite("deletenotify")
+  }
+
+}
+var interx;
+function hidentermnite(callback) {
+  var x = 0
+  interx = setInterval(function () {
+    if (x < 100) {
+      x += 1;
+    }
+    else {
+      clearInterval(interx);
+      hidthempro();
+    }
+  }, 100);
+}
+function hidthempro() {
+  var elem = document.getElementsByClassName('notificatins').length;
+  var elems = document.getElementsByClassName('notificatinsf').length;
+  var length = elem + elems;
+  if (windowWidth > 600) {
+    monteris = 20;
+    var interd = setInterval(function () {
+      if (monteris > 0-270) {
+        document.getElementById("notify"+0).style.right = monteris + "px";
+        monteris -= 2.7
+      }
+      else {
+        document.getElementById("notify"+0).style.right = 0-270 + "px";
+        clearInterval(interd);deletenotify(length)
+      }
+    }, 10);
+  }
+  else {
+    monteris = 20;
+    var interd = setInterval(function () {
+      if (monteris > 0-270) {
+        document.getElementById("notify"+0).style.top = monteris + "px";
+        monteris -= 2.7
+      }
+      else {
+        document.getElementById("notify"+0).style.top = 0-270 + "px";
+        clearInterval(interd);deletenotify(length)
+      }
+    }, 10);
+  }
+}
+function deletenotify(length) {
+  var g = 0;
+  var intersk = setInterval(function () {
+    if (g < 10) {
+      g += 1
+    }
+    else {
+      for (var i = 0; i < length; i++) {
+        document.getElementById("notify"+i).remove();
+        clearInterval(intersk);break;
+      }
+    }
+  }, 100);
 }
 opening();
 document.getElementsByTagName('body')[0].addEventListener("keydown", function(event) {

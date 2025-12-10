@@ -34,38 +34,7 @@ function loaduphandler() {
       let now_update = new Date().getTime();
       let hr = Math.floor((now_update - last_update_ms) / (60 * 60 * 1000));
       if (hr < 1) {
-        for (var i = 0; i < obj_items.length; i++) {
-          let y = (obj_items.length) - 1;
-          if (i == y) {
-            break;
-          }
-          let obj_seg = obj_items[i].split(":");
-          let key = obj_seg[0];let aary = obj_seg[1].split(",");dec[key] = aary;
-          document.getElementById(key).removeAttribute("class");
-          document.getElementById(key).removeAttribute("onclick");
-          if (key == "K#11A" || key == "K#11B") {
-            document.getElementById(key).setAttribute("class", "addeleypro");
-          }
-          else {
-            document.getElementById(key).setAttribute("class", "eleypro");
-          }
-          document.getElementById(key).setAttribute("onclick", "viewer(this.id)");
-          let arr = dec[key];
-          if (arr[1] == "SONIC") {
-            document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
-          }
-          else if (arr[1] == "CORE SAMPLE") {
-            document.getElementById(key).setAttribute("style", "background:coral;");
-          }
-          else if (arr[1] == "RISK") {
-            document.getElementById(key).setAttribute("style", "background:rgb(255,20,20);");
-          }
-          else if (arr[1] == "ATRISK") {
-            document.getElementById(key).setAttribute("style", "background:rgb(255,100,65);");
-          }
-        }
-        let keys = Object.keys(obj_items);
-        creatAnaly(keys);
+        loaderfromOffData();
       }
       else {
         startupset();
@@ -89,6 +58,40 @@ function loaduphandler() {
   }
 }
 //creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
+function loaderfromOffData() {
+  for (var i = 0; i < obj_items.length; i++) {
+    let y = (obj_items.length) - 1;
+    if (i == y) {
+      break;
+    }
+    let obj_seg = obj_items[i].split(":");
+    let key = obj_seg[0];let aary = obj_seg[1].split(",");dec[key] = aary;
+    document.getElementById(key).removeAttribute("class");
+    document.getElementById(key).removeAttribute("onclick");
+    if (key == "K#11A" || key == "K#11B") {
+      document.getElementById(key).setAttribute("class", "addeleypro");
+    }
+    else {
+      document.getElementById(key).setAttribute("class", "eleypro");
+    }
+    document.getElementById(key).setAttribute("onclick", "viewer(this.id)");
+    let arr = dec[key];
+    if (arr[1] == "SONIC") {
+      document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
+    }
+    else if (arr[1] == "CORE SAMPLE") {
+      document.getElementById(key).setAttribute("style", "background:coral;");
+    }
+    else if (arr[1] == "RISK") {
+      document.getElementById(key).setAttribute("style", "background:rgb(255,20,20);");
+    }
+    else if (arr[1] == "ATRISK") {
+      document.getElementById(key).setAttribute("style", "background:rgb(255,100,65);");
+    }
+  }
+  let keys = Object.keys(obj_items);
+  creatAnaly(keys);
+}
 function startupset() {
   const WEB_APP_URLS = "https://script.google.com/macros/s/AKfycbyKX3MQPGZS_6UrFaUk9WS7eiy2kwwBuLEGOW94AkxXHvc0nFO7CLFYG_4hONtMIbvjFw/exec";
   const formData = new FormData();let jsonDataOBJ;
@@ -159,7 +162,8 @@ function startupset() {
     console.error('Error:', error);
     try {
       clearInterval(waiterInt);
-      document.getElementById('waitP').innerText = "Error Loading Check your internet conection!";
+      document.getElementById('waitP').innerText = "Error Loading Check your internet conection!\nLoading Offline Data.";
+      loaderfromOffData();
       setTimeout(function () {
         document.getElementById('waitdiv').remove();
       }, 3000);
@@ -1224,7 +1228,11 @@ function shoenotiynow(monteris, idiv, callback) {
     }, 10);
     return hidentermnite("deletenotify")
   }
-
+  mksound("finished.mp3");
+}
+function mksound(arg) {
+  const audio = new Audio(arg);
+  audio.play();
 }
 var interx;
 function hidentermnite(callback) {

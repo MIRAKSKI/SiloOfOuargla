@@ -59,7 +59,7 @@ td, th {border: 0.1rem solid #dddddd;text-align: center;word-wrap: break-word;pa
 .nDsvSR {display: grid;width: 74%;justify-content: flex-start;place-items:center;text-align: left;}
 .nDsvSRp {text-align: left;}
 .notificatins{position: fixed;padding: 20px;border-radius: 20px;border: 1px solid rgba(155,155,155,0.6);background: rgba(155,155,155,0.4);backdrop-filter:blur(15px);z-index: 20;display: grid;padding-top: 15px;top: 20px;right: -270px;min-width: 150px;max-width: 250px;}
-.notificatinsf{position: absolute;padding: 20px;border-radius: 20px;border: 1px solid rgba(155,155,155,0.6);background: rgba(155,155,155,0.4);backdrop-filter:blur(15px);z-index: 20;display: grid;padding-top: 15px;top: -270px;right: 50%;min-width: 150px;transform: translateX(50%);}
+.notificatinsf{position: fixed;padding: 20px;border-radius: 20px;border: 1px solid rgba(155,155,155,0.6);background: rgba(155,155,155,0.4);backdrop-filter:blur(15px);z-index: 20;display: grid;padding-top: 15px;top: -270px;right: 50%;min-width: 150px;transform: translateX(50%);}
 .notifyclosy{background: transparent;font-weight: bolder;font-size: 20px;color: black;transition: 0.2s;position: absolute;top: 10px;left: 10px;cursor: pointer;border: none;}
 .notifyclosy:hover{color: red;}
 .notifytitle{color: rgb(100,100,100);font-weight: bold;font-size: 18px;text-align: center;margin:  20px 0 5px 0;}

@@ -59,6 +59,10 @@ function loaduphandler() {
 }
 //creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
 function loaderfromOffData() {
+  let obj_items = encr_dec.split("@");let securite = false;
+  if (obj_items.length > 1) {
+    securite = true;
+  }
   for (var i = 0; i < obj_items.length; i++) {
     let y = (obj_items.length) - 1;
     if (i == y) {

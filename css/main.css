@@ -5,7 +5,7 @@ section {width:100%;display: flex;}
 .s-two {color:#000;width: 100%;background-color: #f3f3f3;}
 @media all and (max-width: 1023px) {.dot {  display: none;}}
 .footer {display: flex;justify-content: space-around;}
-.content-a {text-align: center;width: 80%;}
+.content-a {text-align: center;width: 100%;}
 a {color: #C55A11;}
 a:hover {text-decoration: underline;color: #C55A11;}
 #email {color: #C55A11;}
@@ -43,7 +43,24 @@ tr:nth-child(even) {background-color: #dddddd;}
 td, th {border: 0.1rem solid #dddddd;text-align: center;word-wrap: break-word;padding: 0;padding: 0.2rem;height: 2rem;min-width: 7rem;text-align: center;}
 .Cal_Cls {font-weight: bold;background: transparent;border: none;transition: 0.2s;}
 .Cal_Cls:hover {color: red;}
-.cal_vi {position: fixed;top:0;left: 0;width: 100%;height: 100%;overflow: auto;display: none;
+.cal_vi {position: fixed;top:0;left: 0;width: 100%;height: 100%;overflow: auto;
   background: rgba(125,125,125,0.2);backdrop-filter:blur(12px);z-index: 80;
 }
-.calviv {max-width: 100%;display: grid;overflow: scroll;}
+.calviv {max-width: 100%;display: grid;}
+.seveghit {display: grid;height: 258px;overflow-y: scroll;}
+.daysH {display: grid;}
+.dayHSR {display: flex; border: 1px solid rgb(20,200,150); border-radius: 15px; margin: 3px 0;min-width: 400px;min-height: 80px;}
+.dayHSRST {display: flex; border: 1px solid rgb(20, 250,20); border-radius: 15px; margin: 3px 0;min-width: 400px;min-height: 80px;
+  background-color: rgba(20, 250,20, 0.2);
+}
+.nDsv {display: grid;width: 25%;place-items:center;}
+.nDsvp {font-weight: bold;}
+.brdr {border: 1px solid red;}
+.nDsvSR {display: grid;width: 74%;justify-content: flex-start;place-items:center;text-align: left;}
+.nDsvSRp {text-align: left;}
+.notificatins{position: fixed;padding: 20px;border-radius: 20px;border: 1px solid rgba(155,155,155,0.6);background: rgba(155,155,155,0.4);backdrop-filter:blur(15px);z-index: 20;display: grid;padding-top: 15px;top: 20px;right: -270px;min-width: 150px;max-width: 250px;}
+.notificatinsf{position: absolute;padding: 20px;border-radius: 20px;border: 1px solid rgba(155,155,155,0.6);background: rgba(155,155,155,0.4);backdrop-filter:blur(15px);z-index: 20;display: grid;padding-top: 15px;top: -270px;right: 50%;min-width: 150px;transform: translateX(50%);}
+.notifyclosy{background: transparent;font-weight: bolder;font-size: 20px;color: black;transition: 0.2s;position: absolute;top: 10px;left: 10px;cursor: pointer;border: none;}
+.notifyclosy:hover{color: red;}
+.notifytitle{color: rgb(100,100,100);font-weight: bold;font-size: 18px;text-align: center;margin:  20px 0 5px 0;}
+.notifycontnt{color: rgba(100,100,100,0.95);margin:  5px 0 5px 0;}

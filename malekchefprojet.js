@@ -112,6 +112,10 @@ function opendialog(id) {
   bg.setAttribute("id", "seteditdiag");
   bg.appendChild(holder);
   document.getElementsByTagName('body')[0].appendChild(bg);
+  let d = new Date();let month = ["Jan", "Feb", "Mar", "Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  document.getElementById('DD').value = d.getDate();
+  document.getElementById('MM').value = month[d.getMonth()];
+  document.getElementById('YYYY').value = d.getFullYear();
 }
 function setitemx(id) {
   if (cryppassKey != passKey) {
@@ -263,6 +267,10 @@ function editdialog(id) {
   bg.setAttribute("id", "seteditdiag");
   bg.appendChild(holder);
   document.getElementsByTagName('body')[0].appendChild(bg);
+  let d = new Date();let month = ["Jan", "Feb", "Mar", "Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  document.getElementById('DD').value = d.getDate();
+  document.getElementById('MM').value = month[d.getMonth()];
+  document.getElementById('YYYY').value = d.getFullYear();
 }
 function dEleteIT(id) {
   let log = id+":"+"REMOVE:REMOVE";

@@ -223,6 +223,9 @@ function opening() {
   let bat = ["", "%", "#"];
   let axe = document.createElement('div');
   axe.setAttribute('class', "battey");
+  let expPiles = ["A1", "A2", "A6", "A10", "A11", "B1", "B11", "D4", "D8", "E6", "F1", "F5", "F7", "F11", "G6", "H4", "H8", "J1", "J11", "K1", "K2", "K6", "K10", "K11",
+                "A%1", "A%2", "A%6", "A%10", "A%11", "B%1", "B%11", "D%4", "D%8", "E%6", "F%1", "F%5", "F%7", "F%11", "G%6", "H%4", "H%8", "J%1", "J%11", "K%1", "K%2", "K%6", "K%10", "K%11",
+                "A#1", "A#2", "A#6", "A#10", "A#11", "B#1", "B#11", "D#4", "D#8", "E#6", "F#1", "F#5", "F#7", "F#11", "G#6", "H#4", "H#8", "J#1", "J#11", "K#1", "K#2", "K#6", "K#10", "K#11"];
   for (var y = 0; y < 12; y++) {
     let divx = document.createElement('div');
     divx.setAttribute('class', "axey");
@@ -265,6 +268,9 @@ function opening() {
         let id = fille[z]+bat[i]+(y+1);
         divz.setAttribute('id', id);
         divz.setAttribute("onclick", "viewer(this.id)");
+        if (checkIfIn(id, expPiles)) {
+          divz.style = "background: rgb(60,60,60);"
+        }
         divx.appendChild(divz);
       }
       div.appendChild(divx);
@@ -319,6 +325,14 @@ function opening() {
     bdG.appendChild(diLS);
   } catch (e) {} finally {}
   loaduphandler();
+}
+function checkIfIn(nm, arr) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] == nm) {
+      return true;
+    }
+  }
+  return false;
 }
 function addRePiles() {
   document.getElementById('battey2').style.position = "relative";
@@ -426,7 +440,7 @@ function loging() {
   bg.setAttribute("id", "seteditdiag");
   bg.appendChild(holder);
   document.getElementsByTagName('body')[0].appendChild(bg);
-  document.getElementById('PASSWORD').click();
+  document.getElementById('PASSWORD').select();
 }
 function loged() {
   let psk = document.getElementById('PASSWORD').value;

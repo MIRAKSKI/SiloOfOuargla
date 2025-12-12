@@ -793,7 +793,6 @@ function calnder() {
   cal_dates.splice(0, 155);
   //start ;)
   let tbls_nbr = Math.ceil(cal_dates.length / 35), ind = 0;
-  console.log(tbls_nbr);
   let week = 1,getOutCal = false;
   for (var d = 0; d < tbls_nbr; d++) {
     if (getOutCal) {
@@ -1021,7 +1020,9 @@ function seveneight() {
   }
   let keysTotsKeys = Object.keys(totsKeys);
   keysTotsKeys.sort(dateComparator);
-  document.getElementsByClassName('daysH')[0].remove();
+  try {
+    document.getElementsByClassName('daysH')[0].remove();
+  } catch (e) {} finally {}
   let holDer = creatanelemn("div", "daysH", "", "", "", "", "", "", "", "", "", "");
   for (var i = 0; i < keysTotsKeys.length; i++) {
     let classy = "dayHSR"

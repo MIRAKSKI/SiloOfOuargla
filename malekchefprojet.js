@@ -17,7 +17,6 @@ function sendData() {
   .then(result => {
     if (result.status === 'success') {
       //`${JSON.stringify(result.content, null, 2)}`;
-      console.log(result.content);
       submited = true;
       try {
         window.localStorage.setItem("submited", submited);
@@ -391,3 +390,4 @@ function setEDITED(id) {
   } catch (e) {} finally {}
   closediag();creatAnaly();
 }
+

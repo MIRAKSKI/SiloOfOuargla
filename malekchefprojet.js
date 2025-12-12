@@ -289,14 +289,19 @@ function dEleteIT(id) {
   let log = id+":"+"REMOVE:REMOVE";
   let arr = dataElement.split("@");
   dataElement = "";
-  for (var i = 0; i < arr.length; i++) {
-    let itms = arr[i].split(":");
-    if (id != itms[0]) {
-      dataElement += arr[i] + "@";
+  if (arr != "") {
+    for (var i = 0; i < arr.length; i++) {
+      let itms = arr[i].split(":");
+      if (id != itms[0]) {
+        dataElement += arr[i] + "@";
+      }
+      else {
+        dataElement += log + "@";
+      }
     }
-    else {
-      dataElement += log + "@";
-    }
+  }
+  else {
+    dataElement += log + "@";
   }
   ////////////////
   try {

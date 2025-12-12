@@ -17,6 +17,7 @@ function sendData() {
   .then(result => {
     if (result.status === 'success') {
       //`${JSON.stringify(result.content, null, 2)}`;
+      console.log(result.content);
       submited = true;
       try {
         window.localStorage.setItem("submited", submited);
@@ -186,7 +187,7 @@ function setitemx(id) {
     let last_update_ms = new Date().getTime();
     window.localStorage.setItem("lastUpdate", last_update_ms);
   } catch (e) {} finally {}
-  closediag();
+  closediag();creatAnaly();
 }
 function editdialog(id) {
   closediag();
@@ -327,7 +328,7 @@ function dEleteIT(id) {
     let last_update_ms = new Date().getTime();
     window.localStorage.setItem("lastUpdate", last_update_ms);
   } catch (e) {} finally {}
-  closediag();
+  closediag();creatAnaly();
 }
 function setEDITED(id) {
   if (cryppassKey != passKey) {
@@ -383,6 +384,5 @@ function setEDITED(id) {
     let last_update_ms = new Date().getTime();
     window.localStorage.setItem("lastUpdate", last_update_ms);
   } catch (e) {} finally {}
-  closediag();
+  closediag();creatAnaly();
 }
-

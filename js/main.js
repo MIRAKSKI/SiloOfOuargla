@@ -335,6 +335,15 @@ function opening() {
   } catch (e) {} finally {}
   loaduphandler();
 }
+function scrooll(sec) {
+    if (sec != "top") {
+      $.scrollify.move(`#${sec}`);
+    }
+    else {
+      document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+    }
+  }
 function checkIfIn(nm, arr) {
   for (var i = 0; i < arr.length; i++) {
     if (arr[i] == nm) {
@@ -1307,7 +1316,6 @@ function deletenotify(length) {
 }
 function closenotifi(btnid) {
   clearInterval(interx);
-  console.log(btnid);
   parid = document.getElementById(btnid).parentElement.getAttribute("id");
   $("#"+parid).fadeToggle();
   var t = 0;

@@ -3,6 +3,7 @@ let WEB_APP_URL = "https://script.google.com/macros/s/passkey/exec";
 function sendData() {
   WEB_APP_URL = WEB_APP_URL.replace("passkey", decoderX(h));
   const formData = new FormData();
+  console.log(dataElement);
   const payload = {
     newData: dataElement,
     timestamp: new Date().toLocaleString('ar-EG')
@@ -143,6 +144,7 @@ function setitemx(id) {
     exp = null;
   }
   let log = id+":"+fulldate+":"+exp;
+  console.log(log);
   dataElement += log + "@";
   creatAnaly();
   try {
@@ -390,4 +392,3 @@ function setEDITED(id) {
   } catch (e) {} finally {}
   closediag();creatAnaly();
 }
-

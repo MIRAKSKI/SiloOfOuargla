@@ -1277,8 +1277,20 @@ function hidthempro() {
     monteris = 20;
     var interd = setInterval(function () {
       if (monteris > 0-270) {
-        document.getElementById("notify"+0).style.right = monteris + "px";
-        monteris -= 2.7
+        try {
+          document.getElementById("notify"+0).style.right = monteris + "px";
+          monteris -= 2.7;
+        } catch (e) {
+          try {
+            clearInterval(intersk);
+          } catch (e) {} finally {}
+          try {
+            clearInterval(interm);
+          } catch (e) {} finally {}
+          try {
+            clearInterval(interd);
+          } catch (e) {} finally {}
+        } finally {}
       }
       else {
         document.getElementById("notify"+0).style.right = 0-270 + "px";
@@ -1290,12 +1302,24 @@ function hidthempro() {
     monteris = 20;
     var interd = setInterval(function () {
       if (monteris > 0-270) {
-        document.getElementById("notify"+0).style.top = monteris + "px";
-        monteris -= 2.7
+        try {
+          document.getElementById("notify"+0).style.top = monteris + "px";
+          monteris -= 2.7;
+        } catch (e) {
+          try {
+            clearInterval(intersk);
+          } catch (e) {} finally {}
+          try {
+            clearInterval(interm);
+          } catch (e) {} finally {}
+          try {
+            clearInterval(interd);
+          } catch (e) {} finally {}
+        } finally {}
       }
       else {
         document.getElementById("notify"+0).style.top = 0-270 + "px";
-        clearInterval(interd);deletenotify(length)
+        clearInterval(interd);deletenotify(length);
       }
     }, 10);
   }
@@ -1308,7 +1332,9 @@ function deletenotify(length) {
     }
     else {
       for (var i = 0; i < length; i++) {
-        document.getElementById("notify"+i).remove();
+        try {
+          document.getElementById("notify"+i).remove();
+        } catch (e) {} finally {}
         clearInterval(intersk);break;
       }
     }

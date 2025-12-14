@@ -785,7 +785,12 @@ function calnder() {
   try {
     let tabels = document.getElementsByClassName('cal_table');
     for (var i = 0; i < tabels.length; i++) {
-      tabels[i].remove();
+      try {
+        tabels[i].remove();
+      } catch (e) {} finally {}
+      try {
+        document.getElementById("cal_tab_" + i).remove();
+      } catch (e) {} finally {}
     }
   } catch (e) {} finally {}
   //all days = cal_dates

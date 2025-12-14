@@ -805,12 +805,12 @@ function calnder() {
       } catch (e) {} finally {}
     }
   } catch (e) {} finally {}
-  return
   //all days = cal_dates
   // start from 155 = 22/10/2025;
   cal_dates.splice(0, 155);
   //start ;)
   let tbls_nbr = Math.ceil(cal_dates.length / 35), ind = 0;
+  console.log(tbls_nbr);
   let week = 1,getOutCal = false;
   for (var d = 0; d < tbls_nbr; d++) {
     if (getOutCal) {

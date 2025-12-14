@@ -1275,7 +1275,7 @@ function hidthempro() {
   var length = elem + elems;
   if (windowWidth > 600) {
     monteris = 20;
-    var interd = setInterval(function () {
+    interd = setInterval(function () {
       if (monteris > 0-270) {
         try {
           document.getElementById("notify"+0).style.right = monteris + "px";
@@ -1300,7 +1300,7 @@ function hidthempro() {
   }
   else {
     monteris = 20;
-    var interd = setInterval(function () {
+    interd = setInterval(function () {
       if (monteris > 0-270) {
         try {
           document.getElementById("notify"+0).style.top = monteris + "px";
@@ -1326,7 +1326,7 @@ function hidthempro() {
 }
 function deletenotify(length) {
   var g = 0;
-  var intersk = setInterval(function () {
+  intersk = setInterval(function () {
     if (g < 10) {
       g += 1
     }
@@ -1335,7 +1335,10 @@ function deletenotify(length) {
         try {
           document.getElementById("notify"+i).remove();
         } catch (e) {} finally {}
-        clearInterval(intersk);break;
+        clearInterval(intersk);
+        clearInterval(interm);
+        clearInterval(interd);
+        break;
       }
     }
   }, 100);
@@ -1345,7 +1348,7 @@ function closenotifi(btnid) {
   parid = document.getElementById(btnid).parentElement.getAttribute("id");
   $("#"+parid).fadeToggle();
   var t = 0;
-  var interm = setInterval(function () {
+  interm = setInterval(function () {
     if (t < 5) {
       t += 1;
     }

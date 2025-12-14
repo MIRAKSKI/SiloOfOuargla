@@ -1302,10 +1302,13 @@ function hidthempro() {
             clearInterval(intersk);
           } catch (e) {} finally {}
           try {
-            clearInterval(interm);
+            clearInterval(interm);//
           } catch (e) {} finally {}
           try {
-            clearInterval(interd);
+            clearInterval(interd);//
+          } catch (e) {} finally {}
+          try {
+            clearInterval(interx);//
           } catch (e) {} finally {}
         } finally {}
       }
@@ -1327,10 +1330,13 @@ function hidthempro() {
             clearInterval(intersk);
           } catch (e) {} finally {}
           try {
-            clearInterval(interm);
+            clearInterval(interm);//
           } catch (e) {} finally {}
           try {
-            clearInterval(interd);
+            clearInterval(interd);//
+          } catch (e) {} finally {}
+          try {
+            clearInterval(interx);//
           } catch (e) {} finally {}
         } finally {}
       }
@@ -1356,10 +1362,13 @@ function deletenotify(length) {
           clearInterval(intersk);
         } catch (e) {} finally {}
         try {
-          clearInterval(interm);
+          clearInterval(interm);//
         } catch (e) {} finally {}
         try {
-          clearInterval(interd);
+          clearInterval(interd);//
+        } catch (e) {} finally {}
+        try {
+          clearInterval(interx);//
         } catch (e) {} finally {}
         break;
       }

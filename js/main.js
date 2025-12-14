@@ -793,7 +793,7 @@ function calnder() {
   }
   try {
     let tabels = document.getElementsByClassName('cal_table');
-    for (var i = 0; i < tabels.length; i++) {
+    for (var i = 0; i < (tabels.length + 1); i++) {
       try {
         tabels[i].remove();
       } catch (e) {} finally {}
@@ -810,7 +810,6 @@ function calnder() {
   cal_dates.splice(0, 155);
   //start ;)
   let tbls_nbr = Math.ceil(cal_dates.length / 35), ind = 0;
-  console.log(tbls_nbr);
   let week = 1,getOutCal = false;
   for (var d = 0; d < tbls_nbr; d++) {
     if (getOutCal) {

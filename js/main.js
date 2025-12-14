@@ -800,8 +800,12 @@ function calnder() {
       try {
         document.getElementById("cal_tab_" + i).remove();
       } catch (e) {} finally {}
+      try {
+        document.getElementById("cal_tab_" + i).remove();
+      } catch (e) {} finally {}
     }
   } catch (e) {} finally {}
+  return
   //all days = cal_dates
   // start from 155 = 22/10/2025;
   cal_dates.splice(0, 155);
@@ -939,11 +943,11 @@ function seveneight() {
       if (date28Days[2] > today[2]) {
         start28Dating = true;
       }
-      else {
+      else if (date28Days[2] == today[2]) {
         if (date28Days[1] > today[1]) {
           start28Dating = true;
         }
-        else {
+        else if (date28Days[1] == today[1]) {
           if (date28Days[0] >= today[0]) {
             start28Dating = true;
           }
@@ -978,11 +982,11 @@ function seveneight() {
       if (date7Days[2] > today[2]) {
         start7Dating = true;
       }
-      else {
+      else if (date7Days[2] == today[2]) {
         if (date7Days[1] > today[1]) {
           start7Dating = true;
         }
-        else {
+        else if (date7Days[1] == today[1]) {
           if (date7Days[0] >= today[0]) {
             start7Dating = true;
           }

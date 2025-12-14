@@ -979,7 +979,7 @@ function seveneight() {
         start7Dating = true;
       }
       else {
-        if (date7Days[1] > today[1] && ) {
+        if (date7Days[1] > today[1]) {
           start7Dating = true;
         }
         else {

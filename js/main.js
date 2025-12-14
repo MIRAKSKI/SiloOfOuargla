@@ -904,7 +904,7 @@ function seveneight() {
   //dates[dd/mm/yyyy] = [obj1, obj2, obj3, ....];
   let keys = Object.keys(dates);
   keys.sort(dateComparator);
-  let seven_days = new Object(), twght_days = new Object();let dt7dys = false, dt28dys = false;
+  let seven_days = new Object(), twght_days = new Object();
   let mnts_len = [31,28,31,30,31,30,31,31,30,31,30,31];let start7Dating = false,start28Dating = false;
   for (var i = 0; i < keys.length; i++) {
     let parts = keys[i].split("/");
@@ -936,11 +936,18 @@ function seveneight() {
       ////////////////////////////////////////
       const d = new Date();
       let today = [d.getDate(), (d.getMonth() + 1), d.getFullYear()];
-      if (date28Days[0] >= today[0] && date28Days[1] >= today[1] && date28Days[2] >= today[2]) {
-        dt28dys = true;
-      }
-      if (dt28dys) {
+      if (date28Days[2] > today[2]) {
         start28Dating = true;
+      }
+      else {
+        if (date28Days[1] > today[1]) {
+          start28Dating = true;
+        }
+        else {
+          if (date28Days[0] >= today[0]) {
+            start28Dating = true;
+          }
+        }
       }
     }
     if (!start7Dating) {
@@ -968,11 +975,18 @@ function seveneight() {
       ////////////////////////////////////////
       const d = new Date();
       let today = [d.getDate(), (d.getMonth() + 1), d.getFullYear()];
-      if (date7Days[0] >= today[0] && date7Days[1] >= today[1] && date7Days[2] >= today[2]) {
-        dt7dys = true;
-      }
-      if (dt7dys) {
+      if (date7Days[2] > today[2]) {
         start7Dating = true;
+      }
+      else {
+        if (date7Days[1] > today[1] && ) {
+          start7Dating = true;
+        }
+        else {
+          if (date7Days[0] >= today[0]) {
+            start7Dating = true;
+          }
+        }
       }
     }
     if (start7Dating) {
@@ -1335,9 +1349,15 @@ function deletenotify(length) {
         try {
           document.getElementById("notify"+i).remove();
         } catch (e) {} finally {}
-        clearInterval(intersk);
-        clearInterval(interm);
-        clearInterval(interd);
+        try {
+          clearInterval(intersk);
+        } catch (e) {} finally {}
+        try {
+          clearInterval(interm);
+        } catch (e) {} finally {}
+        try {
+          clearInterval(interd);
+        } catch (e) {} finally {}
         break;
       }
     }
@@ -1354,7 +1374,15 @@ function closenotifi(btnid) {
     }
     else {
       document.getElementById(parid).remove();
-      clearInterval(interm);
+      try {
+        clearInterval(intersk);
+      } catch (e) {} finally {}
+      try {
+        clearInterval(interm);
+      } catch (e) {} finally {}
+      try {
+        clearInterval(interd);
+      } catch (e) {} finally {}
     }
   }, 100);
 }

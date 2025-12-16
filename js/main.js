@@ -1045,10 +1045,12 @@ function seveneight() {
   try {
     document.getElementsByClassName('daysH')[0].remove();
   } catch (e) {} finally {}
+  let d = new Date();
+  let tday = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
   let holDer = creatanelemn("div", "daysH", "", "", "", "", "", "", "", "", "", "");
   for (var i = 0; i < keysTotsKeys.length; i++) {
     let classy = "dayHSR"
-    if (i == 0) {
+    if (keysTotsKeys[i] == tday) {
       classy = "dayHSRST";
     }
     let dayHSR = creatanelemn("div", classy, "", "", "", "", "", "", "", "", "", "");
@@ -1085,7 +1087,7 @@ function seveneight() {
     }
     let txt = "#" + (i + 1);
     let ptxt = creatanelemn("p", "nDsvp", "", "", "", "", "", "", "", "", "", txt);
-    if (i == 0) {
+    if (keysTotsKeys[i] == tday) {
       ptxt.style = "font-size:25px;color: rgb(0, 200, 0);"
     }
     else {
@@ -1098,7 +1100,7 @@ function seveneight() {
     dayHSR.appendChild(brdr);
     ///
     let ptxtSR = creatanelemn("p", "nDsvSRp", "", "", "", "", "", "", "", "", "", paRa);
-    if (i == 0) {
+    if (keysTotsKeys[i] == tday) {
       ptxtSR.style = "margin: 0 0 0 10px;text-align:left;color: rgb(0, 200, 0);"
     }
     else {
@@ -1109,8 +1111,6 @@ function seveneight() {
     holDer.appendChild(dayHSR);
   }
   document.getElementById('supportsaving').appendChild(holDer);
-  let d = new Date();
-  let tday = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
   let content = "Today you have:";
   if (keysTotsKeys[0] == tday) {
     if (seven_days[keysTotsKeys[0]] !== undefined) {
@@ -1258,7 +1258,7 @@ function shoenotiynow(monteris, idiv, callback) {
     }, 10);
     return hidentermnite("deletenotify")
   }
-  mksound("https://mirakski.github.io/SiloOfOuargla/js/finished.mp3");
+  mksound("lib/finished.mp3");
 }
 function mksound(arg) {
   const audio = new Audio(arg);
@@ -1394,4 +1394,8 @@ document.getElementsByTagName('body')[0].addEventListener("keydown", function(ev
   if (event.key === "F" || event.key === "f") {
     refreshFun();
   }
+});
+document.addEventListener('contextmenu', function(event) {
+    event.preventDefault(); // Prevents the default browser context menu from appearing
+    return false; // Ensures the event doesn't propagate further (for older browsers)
 });

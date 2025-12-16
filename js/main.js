@@ -1390,6 +1390,17 @@ function closenotifi(btnid) {
   }, 100);
 }
 opening();
+function onWindowResize() {
+  let wWidth = window.innerWidth;
+  let wHeight = window.innerHeight;
+  if (wWidth > wHeight) {
+    document.getElementById('swipeview').style.display = "none";
+  }
+  else {
+    document.getElementById('swipeview').style.display = "block";
+  }
+}
+window.addEventListener('resize', onWindowResize);
 document.getElementsByTagName('body')[0].addEventListener("keydown", function(event) {
   if (event.key === "F" || event.key === "f") {
     refreshFun();

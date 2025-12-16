@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
-		<link rel="icon" href="akn.png">
+		<link rel="icon" href="lib/akn.png">
   </head>
   <body id="karive">
     <button onclick="scrooll('top')" id="myBtn" title="Go to top">Top</button>
@@ -148,9 +148,21 @@
         for (var i = 0; i < breaks.length; i++) {
           breaks[i].style.display = "none";
         }
+        try {
+          document.getElementById("battey0").style.display = "grid";
+          document.getElementById("battey1").style.display = "grid";
+          document.getElementById("battey2").style.display = "grid";
+          moposition = 0;
+        } catch (e) {} finally {}
         document.getElementById('swipeview').style.display = "none";
       }
       else {
+        try {
+          document.getElementById("battey0").style.display = "grid";
+          document.getElementById("battey1").style.display = "none";
+          document.getElementById("battey2").style.display = "none";
+          moposition = 0;
+        } catch (e) {} finally {}
         for (var i = 0; i < breaks.length; i++) {
           breaks[i].style.display = "block";
         }

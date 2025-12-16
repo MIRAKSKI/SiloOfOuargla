@@ -727,6 +727,7 @@ function dateComparator(a, b) {
 }
 function calnder() {
   //return;
+  document.getElementById("calndr").innerHTML = "";
   let keys = Object.keys(dec);
   dates = new Object();
   for (var i = 0; i < keys.length; i++) {
@@ -791,19 +792,9 @@ function calnder() {
       }
     }
   }
+  tapotition = 0;
   try {
-    let tabels = document.getElementsByClassName('cal_table');
-    for (var i = 0; i < (tabels.length + 1); i++) {
-      try {
-        tabels[i].remove();
-      } catch (e) {} finally {}
-      try {
-        document.getElementById("cal_tab_" + i).remove();
-      } catch (e) {} finally {}
-      try {
-        document.getElementById("cal_tab_" + i).remove();
-      } catch (e) {} finally {}
-    }
+    document.getElementById("calndr").innerHTML = "";
   } catch (e) {} finally {}
   //all days = cal_dates
   // start from 155 = 22/10/2025;

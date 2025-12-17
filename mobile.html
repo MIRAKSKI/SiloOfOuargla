@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/masterials.css">
+		<link rel="stylesheet" href="css/phone.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link rel="icon" href="lib/akn.png">
+  </head>
+  <body id="karive">
+    <button onclick="scrooll('top')" id="myBtn" title="Go to top">Top</button>
+    <!--sections-->
+    <section class="scroll s-one" data-section-name="s-one">
+      <div class="container">
+				<div class="content-a">
+        </br class="breaks"></br class="breaksR">
+      </br class="breaksR"></br class="breaksR">
+          <div class="body">
+            <div class="view" id="host">
+
+            </div>
+          </div>
+				</div>
+				<div class="footert"></div>
+			</div>
+		</section>
+
+		<section class="scroll s-two" data-section-name="s-two">
+			<div class="container">
+        </br>
+        <div class="hold" id="hold">
+          <div class="details" id="deT"></div>
+          <div class="round_an" id="Rdisplay">
+            <div class="horViewer">
+              <div class="itemViewer">
+                <div class="progress-container">
+                    <div class="progress-circle" id="progressCircle">
+                        <p class="percentage-text" id="percentageText">0%</p>
+                    </div>
+                </div>
+              </div>
+              <div class="itemViewer">
+
+              </div>
+            </div>
+            <div class="horViewer">
+
+            </div>
+          </div>
+        </div>
+        </br>
+			</div>
+		</section>
+
+    <section class="scroll s-one" data-section-name="s-three">
+      <div class="container">
+				<div class="content-a">
+					</br>
+          <div class="body">
+            <div class="calviv" id="calndr">
+
+            </div>
+            <div class="view" id="swpanels" style="justify-content:center;">
+
+            </div>
+          </div>
+          </br>
+				</div>
+				<div class="footert"></div>
+			</div>
+		</section>
+
+    <section class="scroll s-one" data-section-name="s-four">
+      <div class="container">
+				<div class="content-a">
+					</br>
+          <div class="body">
+            <div class="seveghit" id="supportsaving">
+
+            </div>
+          </div>
+          </br></br>
+				</div>
+				<div class="footert"></div>
+			</div>
+		</section>
+
+  </body>
+  <script src="js/3.3.1.jquery.min.js"></script>
+  <script type="text/javascript">
+    //
+    function creatanelemn(kng, clss, id, name, style, title, type, value, elem, onclick, disabled, innertext) {
+      //creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
+      const kingbck = document.createElement(kng)
+      if (clss != "") {
+        kingbck.setAttribute('class', clss);
+      }
+      if (id != "") {
+        kingbck.setAttribute('id', id);
+      }
+      if (name != "") {
+        kingbck.setAttribute('name', name);
+      }
+      if (style != "") {
+        kingbck.setAttribute('style', style);
+      }
+      if (title != "") {
+        kingbck.setAttribute('title', title);
+      }
+      if (type != "") {
+        kingbck.setAttribute('type', type);
+      }
+      if (value != "") {
+        kingbck.setAttribute('value', value);
+      }
+      if (onclick != "") {
+        kingbck.setAttribute('onclick', onclick);
+      }
+      if (disabled != "") {
+        kingbck.setAttribute('disabled', disabled);
+      }
+      if (innertext != "") {
+        kingbck.innerText = innertext;
+      }
+      if (elem != "") {
+        kingbck.appendChild(elem);
+      }
+      return kingbck
+    }
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-VPKRL9KLVJ');
+    function onWindowResize() {
+      let wWidth = window.innerWidth;
+      let wHeight = window.innerHeight;
+      let breaks = document.getElementsByClassName('breaksR');
+      if (wWidth > wHeight) {
+        for (var i = 0; i < breaks.length; i++) {
+          breaks[i].style.display = "none";
+        }
+        try {
+          document.getElementById("battey0").style.display = "grid";
+          document.getElementById("battey1").style.display = "grid";
+          document.getElementById("battey2").style.display = "grid";
+          moposition = 0;
+        } catch (e) {} finally {}
+        document.getElementById('swipeview').style.display = "none";
+      }
+      else {
+        try {
+          document.getElementById("battey0").style.display = "grid";
+          document.getElementById("battey1").style.display = "none";
+          document.getElementById("battey2").style.display = "none";
+          moposition = 0;
+        } catch (e) {} finally {}
+        for (var i = 0; i < breaks.length; i++) {
+          breaks[i].style.display = "block";
+        }
+        document.getElementById('swipeview').style.display = "block";
+      }
+    }
+    window.addEventListener('resize', onWindowResize);
+  </script>
+  <script type="text/javascript">
+      let mybutton = document.getElementById("myBtn");
+      window.onscroll = function() {scrollFunction()};
+      function scrollFunction() {
+        currentScrollPos = window.pageYOffset;
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          mybutton.style.display = "block";
+        } else {
+          mybutton.style.display = "none";
+        }
+        prevScrollpos = currentScrollPos;
+      }
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+      let window_w = window.innerWidth;
+      let p = `.s-one, .s-two {width:${window_w}px;} .hold {width:${(window_w*0.9)}px;} p {margin: 0.01rem}`;
+      p += ` .container {width:${(window_w*0.98)}px;} .ltdX {padding: 0 0 0 0.1rem;} .Tab_hder {padding: 0.1rem;} p {margin: 0.1rem;}`;
+      let sty = creatanelemn("style", "", "style1", "", "", "", "", "", "", "", "", p);
+      //document.getElementsByTagName('body')[0].appendChild(sty);
+  </script>
+  <script src="js/main.js" charset="utf-8"></script>
+</html>

@@ -1,10 +1,12 @@
 let dec = new Object();let cryppassKey,passKey;let supportsaving = false;let saved = false;
 let dataElement = "";let submited = false, logedin = false;let moposition = 0, tapotition = 0;
+let crushing_notify = false, app_news = false, app_interval = 5000;
 if (typeof(Storage) !== "undefined") {
   supportsaving = true;
   saved = window.localStorage.getItem("saved");
   submited = window.localStorage.getItem("submited");
   dataElement = window.localStorage.getItem("dataElement");
+  notecedApp = window.localStorage.getItem("app_news");
   if (saved == "false") {
     saved = false;
   }
@@ -19,6 +21,9 @@ if (typeof(Storage) !== "undefined") {
   }
   if (dataElement == null) {
     dataElement = "";
+  }
+  if (notecedApp != null && notecedApp != undefined) {
+    app_news = true;
   }
 }
 function loaduphandler() {
@@ -1143,7 +1148,15 @@ function seveneight() {
       }
       content += "\n28 Days crushing: " + rRr;
     }
-    ayanotifiys("REMINDER", content, "shoenotiynow");
+    let new_check = new Date();
+    let trug = new_check.getDate() + "/" + new_check.getMonth() + "/" + new_check.getFullYear();
+    let last_check = window.localStorage.getItem("lastsh");
+    if (!crushing_notify && trug != last_check) {
+      let trustdate = new Date();
+      trustdate = trustdate.getDate() + "/" + trustdate.getMonth() + "/" + trustdate.getFullYear();
+      window.localStorage.setItem("lastsh", trustdate);
+      ayanotifiys("REMINDER", content, "shoenotiynow");
+    }
   }
 }
 function cal_tabs(mod) {
@@ -1410,3 +1423,17 @@ document.addEventListener('contextmenu', function(event) {
     event.preventDefault(); // Prevents the default browser context menu from appearing
     return false; // Ensures the event doesn't propagate further (for older browsers)
 });
+if (!app_news && typeOfBro == "Web") {
+  let app_tkDWN = setInterval(function () {
+    if (app_interval > 0) {
+      app_interval = app_interval - 100;
+    }
+    else {
+      app_news = true;
+      window.localStorage.setItem("app_news", true);
+      clearInterval(app_tkDWN);
+      let content = "Our new android app is available download it down below.";
+      ayanotifiys("NEWS!", content, "shoenotiynow");
+    }
+  }, 100);
+}

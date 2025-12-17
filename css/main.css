@@ -29,7 +29,7 @@ span {margin: 0;padding: 0;border: 0;max-width: 250px;font-size: 9px;font: inher
 .progress-circle::before {content: '';position: absolute;width: 130px;height: 130px;background: white;border-radius: 50%;}
 .percentage-text {position: relative;font-size: 1em;font-weight: bold;color: #333;z-index: 10;}
 b {color: #00dd77;}
-#waitdiv {position: absolute;top: 10px;left: 10px;z-index: 99;}
+#waitdiv {position: fixed;top: 10px;left: 10px;z-index: 99;}
 #waitP {font-size: 2rem; font-weight: bold;}
 .swipeBTN {border-radius: 50%;width: 75px;height: 75px;border: 1px solid rgb(20,200,150);transition: 0.2s;margin: 0 5px;
   font-size: 1rem;font-weight: bold;

@@ -9,8 +9,8 @@
 		<link rel="stylesheet" href="css/phone.css">
     <link rel="stylesheet" href="css/styles.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
+		<meta name="description" content="Silo of Ouargla - 03/2025" />
+		<meta name="keywords" content="Silo of Ouargla" />
 		<link rel="icon" href="lib/akn.png">
   </head>
   <body id="karive">
@@ -90,6 +90,20 @@
 			</div>
 		</section>
 
+    <section class="scroll s-one" data-section-name="s-four">
+      <div class="container">
+				<div class="content-a">
+					</br>
+          <div class="body">
+            <p>Download the ANDROID app from the link below:</p>
+            <a href="#">DOWNLOAD</a>
+          </div>
+          </br></br>
+				</div>
+				<div class="footert"></div>
+			</div>
+		</section>
+
   </body>
   <script src="js/3.3.1.jquery.min.js"></script>
   <script type="text/javascript">
@@ -139,6 +153,36 @@
     gtag('js', new Date());
 
     gtag('config', 'G-VPKRL9KLVJ');
+    function onWindowResize() {
+      let wWidth = window.innerWidth;
+      let wHeight = window.innerHeight;
+      let breaks = document.getElementsByClassName('breaksR');
+      if (wWidth > wHeight) {
+        for (var i = 0; i < breaks.length; i++) {
+          breaks[i].style.display = "none";
+        }
+        try {
+          document.getElementById("battey0").style.display = "grid";
+          document.getElementById("battey1").style.display = "grid";
+          document.getElementById("battey2").style.display = "grid";
+          moposition = 0;
+        } catch (e) {} finally {}
+        document.getElementById('swipeview').style.display = "none";
+      }
+      else {
+        try {
+          document.getElementById("battey0").style.display = "grid";
+          document.getElementById("battey1").style.display = "none";
+          document.getElementById("battey2").style.display = "none";
+          moposition = 0;
+        } catch (e) {} finally {}
+        for (var i = 0; i < breaks.length; i++) {
+          breaks[i].style.display = "block";
+        }
+        document.getElementById('swipeview').style.display = "block";
+      }
+    }
+    window.addEventListener('resize', onWindowResize);
   </script>
   <script type="text/javascript">
       let mybutton = document.getElementById("myBtn");

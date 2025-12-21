@@ -1,3 +1,4 @@
+/*  version:2.09  */
 let dec = new Object();let cryppassKey,passKey;let supportsaving = false;let saved = false;
 let dataElement = "";let submited = false, logedin = false;let moposition = 0, tapotition = 0;
 let crushing_notify = false, app_news = false, app_interval = 5000;
@@ -337,6 +338,16 @@ function opening() {
     diLS.setAttribute("class", "view");diLS.setAttribute("id", "logview");
     diLS.appendChild(divppL);
     bdG.appendChild(diLS);
+  } catch (e) {} finally {}
+  try {
+    let wWidth = window.innerWidth;
+    let wHeight = window.innerHeight;
+    let breaks = document.getElementsByClassName('breaksR');
+    if (wWidth > wHeight) {
+      for (var i = 0; i < breaks.length; i++) {
+        breaks[i].style.display = "none";
+      }
+    }
   } catch (e) {} finally {}
   loaduphandler();
 }

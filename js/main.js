@@ -743,7 +743,7 @@ function dateComparator(a, b) {
 }
 function calnder() {
   //return;
-  document.getElementById("calndr").innerHTML = "";
+  ///document.getElementById("calndr").innerHTML = "";
   let keys = Object.keys(dec);
   dates = new Object();
   for (var i = 0; i < keys.length; i++) {

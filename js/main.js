@@ -493,6 +493,7 @@ function loged() {
     link = link.replace("passkey", decoderX(xcode));
     try {
       window.localStorage.setItem("xcode", decoderX(xcode));
+      window.localStorage.setItem("password", psk);
     } catch (e) {} finally {}
     let js = document.createElement('script');
     js.setAttribute("charset", "utf-8");js.setAttribute("src", link);

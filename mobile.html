@@ -194,4 +194,17 @@
       //document.getElementsByTagName('body')[0].appendChild(sty);
   </script>
   <script src="js/main.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    function mobileAutoLogIn() {
+      if (typeof(Storage) !== "undefined") {
+        let pask = window.localStorage.getItem("password");
+        if (pask != null && pask != undefined) {
+          loging();
+          document.getElementById('PASSWORD').value = pask;
+          loged();
+        }
+      }
+    }
+    mobileAutoLogIn();
+  </script>
 </html>

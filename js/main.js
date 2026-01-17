@@ -516,7 +516,7 @@ function submithandlerT() {
 function viewer(id) {
   let holder = document.createElement('div');
   holder.setAttribute("class", "hdiag");
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 5; i++) {
     let hl = document.createElement('div');
     hl.setAttribute("class", "hhldiag");
     if (i == 0) {
@@ -565,6 +565,18 @@ function viewer(id) {
       btn.setAttribute("class", "seteditbtn");btn.setAttribute("value", "EDIT!");
       hl.appendChild(btns);hl.appendChild(btn);
     }
+    else if (i == 4) {
+      let divppLS = document.createElement('div');
+      divppLS.setAttribute('class', "axeZ");
+      let btnL = document.createElement('input');
+      btnL.setAttribute("onclick", "pilesNavi('L','" + id +"')");btnL.setAttribute("type", "button");
+      btnL.setAttribute("class", "swipeBTN");btnL.setAttribute("value", "<");
+      let btnR = document.createElement('input');
+      btnR.setAttribute("onclick", "pilesNavi('R','" + id +"')");btnR.setAttribute("type", "button");
+      btnR.setAttribute("class", "swipeBTN");btnR.setAttribute("value", ">");
+      divppLS.appendChild(btnL);divppLS.appendChild(btnR);
+      hl.appendChild(divppLS);
+    }
     holder.appendChild(hl);
   }
   let bg = document.createElement('div');
@@ -572,6 +584,109 @@ function viewer(id) {
   bg.setAttribute("id", "seteditdiag");
   bg.appendChild(holder);
   document.getElementsByTagName('body')[0].appendChild(bg);
+}
+function pilesNavi(mod, id) {
+  closediag();
+  let idSegs = id.split("");
+  let letters = "ABCDEFGHIJK", ind = 0;
+  letters.split("");let bats = ["", "%", "#"];
+  for (var i = 0; i < letters.length; i++) {
+    if (letters[i] == idSegs[0]) {
+      ind = i;
+      break;
+    }
+  }
+  let numb = "";let batInd;
+  if (isThereHmm("%", idSegs)) {
+    if (idSegs.length == 3) {
+      numb = idSegs[2];
+    }
+    else if (idSegs.length == 4) {
+      numb = idSegs[2] + "" + idSegs[3];
+    }
+    batInd = 1;
+  }
+  else if (isThereHmm("#", idSegs)) {
+    if (idSegs.length == 3) {
+      numb = idSegs[2];
+    }
+    else if (idSegs.length == 4) {
+      numb = idSegs[2] + "" + idSegs[3];
+    }
+    batInd = 2;
+  }
+  else {
+    if (idSegs.length == 2) {
+      numb = idSegs[1];
+    }
+    else if (idSegs.length == 3) {
+      numb = idSegs[1] + "" + idSegs[2];
+    }
+    batInd = 0;
+  }
+  if (mod == "R") {
+    numb = eval(numb) + 1;
+  }
+  else {
+    numb = eval(numb) - 1;
+  }
+  if (numb > 11) {
+    ind++;
+    if (ind > 10) {
+      batInd++;
+      if (batInd > 2) {
+        id = letters[0] + bats[0] + "1";
+      }
+      else {
+        id = letters[0] + bats[batInd] + "1";
+      }
+    }
+    else {
+      if (batInd != 0) {
+        id = letters[ind] + idSegs[1] + "1";
+      }
+      else {
+        id = letters[ind] + "1";
+      }
+    }
+  }
+  else if (numb < 1) {
+    ind--;
+    if (ind < 0) {
+      batInd--;
+      if (batInd < 0) {
+        id = letters[10] + bats[2] + "11";
+      }
+      else {
+        id = letters[10] + bats[batInd] + "11";
+      }
+    }
+    else {
+      if (batInd != 0) {
+        id = letters[ind] + idSegs[1] + "11";
+      }
+      else {
+        id = letters[ind] + "11";
+      }
+    }
+  }
+  else {
+    if (batInd != 0) {
+      id = idSegs[0] + idSegs[1] + "" + numb;
+    }
+    else {
+      id = idSegs[0] + "" + numb;
+    }
+  }
+  viewer(id);
+}
+function isThereHmm(elem, arr) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] == elem) {
+      return true;
+    }
+  }
+  return false;
 }
 function closediag() {
   try {

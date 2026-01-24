@@ -1,4 +1,4 @@
-/*  version:2.11  */
+/*  version:2.12  */
 let dec = new Object();let cryppassKey,passKey;let supportsaving = false;let saved = false;
 let dataElement = "";let submited = false, logedin = false;let moposition = 0, tapotition = 0;
 let crushing_notify = false, app_news = false, app_interval = 5000;
@@ -79,7 +79,7 @@ function loaderfromOffData() {
     let key = obj_seg[0];let aary = obj_seg[1].split(",");dec[key] = aary;
     document.getElementById(key).removeAttribute("class");
     document.getElementById(key).removeAttribute("onclick");
-    if (key == "K#11A" || key == "K#11B") {
+    if (key == "K#11A" || key == "K#11B" || key == "H8A" || key == "F#7A") {
       document.getElementById(key).setAttribute("class", "addeleypro");
     }
     else {
@@ -88,7 +88,12 @@ function loaderfromOffData() {
     document.getElementById(key).setAttribute("onclick", "viewer(this.id)");
     let arr = dec[key];
     if (arr[1] == "SONIC") {
-      document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
+      if (key == "H8A" || key == "F#7A") {
+        document.getElementById(key).style.background = "rgb(20,120,255)";
+      }
+      else {
+        document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
+      }
     }
     else if (arr[1] == "CORE SAMPLE") {
       document.getElementById(key).setAttribute("style", "background:coral;");
@@ -101,6 +106,7 @@ function loaderfromOffData() {
     }
   }
   let keys = Object.keys(obj_items);
+  startnewoilessty();
   creatAnaly(keys);
 }
 function startupset() {
@@ -124,7 +130,7 @@ function startupset() {
         if (arr[0] != "REMOVE") {
           document.getElementById(key).removeAttribute("class");
           document.getElementById(key).removeAttribute("onclick");
-          if (key == "K#11A" || key == "K#11B") {
+          if (key == "K#11A" || key == "K#11B" || key == "H8A" || key == "F#7A") {
             document.getElementById(key).setAttribute("class", "addeleypro");
           }
           else {
@@ -142,7 +148,12 @@ function startupset() {
           }
           long_keys += "@";
           if (arr[1] == "SONIC") {
-            document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
+            if (key == "H8A" || key == "F#7A") {
+              document.getElementById(key).style.background = "rgb(20,120,255);";
+            }
+            else {
+              document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
+            }
           }
           else if (arr[1] == "CORE SAMPLE") {
             document.getElementById(key).setAttribute("style", "background:coral;");
@@ -168,6 +179,7 @@ function startupset() {
     } else {
       //`${result.message}`;
     }
+    startnewoilessty();
   })
   .catch(error => {
     console.error('Error:', error);

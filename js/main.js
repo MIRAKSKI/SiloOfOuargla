@@ -369,9 +369,22 @@ function checkIfIn(nm, arr) {
   return false;
 }
 function addRePiles() {
+  document.getElementById('battey0').style.position = "relative";
   document.getElementById('battey2').style.position = "relative";
-  let additive = ["K#11A", "K#11B"];
-  let pst = ["position:absolute;right:0.8%;bottom:6%;", "position:absolute;right:5%;bottom:1%;"]
+  let additive0 = ["H8A"];
+  let pst0 = ["position:absolute;right:28%;bottom:22%;"]
+  for (var z = 0; z < additive0.length; z++) {
+    let divz = document.createElement('div');
+    divz.setAttribute('class', "addeley");
+    divz.style = pst0[z];
+    let id = additive0[z];
+    divz.setAttribute('id', id);
+    divz.setAttribute("onclick", "viewer(this.id)");
+    document.getElementById('battey0').appendChild(divz);
+  }
+  let additive = ["K#11A", "K#11B", "F#7A"];
+  let pst = ["position:absolute;right:0.8%;bottom:6%;", "position:absolute;right:5%;bottom:1%;"
+            , "position:absolute;right:46.5%;bottom:31%;"];
   for (var z = 0; z < additive.length; z++) {
     let divz = document.createElement('div');
     divz.setAttribute('class', "addeley");
@@ -829,7 +842,7 @@ function creatAnaly() {
   sentance += "Battery one : <b>" + batteries["bat0"] + " - " + ((batteries["bat0"]/121) * 100).toFixed(2) + "% </b><br>";
   sentance += "Battery two : <b>" + batteries["bat1"] + " - " + ((batteries["bat1"]/121) * 100).toFixed(2) + "% </b><br>";
   sentance += "Battery three : <b>" + batteries["bat2"] + " - " + ((batteries["bat2"]/121) * 100).toFixed(2) + "% </b><br>";
-  sentance += "Averege Realised Par Day: <b>" + pPd + "</b><br>";
+  sentance += "Max Realised Par Day: <b>" + pPd + "</b><br>";
   sentance += "Expected Finish Date: <b>" + re + "</b><br></p>";
   document.getElementById('deT').innerHTML = sentance;
   cercularti(nBrOP);calnder();

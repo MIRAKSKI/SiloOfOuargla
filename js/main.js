@@ -66,48 +66,29 @@ function loaduphandler() {
 //creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
 function loaderfromOffData() {
   let encr_dec = window.localStorage.getItem("dec");//key:i,i,i,i#
-  let obj_items = encr_dec.split("@");let securite = false;
-  if (obj_items.length > 1) {
-    securite = true;
-  }
-  for (var i = 0; i < obj_items.length; i++) {
-    let y = (obj_items.length) - 1;
-    if (i == y) {
-      break;
+  onlineProjects = JSON.parse(encr_dec);
+  selectedProject = onlineProjects["SiloOfOuargla"];
+  let keys = Object.keys(selectedProject["piles"]);
+  for (var i = 0; i < keys.length; i++) {
+    document.getElementById(keys[i]).setAttribute("class", "eleypro");
+    if (selectedProject["piles"][keys[i]]["pT"] == "RISK") {
+      document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
     }
-    let obj_seg = obj_items[i].split(":");
-    let key = obj_seg[0];let aary = obj_seg[1].split(",");dec[key] = aary;
-    document.getElementById(key).removeAttribute("class");
-    document.getElementById(key).removeAttribute("onclick");
-    if (key == "K#11A" || key == "K#11B" || key == "H8A" || key == "F#7A") {
-      document.getElementById(key).setAttribute("class", "addeleypro");
+    else if (selectedProject["piles"][keys[i]]["pT"] == "ATRISK") {
+      document.getElementById(keys[i]).style.background = "rgb(255,100,65)";
     }
-    else {
-      document.getElementById(key).setAttribute("class", "eleypro");
+    else if (selectedProject["piles"][keys[i]]["pT"] == "SONIC") {
+      document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
     }
-    document.getElementById(key).setAttribute("onclick", "viewer(this.id)");
-    let arr = dec[key];
-    if (arr[1] == "SONIC") {
-      if (key == "H8A" || key == "F#7A") {
-        document.getElementById(key).style.background = "rgb(20,120,255)";
-      }
-      else {
-        document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
-      }
+    else if (selectedProject["piles"][keys[i]]["pT"] == "CORE SAMPLE") {
+      document.getElementById(keys[i]).style.background = "coral";
     }
-    else if (arr[1] == "CORE SAMPLE") {
-      document.getElementById(key).setAttribute("style", "background:coral;");
+    if (keys[i] == "K#11A" || keys[i] == "K#11B" || keys[i] == "H8A" || keys[i] == "F#7A") {
+      document.getElementById(keys[i]).setAttribute("class", "addeleypro");
     }
-    else if (arr[1] == "RISK") {
-      document.getElementById(key).setAttribute("style", "background:rgb(255,20,20);");
+    if (keys[i] == "H8A" || keys[i] == "F#7A") {
+      document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
     }
-    else if (arr[1] == "ATRISK") {
-      document.getElementById(key).setAttribute("style", "background:rgb(255,100,65);");
-    }
-  }
-  let keys = Object.keys(obj_items);
-  if (typeOfBro != "Web") {
-    startnewoilessty();
   }
   creatAnaly(keys);
 }
@@ -124,53 +105,34 @@ function startupset() {
   .then(result => {
     if (result.status === 'success') {
       //`${JSON.stringify(result.content, null, 2)`;
-      jsonDataOBJ = result.content;
+      jsonDataOBJ = result.content;let long_keys = "";
       dec  = result.content;
-      let keys = Object.keys(jsonDataOBJ);let long_keys = "";
-      keys.forEach((key) => {
-        let arr = dec[key];
-        if (arr[0] != "REMOVE") {
-          document.getElementById(key).removeAttribute("class");
-          document.getElementById(key).removeAttribute("onclick");
-          if (key == "K#11A" || key == "K#11B" || key == "H8A" || key == "F#7A") {
-            document.getElementById(key).setAttribute("class", "addeleypro");
+      let long_keys = JSON.stringify(dec);
+      selectedProject = jsonDataOBJ["SiloOfOuargla"];
+      let keys = Object.keys(selectedProject["piles"]);
+      for (var i = 0; i < keys.length; i++) {
+        if (selectedProject["piles"][keys[i]]["DSD"] != "DELETE") {
+          document.getElementById(keys[i]).setAttribute("class", "eleypro");
+          if (selectedProject["piles"][keys[i]]["pT"] == "RISK") {
+            document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
           }
-          else {
-            document.getElementById(key).setAttribute("class", "eleypro");
+          else if (selectedProject["piles"][keys[i]]["pT"] == "ATRISK") {
+            document.getElementById(keys[i]).style.background = "rgb(255,100,65)";
           }
-          document.getElementById(key).setAttribute("onclick", "viewer(this.id)");
-          long_keys += key +":";
-          for (var i = 0; i < arr.length; i++) {
-            if (i != (arr.length-1)) {
-              long_keys += arr[i] + ",";
-            }
-            else {
-              long_keys += arr[i];
-            }
+          else if (selectedProject["piles"][keys[i]]["pT"] == "SONIC") {
+            document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
           }
-          long_keys += "@";
-          if (arr[1] == "SONIC") {
-            if (key == "H8A" || key == "F#7A") {
-              document.getElementById(key).style.background = "rgb(20,120,255);";
-            }
-            else {
-              document.getElementById(key).setAttribute("style", "background:rgb(20,120,255);");
-            }
+          else if (selectedProject["piles"][keys[i]]["pT"] == "CORE SAMPLE") {
+            document.getElementById(keys[i]).style.background = "coral";
           }
-          else if (arr[1] == "CORE SAMPLE") {
-            document.getElementById(key).setAttribute("style", "background:coral;");
+          if (keys[i] == "K#11A" || keys[i] == "K#11B" || keys[i] == "H8A" || keys[i] == "F#7A") {
+            document.getElementById(keys[i]).setAttribute("class", "addeleypro");
           }
-          else if (arr[1] == "RISK") {
-            document.getElementById(key).setAttribute("style", "background:rgb(255,20,20);");
+          if (keys[i] == "H8A" || keys[i] == "F#7A") {
+            document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
           }
-          else if (arr[1] == "ATRISK") {
-            document.getElementById(key).setAttribute("style", "background:rgb(255,100,65);");
-          }
-          force_update_ms = new Date().getTime();
-          window.localStorage.setItem("force_update_ms", force_update_ms);
         }
-        //key = key.replace("%", "'");key = key.replace("#", "\"");
-      });
+      }
       window.localStorage.setItem("dec", long_keys);
       window.localStorage.setItem("saved", true);
       window.localStorage.setItem("submited", true);
@@ -543,76 +505,82 @@ function submithandlerT() {
   document.getElementById('logview').style = "display:none;";
 }
 function viewer(id) {
-  let holder = document.createElement('div');
-  holder.setAttribute("class", "hdiag");
-  for (var i = 0; i < 5; i++) {
-    let hl = document.createElement('div');
-    hl.setAttribute("class", "hhldiag");
-    if (i == 0) {
-      let ttl = document.createElement('p');
-      let idf = id.replace("%", "'");idf = idf.replace("#", "\"");
-      ttl.innerText = idf;
-      let cls = document.createElement('input');
-      cls.setAttribute("onclick", "closediag()");cls.setAttribute("type", "button");
-      cls.setAttribute("class", "clsbtn");cls.setAttribute("value", "X");
-      hl.appendChild(ttl);hl.appendChild(cls);
-      let br = document.createElement('br');
-      hl.appendChild(br);
+  let tempPileData = selectedProject["piles"][id];
+  let id = "pileViewPlatform", dataCarier;
+  let basicDet = [tempPileData["X"], tempPileData["Y"], tempPileData["Z"], tempPileData["pT"]];
+  let pileName = idetion.replace("%", "'");pileName = pileName.replace("#", "\"");
+  let ttr = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", pileName);
+  let header = creatanelemn("div", "diaghead", "", "", "", "", "", "", ttr, "", "", "");
+  let clsfun = "closediag('"+id+"')";
+  let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
+  header.appendChild(clsbtn);
+  let condiv = creatanelemn("div", "condiv", "", "", "", "", "", "", header, "", "", "");
+  let nmttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Coordanition");
+  let frow = creatanelemn("div", "diagcol", "", "", "", "", "", "", nmttl, "", "", "");
+  let subrow = creatanelemn("div", "diagrowPro", "", "", "", "", "", "", "", "", "", "");
+  let cords = ["X", "Y", "Z"];
+  for (var i = 0; i < cords.length; i++) {
+    dataCarier = "";
+    if (basicDet[i] == undefined) {
+      dataCarier = basicDet[i];
     }
-    else if (i == 1) {
-      let ttl = document.createElement('p');
-      let date_data;
-      if (dec[id] != undefined) {
-        date_data = dec[id][0]
-      }
-      else {
-        date_data = undefined;
-      }
-      ttl.innerText = "Date: " + date_data;
-      hl.appendChild(ttl);
-    }
-    else if (i == 2) {
-      let ttl = document.createElement('p');
-      let date_data;
-      if (dec[id] != undefined) {
-        date_data = dec[id][1]
-      }
-      else {
-        date_data = undefined;
-      }
-      ttl.innerText = "Expe: " + date_data;
-      hl.appendChild(ttl);
-    }
-    else if (i == 3 && passKey == cryppassKey) {
-      let btns = document.createElement('input');
-      id = id.replace("'", "%");id = id.replace("\"", "#");
-      btns.setAttribute("onclick", "dEleteIT('"+id+"')");btns.setAttribute("type", "button");
-      btns.setAttribute("class", "seteditbtn");btns.setAttribute("value", "DELETE!");
-      //
-      let btn = document.createElement('input');
-      btn.setAttribute("onclick", "editdialog('"+id+"')");btn.setAttribute("type", "button");
-      btn.setAttribute("class", "seteditbtn");btn.setAttribute("value", "EDIT!");
-      hl.appendChild(btns);hl.appendChild(btn);
-    }
-    else if (i == 4) {
-      let divppLS = document.createElement('div');
-      divppLS.setAttribute('class', "axeZ");
-      let btnL = document.createElement('input');
-      btnL.setAttribute("onclick", "pilesNavi('L','" + id +"')");btnL.setAttribute("type", "button");
-      btnL.setAttribute("class", "swipeBTN");btnL.setAttribute("value", "<");
-      let btnR = document.createElement('input');
-      btnR.setAttribute("onclick", "pilesNavi('R','" + id +"')");btnR.setAttribute("type", "button");
-      btnR.setAttribute("class", "swipeBTN");btnR.setAttribute("value", ">");
-      divppLS.appendChild(btnL);divppLS.appendChild(btnR);
-      hl.appendChild(divppLS);
-    }
-    holder.appendChild(hl);
+    let txt = cords[i] + ": " + dataCarier;
+    let corttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", txt);
+    let ssrow = creatanelemn("div", "diagrow", "", "", "", "", "", "", corttl, "", "", "");
+    subrow.appendChild(ssrow);
   }
-  let bg = document.createElement('div');
-  bg.setAttribute("class", "bgdiag");
-  bg.setAttribute("id", "seteditdiag");
-  bg.appendChild(holder);
-  document.getElementsByTagName('body')[0].appendChild(bg);
+  frow.appendChild(subrow);
+  dataCarier = "";
+  if (basicDet[3] != undefined) {
+    dataCarier = basicDet[3];
+  }
+  let pTb = "Pile Type: " + dataCarier;
+  let typettl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", pTb);
+  let sRow = creatanelemn("div", "diagrow", "", "", "", "", "", "", typettl, "", "", "");
+  let sty = "height: 90%;max-height: 90%;";
+  if (passKey == cryppassKey) {
+    sty = "height: 80%;max-height: 80%;";
+  }
+  let hdiv = creatanelemn("div", "hdiv", "newProHDiv", "", sty, "", "", "", frow, "", "", "");
+  hdiv.appendChild(sRow);
+  let drc_det = [[["DSD", "DSH"], ["DED", "DEH"]]
+                , [["RSD", "RSH"], ["RED", "REH"]]
+                , [["CSD", "CSH"], ["CED", "CEH"]]];
+  let titling = ["Drilling", "Reinforcment", "Concreting"];
+  let functiling = [["SD", "SH"], ["ED", "EH"]];
+  let namiling = [["Starting Date","Starting Hour"], ["Ending Date", "Ending Hour"]];
+  for (var i = 0; i < titling.length; i++) {
+    let titlttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", titling[i]);
+    let tRow = creatanelemn("div", "diagcol", "", "", "", "", "", "", titlttl, "", "", "");
+    for (var y = 0; y < namiling.length; y++) {
+      let ssRow = creatanelemn("div", "diagrowPro", "", "", "", "", "", "", "", "", "", "");
+      for (var x = 0; x < namiling[y].length; x++) {
+        dataCarier = "";
+        if (tempPileData[drc_det[i][y][x]] == undefined) {
+          dataCarier = tempPileData[drc_det[i][y][x]];
+        }
+        let tSubTtl = namiling[y][x] + ": " + dataCarier;
+        let subtitl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", tSubTtl);
+        let sssRow = creatanelemn("div", "diagrow", "", "", "", "", "", "", subtitl, "", "", "");
+        ssRow.appendChild(sssRow);
+      }
+      tRow.appendChild(ssRow);
+    }
+    hdiv.appendChild(tRow);
+  }
+  if (passKey == cryppassKey) {
+    let onclik = "dEleteIT('" + idetion + "')";
+    let delBtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "DELETE!", "", onclik, "", "");
+    let subFot = creatanelemn("div", "diagrow", "", "", "", "", "", "", delBtn, "", "", "");
+    onclik = "editdialog('" + idetion + "')";
+    let editBtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "Edit", "", onclik, "", "");
+    subFot.appendChild(editBtn)
+    let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subFot, "", "", "");
+    hdiv.appendChild(footer);
+  }
+  condiv.appendChild(hdiv);
+  let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
+  document.getElementsByTagName('body')[0].appendChild(bgdiv);
 }
 function pilesNavi(mod, id) {
   closediag();

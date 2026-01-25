@@ -106,7 +106,9 @@ function loaderfromOffData() {
     }
   }
   let keys = Object.keys(obj_items);
-  startnewoilessty();
+  if (typeOfBro != "Web") {
+    startnewoilessty();
+  }
   creatAnaly(keys);
 }
 function startupset() {
@@ -179,7 +181,9 @@ function startupset() {
     } else {
       //`${result.message}`;
     }
-    startnewoilessty();
+    if (typeOfBro != "Web") {
+      startnewoilessty();
+    }
   })
   .catch(error => {
     console.error('Error:', error);

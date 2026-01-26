@@ -1,13 +1,14 @@
 /*  version:2.12  */
 let dec = new Object();let cryppassKey,passKey;let supportsaving = false;let saved = false;
 let dataElement = "";let submited = false, logedin = false;let moposition = 0, tapotition = 0;
-let crushing_notify = false, app_news = false, app_interval = 5000;
+let crushing_notify = false, app_news = false, app_interval = 5000;downloaded = true;
 if (typeof(Storage) !== "undefined") {
   supportsaving = true;
   saved = window.localStorage.getItem("saved");
   submited = window.localStorage.getItem("submited");
   dataElement = window.localStorage.getItem("dataElement");
   notecedApp = window.localStorage.getItem("app_news");
+  downloadedft = window.localStorage.getItem("downloaded");
   if (saved == "false") {
     saved = false;
   }
@@ -25,6 +26,9 @@ if (typeof(Storage) !== "undefined") {
   }
   if (notecedApp != null && notecedApp != undefined) {
     app_news = true;
+  }
+  if (downloadedft != null) {
+    downloaded = false;
   }
 }
 function loaduphandler() {
@@ -94,7 +98,7 @@ function loaderfromOffData() {
       document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
     }
   }
-  creatAnaly(keys);
+  creatAnaly();
 }
 function startupset() {
   const WEB_APP_URLS = "https://script.google.com/macros/s/AKfycbyKX3MQPGZS_6UrFaUk9WS7eiy2kwwBuLEGOW94AkxXHvc0nFO7CLFYG_4hONtMIbvjFw/exec";
@@ -143,7 +147,7 @@ function startupset() {
       window.localStorage.setItem("dataElement", "");
       let last_update_ms = new Date().getTime();
       window.localStorage.setItem("lastUpdate", last_update_ms);
-      creatAnaly(keys);
+      creatAnaly();
     } else {
       //`${result.message}`;
     }
@@ -805,7 +809,7 @@ function creatAnaly() {
   let nBrOP = keys.length,batteries = {"bat0":0, "bat1":0, "bat2":0};
   dyRlzdMAP = new Object();
   for (var i = 0; i < keys.length; i++) {
-    let date = selectedProject[keys[i]][0];
+    let date = selectedProject[keys[i]]["DSD"];
     if (dyRlzdMAP[date] === undefined) {
       dyRlzdMAP[date] = 1;
     }
@@ -1562,6 +1566,12 @@ function closenotifi(btnid) {
     }
   }, 100);
 }
+function donwAndApp() {
+  console.log("clicked");
+  return
+  downloaded = false;
+  window.localStorage.setItem("downloaded", downloaded);
+}
 opening();
 function onWindowResize() {
   let wWidth = window.innerWidth;
@@ -1584,6 +1594,20 @@ document.addEventListener('contextmenu', function(event) {
     return false; // Ensures the event doesn't propagate further (for older browsers)
 });
 if (!app_news && typeOfBro == "Web") {
+  let app_tkDWN = setInterval(function () {
+    if (app_interval > 0) {
+      app_interval = app_interval - 100;
+    }
+    else {
+      app_news = true;
+      window.localStorage.setItem("app_news", true);
+      clearInterval(app_tkDWN);
+      let content = "Our new android app is available download it down below.";
+      ayanotifiys("NEWS!", content, "shoenotiynow");
+    }
+  }, 100);
+}
+else if (!downloaded) {
   let app_tkDWN = setInterval(function () {
     if (app_interval > 0) {
       app_interval = app_interval - 100;

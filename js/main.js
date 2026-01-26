@@ -31,24 +31,28 @@ function loaduphandler() {
   //startupset();return;
   let encr_dec = window.localStorage.getItem("dec");//key:i,i,i,i#
   if (supportsaving && encr_dec != null) {
-    let obj_items = encr_dec.split("@");let securite = false;
-    if (obj_items.length > 1) {
-      securite = true;
-    }
-    if (saved && securite) {
-      let last_update_ms = window.localStorage.getItem("lastUpdate");
-      let now_update = new Date().getTime();
-      let hr = Math.floor((now_update - last_update_ms) / (60 * 60 * 1000));
-      if (hr < 1) {
-        loaderfromOffData();
+    try {
+      let obj_items = Object.keys(JSON.parse(encr_dec));let securite = false;
+      if (obj_items.length >= 1) {
+        securite = true;
+      }
+      if (saved && securite) {
+        let last_update_ms = window.localStorage.getItem("lastUpdate");
+        let now_update = new Date().getTime();
+        let hr = Math.floor((now_update - last_update_ms) / (60 * 60 * 1000));
+        if (hr < 1) {
+          loaderfromOffData();
+        }
+        else {
+          startupset();
+        }
       }
       else {
         startupset();
       }
-    }
-    else {
-      startupset();
-    }
+    } catch (e) {
+      startupset()
+    } finally {}
   }
   else {
     startupset();

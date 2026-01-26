@@ -1,5 +1,5 @@
 /*  version:2.12  */
-let dec = new Object();let cryppassKey,passKey;let supportsaving = false;let saved = false;
+let onlineProjects;let cryppassKey,passKey;let supportsaving = false;let saved = false;
 let dataElement = "";let submited = false, logedin = false;let moposition = 0, tapotition = 0;
 let crushing_notify = false, app_news = false, app_interval = 5000;downloaded = true;
 if (typeof(Storage) !== "undefined") {
@@ -70,6 +70,7 @@ function loaduphandler() {
   if (!submited && submited != null) {
     document.getElementById('logview').style = "";
   }
+  funFinishHandler("loaduphandler");
 }
 //creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
 function loaderfromOffData() {
@@ -347,6 +348,7 @@ function opening() {
     }
   } catch (e) {} finally {}
   loaduphandler();
+  funFinishHandler("opening");
 }
 function scrooll(sec) {
     if (sec != "top") {
@@ -381,7 +383,7 @@ function addRePiles() {
   }
   let additive = ["K#11A", "K#11B", "F#7A"];
   let pst = ["position:absolute;right:0.8%;bottom:6%;", "position:absolute;right:5%;bottom:1%;"
-            , "position:absolute;right:46.5%;bottom:31%;"];
+            , "position:absolute;right:46.5%;bottom:38%;"];
   for (var z = 0; z < additive.length; z++) {
     let divz = document.createElement('div');
     divz.setAttribute('class', "addeley");
@@ -499,7 +501,7 @@ function loged() {
       pieux[i].setAttribute("onclick", "opendialog(this.id)");
     }
     let xcode = "fse2dla20jmhc2p";
-    let link = "passkey.js";
+    let link = "https://mirakski.github.io/SiloOfOuargla/passkey.js";
     link = link.replace("passkey", decoderX(xcode));
     try {
       window.localStorage.setItem("xcode", decoderX(xcode));
@@ -620,6 +622,7 @@ function viewer(idetion) {
   condiv.appendChild(hdiv);
   let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
   document.getElementsByTagName('body')[0].appendChild(bgdiv);
+  funFinishHandler("viewer");
 }
 function pilesNavi(mod, id) {
   closediag();
@@ -870,6 +873,7 @@ function creatAnaly() {
   sentance += "Expected Finish Date: <b>" + re + "</b><br></p>";
   document.getElementById('deT').innerHTML = sentance;
   cercularti(nBrOP);calnder();
+  funFinishHandler("creatAnaly");
 }
 function cercularti(nBrOP) {
   const percentageValue = (nBrOP / 363) * 100
@@ -1607,7 +1611,7 @@ if (!app_news && typeOfBro == "Web") {
     }
   }, 100);
 }
-else if (!downloaded) {
+else if (downloaded && typeOfBro == "Web") {
   let app_tkDWN = setInterval(function () {
     if (app_interval > 0) {
       app_interval = app_interval - 100;
@@ -1616,8 +1620,8 @@ else if (!downloaded) {
       app_news = true;
       window.localStorage.setItem("app_news", true);
       clearInterval(app_tkDWN);
-      let content = "Our new android app is available download it down below.";
-      ayanotifiys("NEWS!", content, "shoenotiynow");
+      let content = "New version of android app is available download it from down below.";
+      ayanotifiys("UPDATE!", content, "shoenotiynow");
     }
   }, 100);
 }

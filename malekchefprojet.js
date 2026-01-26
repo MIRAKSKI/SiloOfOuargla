@@ -159,8 +159,7 @@ function editdialog(idetion) {
   let nmttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Coordanition");
   let frow = creatanelemn("div", "diagcol", "", "", "", "", "", "", nmttl, "", "", "");
   let subrow = creatanelemn("div", "diagrowPro", "", "", "", "", "", "", "", "", "", "");
-  //let tempPileData = onlineProjects["SiloOfOuargla"]["piles"][idetion];
-  let tempPileData = testerOfData["SiloOfOuargla"]["piles"][idetion];
+  let tempPileData = onlineProjects["SiloOfOuargla"]["piles"][idetion];
   let cords = ["X", "Y", "Z"];
   for (var i = 0; i < cords.length; i++) {
     let txt = cords[i] + ": ";

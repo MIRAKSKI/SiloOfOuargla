@@ -1,4 +1,4 @@
-/*  version:2.12  */
+/*  version:2.14  */
 let onlineProjects;let cryppassKey,passKey;let supportsaving = false;let saved = false;
 let dataElement = "";let submited = false, logedin = false;let moposition = 0, tapotition = 0;
 let crushing_notify = false, app_news = false, app_interval = 5000;downloaded = true;
@@ -70,7 +70,9 @@ function loaduphandler() {
   if (!submited && submited != null) {
     document.getElementById('logview').style = "";
   }
-  funFinishHandler("loaduphandler");
+  if (typeOfBro != "Web") {
+    funFinishHandler("loaduphandler");
+  }
 }
 //creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
 function loaderfromOffData() {
@@ -348,7 +350,9 @@ function opening() {
     }
   } catch (e) {} finally {}
   loaduphandler();
-  funFinishHandler("opening");
+  if (typeOfBro != "Web") {
+    funFinishHandler("opening");
+  }
 }
 function scrooll(sec) {
     if (sec != "top") {
@@ -622,7 +626,9 @@ function viewer(idetion) {
   condiv.appendChild(hdiv);
   let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
   document.getElementsByTagName('body')[0].appendChild(bgdiv);
-  funFinishHandler("viewer");
+  if (typeOfBro != "Web") {
+    funFinishHandler("viewer");
+  }
 }
 function pilesNavi(mod, id) {
   closediag();
@@ -873,7 +879,9 @@ function creatAnaly() {
   sentance += "Expected Finish Date: <b>" + re + "</b><br></p>";
   document.getElementById('deT').innerHTML = sentance;
   cercularti(nBrOP);calnder();
-  funFinishHandler("creatAnaly");
+  if (typeOfBro != "Web") {
+    funFinishHandler("creatAnaly");
+  }
 }
 function cercularti(nBrOP) {
   const percentageValue = (nBrOP / 363) * 100

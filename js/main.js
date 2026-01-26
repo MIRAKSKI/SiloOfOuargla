@@ -1,4 +1,4 @@
-/*  version:2.14  */
+/*  version:2.15  */
 let onlineProjects;let cryppassKey,passKey;let supportsaving = false;let saved = false;
 let dataElement = "";let submited = false, logedin = false;let moposition = 0, tapotition = 0;
 let crushing_notify = false, app_news = false, app_interval = 5000;downloaded = true;
@@ -119,6 +119,7 @@ function startupset() {
       jsonDataOBJ = result.content;let long_keys = "";
       dec  = result.content;
       long_keys = JSON.stringify(dec);
+      onlineProjects = jsonDataOBJ;
       selectedProject = jsonDataOBJ["SiloOfOuargla"];
       let keys = Object.keys(selectedProject["piles"]);
       for (var i = 0; i < keys.length; i++) {
@@ -165,7 +166,9 @@ function startupset() {
       document.getElementById('waitP').innerText = "Error Loading Check your internet conection!\nLoading Offline Data.";
       loaderfromOffData();
       setTimeout(function () {
-        document.getElementById('waitdiv').remove();
+        try {
+          document.getElementById('waitdiv').remove();
+        } catch (e) {} finally {}
       }, 3000);
     }
     catch (e) {} finally {}

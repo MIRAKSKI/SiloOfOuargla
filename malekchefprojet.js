@@ -225,9 +225,9 @@ function confirmDelete(id) {
   for (var i = 0; i < kYs.length; i++) {
     tempObj[kYs[i]] = "REMOVE";
   }
-  delete onlineProjects["SiloOfOuargla"]["pilesData"][id];
+  delete onlineProjects["SiloOfOuargla"]["piles"][id];
   try {
-    delete tempProject["SiloOfOuargla"]["pilesData"][id];
+    delete tempProject["SiloOfOuargla"]["piles"][id];
   } catch (e) {} finally {}
   closeDialog("deleteDiag");
   closeDialog("pileViewPlatform");

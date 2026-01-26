@@ -31,8 +31,8 @@ function loaduphandler() {
   //startupset();return;
   let encr_dec = window.localStorage.getItem("dec");//key:i,i,i,i#
   if (supportsaving && encr_dec != null) {
-    let obj_items = encr_dec.split("@");let securite = false;
-    if (obj_items.length > 1) {
+    let obj_items = Object.keys(JSON.parse(encr_dec));let securite = false;
+    if (obj_items.length >= 1) {
       securite = true;
     }
     if (saved && securite) {
@@ -107,7 +107,7 @@ function startupset() {
       //`${JSON.stringify(result.content, null, 2)`;
       jsonDataOBJ = result.content;let long_keys = "";
       dec  = result.content;
-      let long_keys = JSON.stringify(dec);
+      long_keys = JSON.stringify(dec);
       selectedProject = jsonDataOBJ["SiloOfOuargla"];
       let keys = Object.keys(selectedProject["piles"]);
       for (var i = 0; i < keys.length; i++) {
@@ -160,6 +160,17 @@ function startupset() {
     catch (e) {} finally {}
   });
   Waiter(0)//0=set; 1=remove;
+}
+function closeDialog(id) {
+  if (id == "claseallbgdiv") {
+    let divs = document.getElementsByClassName('bgdiv');
+    for (var i = 0; i < divs.length; i++) {
+      divs[i].remove();
+    }
+  }
+  else {
+    document.getElementById(id).remove();
+  }
 }
 function refreshFun() {
   let holder = document.createElement('div');
@@ -480,7 +491,7 @@ function loged() {
       pieux[i].setAttribute("onclick", "opendialog(this.id)");
     }
     let xcode = "fse2dla20jmhc2p";
-    let link = "https://mirakski.github.io/SiloOfOuargla/passkey.js";
+    let link = "passkey.js";
     link = link.replace("passkey", decoderX(xcode));
     try {
       window.localStorage.setItem("xcode", decoderX(xcode));
@@ -504,14 +515,24 @@ function submithandlerT() {
   sendData();
   document.getElementById('logview').style = "display:none;";
 }
-function viewer(id) {
-  let tempPileData = selectedProject["piles"][id];
+function viewer(idetion) {
+  let tempPileData = selectedProject["piles"][idetion];
+  if (idetion in selectedProject["piles"]) {
+    //
+  }
+  else {
+    tempPileData = {"X":"", "Y":"", "Z":"", "pT":"", "DSD":"", "DSH":"", "DED":"", "DEH"
+              :"", "RSD":"", "RSH":"", "RED":"", "REH":"", "CSD":"", "CSH":"", "CED":"", "CEH":""};
+  }
+  try {
+    document.getElementById("pileViewPlatform").remove();
+  } catch (e) {} finally {}
   let id = "pileViewPlatform", dataCarier;
   let basicDet = [tempPileData["X"], tempPileData["Y"], tempPileData["Z"], tempPileData["pT"]];
   let pileName = idetion.replace("%", "'");pileName = pileName.replace("#", "\"");
   let ttr = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", pileName);
   let header = creatanelemn("div", "diaghead", "", "", "", "", "", "", ttr, "", "", "");
-  let clsfun = "closediag('"+id+"')";
+  let clsfun = "closeDialog('"+id+"')";
   let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
   header.appendChild(clsbtn);
   let condiv = creatanelemn("div", "condiv", "", "", "", "", "", "", header, "", "", "");
@@ -521,7 +542,7 @@ function viewer(id) {
   let cords = ["X", "Y", "Z"];
   for (var i = 0; i < cords.length; i++) {
     dataCarier = "";
-    if (basicDet[i] == undefined) {
+    if (basicDet[i] != undefined) {
       dataCarier = basicDet[i];
     }
     let txt = cords[i] + ": " + dataCarier;
@@ -556,7 +577,7 @@ function viewer(id) {
       let ssRow = creatanelemn("div", "diagrowPro", "", "", "", "", "", "", "", "", "", "");
       for (var x = 0; x < namiling[y].length; x++) {
         dataCarier = "";
-        if (tempPileData[drc_det[i][y][x]] == undefined) {
+        if (tempPileData[drc_det[i][y][x]] != undefined) {
           dataCarier = tempPileData[drc_det[i][y][x]];
         }
         let tSubTtl = namiling[y][x] + ": " + dataCarier;
@@ -568,6 +589,16 @@ function viewer(id) {
     }
     hdiv.appendChild(tRow);
   }
+  if (true) {
+      let onclik = "pilesNavi('L','" + idetion +"')";
+      let delBtn = creatanelemn("input", "swipeBTN", "", "", "", "", "button", "<", "", onclik, "", "");
+      let subFot = creatanelemn("div", "diagrow", "", "", "", "", "", "", delBtn, "", "", "");
+      onclik = "pilesNavi('R','" + idetion +"')";
+      let editBtn = creatanelemn("input", "swipeBTN", "", "", "", "", "button", ">", "", onclik, "", "");
+      subFot.appendChild(editBtn)
+      let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subFot, "", "", "");
+      hdiv.appendChild(footer);
+    }
   if (passKey == cryppassKey) {
     let onclik = "dEleteIT('" + idetion + "')";
     let delBtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "DELETE!", "", onclik, "", "");

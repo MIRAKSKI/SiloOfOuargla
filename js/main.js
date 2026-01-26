@@ -796,11 +796,12 @@ function checkbat(key) {
   return "_";
 }
 function creatAnaly() {
-  let keys = Object.keys(dec);
+  let selectedProject = onlineProjects["SiloOfOuargla"]["piles"];
+  let keys = Object.keys(selectedProject);
   let nBrOP = keys.length,batteries = {"bat0":0, "bat1":0, "bat2":0};
   dyRlzdMAP = new Object();
   for (var i = 0; i < keys.length; i++) {
-    let date = dec[keys[i]][0];
+    let date = selectedProject[keys[i]][0];
     if (dyRlzdMAP[date] === undefined) {
       dyRlzdMAP[date] = 1;
     }
@@ -821,11 +822,11 @@ function creatAnaly() {
   let days = Object.keys(dyRlzdMAP);
   let datess = new Object();
   for (var f = 0; f < keys.length; f++) {
-    if (datess[dec[keys[f]][0]] === undefined) {
-      datess[dec[keys[f]][0]] = [keys[f]];
+    if (datess[selectedProject[keys[f]]["DSD"]] === undefined) {
+      datess[selectedProject[keys[f]]["DSD"]] = [keys[f]];
     }
     else {
-      datess[dec[keys[f]][0]].push(keys[f]);
+      datess[selectedProject[keys[f]]["DSD"]].push(keys[f]);
     }
   }
   let dates_kys = Object.keys(datess);
@@ -888,10 +889,10 @@ function dateComparator(a, b) {
 function calnder() {
   //return;
   ///document.getElementById("calndr").innerHTML = "";
-  let keys = Object.keys(dec);
+  let keys = Object.keys(onlineProjects["SiloOfOuargla"]["piles"]);
   dates = new Object();
   for (var i = 0; i < keys.length; i++) {
-    let date = dec[keys[i]][0];
+    let date = onlineProjects["SiloOfOuargla"]["piles"][keys[i]]["DSD"];
     if (dates[date] === undefined) {
       dates[date] = [keys[i]];
     }

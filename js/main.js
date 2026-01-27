@@ -1600,11 +1600,11 @@ document.getElementsByTagName('body')[0].addEventListener("keydown", function(ev
   if (event.key === "F" || event.key === "f") {
     refreshFun();
   }
-});/*
+});
 document.addEventListener('contextmenu', function(event) {
     event.preventDefault(); // Prevents the default browser context menu from appearing
     return false; // Ensures the event doesn't propagate further (for older browsers)
-});*/
+});
 if (!app_news && typeOfBro == "Web") {
   let app_tkDWN = setInterval(function () {
     if (app_interval > 0) {

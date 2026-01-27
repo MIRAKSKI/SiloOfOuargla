@@ -113,6 +113,9 @@ function setitemx(idetion) {
         let teo = val.split("-");
         tempObj[kYs[i]] = teo[2] + "/" + teo[1] + "/" + teo[0];
       }
+      else {
+        tempObj[kYs[i]] = val;
+      }
     }
     else {
       tempObj[kYs[i]] = val;

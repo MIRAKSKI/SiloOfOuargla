@@ -3,8 +3,10 @@ let WEB_APP_URL = "https://script.google.com/macros/s/passkey/exec";
 function sendData() {
   WEB_APP_URL = WEB_APP_URL.replace("passkey", decoderX(h));
   const formData = new FormData();
+  let dateaa = window.localStorage.getItem("dataElement");
+  let tempProjectX = JSON.parse(dateaa);
   const payload = {
-    newData: tempProject,
+    newData: tempProjectX,
     timestamp: new Date().toLocaleString('ar-EG')
   };
   formData.append('jsonPayload', JSON.stringify(payload));
@@ -22,7 +24,7 @@ function sendData() {
       } catch (e) {} finally {}
       document.getElementById('logview').style = "display:none;";
       dataElement = "";
-      window.localStorage.setItem("dataElement", "");
+      window.localStorage.setItem("dataElement", null);
     } else {
       //`${result.message}`;
     }
@@ -117,6 +119,11 @@ function setitemx(id) {
     }
   }
   if (!isItEmpty) {
+    let dateaa = window.localStorage.getItem("dataElement");
+    if (dateaa != null) {
+      let tempProjectX = JSON.parse(dateaa);
+      tempProject = tempProjectX;
+    }
     if (tempProject == undefined) {
       tempProject = new Object();
       tempProject[idetion] = tempObj;
@@ -140,11 +147,15 @@ function setitemx(id) {
     theItem.removeAttribute("onclick");
     theItem.setAttribute("class", "eleypro");
     theItem.setAttribute("onclick", "viewerPiles(this.id)");
+    document.getElementById('logview').style = "";
+    window.localStorage.setItem("submited", false);
+    let dataElement = JSON.stringify(tempProject);
+    window.localStorage.setItem("dataElement", dataElement);
   }
   else {
     ayanotifiys("Err - 01", "No Data Entred", "shoenotiynow");
   }
-  closediag();creatAnaly();
+  closeDialog("pileSetPlatform");creatAnaly();
 }
 function editdialog(idetion) {
   closediag();closeDialog("pileViewPlatform");

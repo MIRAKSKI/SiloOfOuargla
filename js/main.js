@@ -67,9 +67,6 @@ function loaduphandler() {
       document.getElementById('swipeview').style.display = "block";
     } catch (e) {} finally {}
   }
-  if (!submited && submited != null) {
-    document.getElementById('logview').style = "";
-  }
 }
 //creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
 function loaderfromOffData() {
@@ -510,9 +507,12 @@ function loged() {
     document.getElementsByTagName('body')[0].appendChild(js);
     document.getElementById('logview').style = "display:none;";
     document.getElementById('loginbtn').removeAttribute("onclick");
-    document.getElementById('loginbtn').setAttribute("onclick", "submithandlerT()");
+    document.getElementById('loginbtn').setAttribute("onclick", "sendData()");
     document.getElementById('loginbtn').value = "Submit Editing";
     closediag();
+    if (!submited && submited != null) {
+      document.getElementById('logview').style = "";
+    }
   }
   else {
     document.getElementById('passINC').innerText = "PASSWORD INCORRECT";

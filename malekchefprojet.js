@@ -109,8 +109,10 @@ function setitemx(idetion) {
   for (var i = 0; i < iDs.length; i++) {
     let val = document.getElementById(iDs[i]).value;
     if (kYs[i] == "DSD" || kYs[i] == "DED" || kYs[i] == "RSD" || kYs[i] == "RED" || kYs[i] == "CSD" || kYs[i] == "CED") {
-      let teo = val.split("-");
-      tempObj[kYs[i]] = teo[2] + "/" + teo[1] + "/" + teo[0];
+      if (val != "") {
+        let teo = val.split("-");
+        tempObj[kYs[i]] = teo[2] + "/" + teo[1] + "/" + teo[0];
+      }
     }
     else {
       tempObj[kYs[i]] = val;
@@ -142,11 +144,24 @@ function setitemx(idetion) {
     }
     let stringedProjects = JSON.stringify(onlineProjects);
     window.localStorage.setItem("ProjectsData", stringedProjects);
+    window.localStorage.setItem("dec", stringedProjects);
     let theItem = document.getElementById(idetion);
     theItem.removeAttribute("class");
     theItem.removeAttribute("onclick");
     theItem.setAttribute("class", "eleypro");
     theItem.setAttribute("onclick", "viewerPiles(this.id)");
+    if (tempObj[kYs[3]] == "RISK") {
+      document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
+    }
+    else if (tempObj[kYs[3]] == "ATRISK") {
+      document.getElementById(keys[i]).style.background = "rgb(255,100,65)";
+    }
+    else if (tempObj[kYs[3]] == "SONIC") {
+      document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+    }
+    else if (tempObj[kYs[3]] == "CORE SAMPLE") {
+      document.getElementById(keys[i]).style.background = "coral";
+    }
     document.getElementById('logview').style = "";
     window.localStorage.setItem("submited", false);
     let dataElement = JSON.stringify(tempProject);

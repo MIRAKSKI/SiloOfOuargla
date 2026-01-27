@@ -229,9 +229,21 @@ function editdialog(idetion) {
         let idsz = titling[i] + functiling[y][x];
         let vAl = tempPileData[drc_det[i][y][x]];
         if (drc_det[i][y][x] == "DSD" || drc_det[i][y][x] == "DED" || drc_det[i][y][x] == "RSD" || drc_det[i][y][x] == "RED" || drc_det[i][y][x] == "CSD" || drc_det[i][y][x] == "CED") {
-          vAl = "";/*
           let teo = tempPileData[drc_det[i][y][x]].split("/");
-          vAl += teo[2] + "-" + teo[1] + "-" + teo[0];*/
+          vAl = "";
+          for (var z = 2; z >= 0 ;z--) {
+            console.log(z);
+            if (eval(teo[z]) < 10) {
+              vAl += "0" + eval(teo[z]);
+            }
+            else {
+              vAl += teo[z];
+            }
+            if (z != 0) {
+              vAl += "-";
+            }
+          }
+          console.log(vAl);
         }
         let inpX = creatanelemn("input", "", idsz, "", "width:120px;font-size:16px;", "", funsOfDH[x], vAl, "", "", "", "");
         sssRow.appendChild(inpX);ssRow.appendChild(sssRow);
@@ -247,21 +259,6 @@ function editdialog(idetion) {
   condiv.appendChild(footer);
   let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
   document.getElementsByTagName('body')[0].appendChild(bgdiv);
-  dateresetHandler(idetion);
-}
-function dateresetHandler(pile) {
-  let titling = ["Drilling","Reinforcement", "Concreting"];
-  let functiling = ["SD", "ED"];
-  let agr = [["DSD", "DED"], ["RSD", "RED"], ["CSD", "CED"]];
-  for (var i = 0; i < titling.length; i++) {
-    for (var u = 0; u < functiling.length; u++) {
-      let id = titling[i] + functiling[u];
-      let valInd = agr[i][u];
-      let teo = onlineProjects["SiloOfOuargla"]["piles"][pile][valInd].split("/");
-      let value = teo[2] + "-" + teo[1] + "-" + teo[0];
-      document.getElementById(id).value = value;
-    }
-  }
 }
 function confirmDelete(id) {
   let kYs = ["X", "Y", "Z", "pT", "DSD", "DSH", "DED", "DEH"

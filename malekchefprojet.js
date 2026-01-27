@@ -170,8 +170,7 @@ function editdialog(idetion) {
   let nmttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Coordanition");
   let frow = creatanelemn("div", "diagcol", "", "", "", "", "", "", nmttl, "", "", "");
   let subrow = creatanelemn("div", "diagrowPro", "", "", "", "", "", "", "", "", "", "");
-  //let tempPileData = onlineProjects["SiloOfOuargla"]["piles"][idetion];
-  let tempPileData = testerOfData["SiloOfOuargla"]["piles"][idetion];
+  let tempPileData = onlineProjects["SiloOfOuargla"]["piles"][idetion];
   let cords = ["X", "Y", "Z"];
   for (var i = 0; i < cords.length; i++) {
     let txt = cords[i] + ": ";
@@ -237,9 +236,9 @@ function confirmDelete(id) {
   for (var i = 0; i < kYs.length; i++) {
     tempObj[kYs[i]] = "REMOVE";
   }
-  delete onlineProjects["SiloOfOuargla"]["pilesData"][id];
+  delete onlineProjects["SiloOfOuargla"]["piles"][id];
   try {
-    delete tempProject["SiloOfOuargla"]["pilesData"][id];
+    delete tempProject["SiloOfOuargla"]["piles"][id];
   } catch (e) {} finally {}
   closeDialog("deleteDiag");
   closeDialog("pileViewPlatform");

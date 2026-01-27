@@ -10,6 +10,7 @@ function sendData() {
     timestamp: new Date().toLocaleString('ar-EG')
   };
   formData.append('jsonPayload', JSON.stringify(payload));
+  document.getElementById('logview').style = "display:none;";
   fetch(WEB_APP_URL, {
     method: 'POST',
     mode: 'cors',
@@ -22,14 +23,14 @@ function sendData() {
       try {
         window.localStorage.setItem("submited", submited);
       } catch (e) {} finally {}
-      document.getElementById('logview').style = "display:none;";
       dataElement = "";
       window.localStorage.setItem("dataElement", null);
     } else {
-      //`${result.message}`;
+      document.getElementById('logview').style = "";
     }
   })
   .catch(error => {
+    document.getElementById('logview').style = "";
     console.error('Error:', error);
   });
 }
@@ -94,7 +95,7 @@ function opendialog(idetion) {
   let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
   document.getElementsByTagName('body')[0].appendChild(bgdiv);
 }
-function setitemx(id) {
+function setitemx(idetion) {
   if (cryppassKey != passKey) {
     return;
   }
@@ -120,17 +121,16 @@ function setitemx(id) {
   }
   if (!isItEmpty) {
     let dateaa = window.localStorage.getItem("dataElement");
-    if (dateaa != null) {
+    if (dateaa != null && dateaa != "") {
       let tempProjectX = JSON.parse(dateaa);
       tempProject = tempProjectX;
     }
-    if (tempProject == undefined) {
+    try {
+      tempProject[idetion] = tempObj;
+    } catch (e) {
       tempProject = new Object();
       tempProject[idetion] = tempObj;
-    }
-    else {
-      tempProject[idetion] = tempObj;
-    }
+    } finally {}
     let stringedNSProjects = JSON.stringify(tempProject);
     window.localStorage.setItem("ProjectsNotSavedData", stringedNSProjects);
     if (onlineProjects["SiloOfOuargla"]["piles"] == undefined) {

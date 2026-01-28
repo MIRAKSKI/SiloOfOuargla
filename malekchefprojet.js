@@ -88,14 +88,14 @@ function opendialog(idetion) {
     hdiv.appendChild(tRow);
   }
   condiv.appendChild(hdiv);
-  let onclk = "setitemx('"+idetion+"')";
+  let onclk = "setitemx('"+idetion+"', 'pileSetPlatform')";
   let subbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "Set Data", "", onclk, "", "");
   let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subbtn, "", "", "");
   condiv.appendChild(footer);
   let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
   document.getElementsByTagName('body')[0].appendChild(bgdiv);
 }
-function setitemx(idetion) {
+function setitemx(idetion, fun) {
   if (cryppassKey != passKey) {
     return;
   }
@@ -178,7 +178,7 @@ function setitemx(idetion) {
   else {
     ayanotifiys("Err - 01", "No Data Entred", "shoenotiynow");
   }
-  closeDialog("pileSetPlatform");creatAnaly();
+  closeDialog(fun);creatAnaly();
 }
 function editdialog(idetion) {
   closediag();closeDialog("pileViewPlatform");
@@ -234,21 +234,24 @@ function editdialog(idetion) {
         let idsz = titling[i] + functiling[y][x];
         let vAl = tempPileData[drc_det[i][y][x]];
         if (drc_det[i][y][x] == "DSD" || drc_det[i][y][x] == "DED" || drc_det[i][y][x] == "RSD" || drc_det[i][y][x] == "RED" || drc_det[i][y][x] == "CSD" || drc_det[i][y][x] == "CED") {
-          let teo = tempPileData[drc_det[i][y][x]].split("/");
-          vAl = "";
-          for (var z = 2; z >= 0 ;z--) {
-            console.log(z);
-            if (eval(teo[z]) < 10) {
-              vAl += "0" + eval(teo[z]);
-            }
-            else {
-              vAl += teo[z];
-            }
-            if (z != 0) {
-              vAl += "-";
+          if (tempPileData[drc_det[i][y][x]] != "") {
+            let teo = tempPileData[drc_det[i][y][x]].split("/");
+            vAl = "";
+            for (var z = 2; z >= 0 ;z--) {
+              if (eval(teo[z]) < 10) {
+                vAl += "0" + eval(teo[z]);
+              }
+              else {
+                vAl += teo[z];
+              }
+              if (z != 0) {
+                vAl += "-";
+              }
             }
           }
-          console.log(vAl);
+          else {
+            vAl = "";
+          }
         }
         let inpX = creatanelemn("input", "", idsz, "", "width:120px;font-size:16px;", "", funsOfDH[x], vAl, "", "", "", "");
         sssRow.appendChild(inpX);ssRow.appendChild(sssRow);
@@ -258,7 +261,7 @@ function editdialog(idetion) {
     hdiv.appendChild(tRow);
   }
   condiv.appendChild(hdiv);
-  let onclk = "setitemx('"+idetion+"')";
+  let onclk = "setitemx('"+idetion+"', 'pileEditPlatform')";
   let subbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "Set Data", "", onclk, "", "");
   let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subbtn, "", "", "");
   condiv.appendChild(footer);
@@ -283,7 +286,7 @@ function confirmDelete(id) {
   theItem.removeAttribute("onclick");
   theItem.setAttribute("class", "eley");
   theItem.setAttribute("onclick", "setterPiles(this.id)");
-  projectAnalyzer();
+  creatAnaly();
   let stringedProjects = JSON.stringify(onlineProjects);
   window.localStorage.setItem("ProjectsData", stringedProjects);
   let stringedNSProjects = JSON.stringify(tempProject);

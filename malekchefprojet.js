@@ -157,18 +157,18 @@ function setitemx(idetion) {
     theItem.removeAttribute("class");
     theItem.removeAttribute("onclick");
     theItem.setAttribute("class", "eleypro");
-    theItem.setAttribute("onclick", "viewerPiles(this.id)");
+    theItem.setAttribute("onclick", "viewer(this.id)");
     if (tempObj[kYs[3]] == "RISK") {
-      document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
+      document.getElementById(idetion).style.background = "rgb(255,20,20)";
     }
     else if (tempObj[kYs[3]] == "ATRISK") {
-      document.getElementById(keys[i]).style.background = "rgb(255,100,65)";
+      document.getElementById(idetion).style.background = "rgb(255,100,65)";
     }
     else if (tempObj[kYs[3]] == "SONIC") {
-      document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+      document.getElementById(idetion).style.background = "rgb(20,120,255)";
     }
     else if (tempObj[kYs[3]] == "CORE SAMPLE") {
-      document.getElementById(keys[i]).style.background = "coral";
+      document.getElementById(idetion).style.background = "coral";
     }
     document.getElementById('logview').style = "";
     window.localStorage.setItem("submited", false);

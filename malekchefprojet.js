@@ -131,7 +131,12 @@ function setitemx(idetion) {
       tempProject = tempProjectX;
     }
     try {
-      tempProject[idetion] = tempObj;
+      if (tempProject[idetion] != undefined) {
+        Object.assign(tempProject[idetion], tempObj);
+      }
+      else {
+        tempProject[idetion] = tempObj;
+      }
     } catch (e) {
       tempProject = new Object();
       tempProject[idetion] = tempObj;

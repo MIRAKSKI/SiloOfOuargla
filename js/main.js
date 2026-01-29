@@ -813,7 +813,7 @@ function checkbat(key) {
 function creatAnaly() {
   let selectedProject = onlineProjects["SiloOfOuargla"]["piles"];
   let keys = Object.keys(selectedProject);
-  let nBrOP = keys.length,batteries = {"bat0":0, "bat1":0, "bat2":0};
+  let nBrOP = 0;,batteries = {"bat0":0, "bat1":0, "bat2":0};
   dyRlzdMAP = new Object();
   for (var i = 0; i < keys.length; i++) {
     let date = selectedProject[keys[i]]["DSD"];
@@ -827,16 +827,19 @@ function creatAnaly() {
     if ("%" == tst0) {
       if (selectedProject[keys[i]]["pT"] != "RISK" && selectedProject[keys[i]]["pT"] != "ATRISK") {
         batteries["bat1"]++;
+        nBrOP++;
       }
     }
     else if ("#" == tst0) {
       if (selectedProject[keys[i]]["pT"] != "RISK" && selectedProject[keys[i]]["pT"] != "ATRISK") {
         batteries["bat2"]++;
+        nBrOP++;
       }
     }
     else if ("_" == tst0) {
       if (selectedProject[keys[i]]["pT"] != "RISK" && selectedProject[keys[i]]["pT"] != "ATRISK") {
         batteries["bat0"]++;
+        nBrOP++;
       }
     }
   }
@@ -1608,34 +1611,6 @@ document.addEventListener('contextmenu', function(event) {
     event.preventDefault(); // Prevents the default browser context menu from appearing
     return false; // Ensures the event doesn't propagate further (for older browsers)
 });
-if (!app_news && typeOfBro == "Web") {
-  let app_tkDWN = setInterval(function () {
-    if (app_interval > 0) {
-      app_interval = app_interval - 100;
-    }
-    else {
-      app_news = true;
-      window.localStorage.setItem("app_news", true);
-      clearInterval(app_tkDWN);
-      let content = "Our new android app is available download it down below.";
-      ayanotifiys("NEWS!", content, "shoenotiynow");
-    }
-  }, 100);
-}
-else if (downloaded && typeOfBro == "Web") {
-  let app_tkDWN = setInterval(function () {
-    if (app_interval > 0) {
-      app_interval = app_interval - 100;
-    }
-    else {
-      app_news = true;
-      window.localStorage.setItem("app_news", true);
-      clearInterval(app_tkDWN);
-      let content = "New version of android app is available download it from down below.";
-      ayanotifiys("UPDATE!", content, "shoenotiynow");
-    }
-  }, 100);
-}
 document.addEventListener('DOMContentLoaded', (event) => {
   opening();
   if (typeOfBro == "mobile") {
@@ -1645,5 +1620,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
         mobileAutoLogIn();
       }
     } catch (e) {} finally {}
+  }
+  if (!app_news && typeOfBro == "Web") {
+    let app_tkDWN = setInterval(function () {
+      if (app_interval > 0) {
+        app_interval = app_interval - 100;
+      }
+      else {
+        app_news = true;
+        window.localStorage.setItem("app_news", true);
+        clearInterval(app_tkDWN);
+        let content = "Our new android app is available download it down below.";
+        ayanotifiys("NEWS!", content, "shoenotiynow");
+      }
+    }, 100);
+  }
+  else if (downloaded && typeOfBro == "Web") {
+    let app_tkDWN = setInterval(function () {
+      if (app_interval > 0) {
+        app_interval = app_interval - 100;
+      }
+      else {
+        app_news = true;
+        window.localStorage.setItem("app_news", true);
+        clearInterval(app_tkDWN);
+        let content = "New version of android app is available download it from down below.";
+        ayanotifiys("UPDATE!", content, "shoenotiynow");
+      }
+    }, 100);
   }
 });

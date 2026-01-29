@@ -813,7 +813,7 @@ function checkbat(key) {
 function creatAnaly() {
   let selectedProject = onlineProjects["SiloOfOuargla"]["piles"];
   let keys = Object.keys(selectedProject);
-  let nBrOP = 0;,batteries = {"bat0":0, "bat1":0, "bat2":0};
+  let nBrOP = 0;batteries = {"bat0":0, "bat1":0, "bat2":0};
   dyRlzdMAP = new Object();
   for (var i = 0; i < keys.length; i++) {
     let date = selectedProject[keys[i]]["DSD"];

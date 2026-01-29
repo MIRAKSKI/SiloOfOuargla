@@ -511,12 +511,14 @@ function loged() {
     let js = document.createElement('script');
     js.setAttribute("charset", "utf-8");js.setAttribute("src", link);
     document.getElementsByTagName('body')[0].appendChild(js);
-    document.getElementById('logview').style = "display:none;";
     document.getElementById('loginbtn').removeAttribute("onclick");
     document.getElementById('loginbtn').setAttribute("onclick", "sendData()");
     document.getElementById('loginbtn').value = "Submit Editing";
     closediag();
-    if (!submited && submited != null) {
+    if (submited) {
+      document.getElementById('logview').style = "display:none;";
+    }
+    else {
       document.getElementById('logview').style = "";
     }
   }
@@ -524,10 +526,6 @@ function loged() {
     document.getElementById('passINC').innerText = "PASSWORD INCORRECT";
     document.getElementById('passINC').setAttribute("style", "color:red;font-weight: bold;");
   }
-}
-function submithandlerT() {
-  sendData();
-  document.getElementById('logview').style = "display:none;";
 }
 function viewer(idetion) {
   let tempPileData = selectedProject["piles"][idetion];
@@ -827,13 +825,19 @@ function creatAnaly() {
     }
     let tst0 = checkbat(keys[i].toString());
     if ("%" == tst0) {
-      batteries["bat1"]++;
+      if (selectedProject[keys[i]]["pT"] != "RISK" && selectedProject[keys[i]]["pT"] != "ATRISK") {
+        batteries["bat1"]++;
+      }
     }
     else if ("#" == tst0) {
-      batteries["bat2"]++;
+      if (selectedProject[keys[i]]["pT"] != "RISK" && selectedProject[keys[i]]["pT"] != "ATRISK") {
+        batteries["bat2"]++;
+      }
     }
     else if ("_" == tst0) {
-      batteries["bat0"]++;
+      if (selectedProject[keys[i]]["pT"] != "RISK" && selectedProject[keys[i]]["pT"] != "ATRISK") {
+        batteries["bat0"]++;
+      }
     }
   }
   let days = Object.keys(dyRlzdMAP);
@@ -1584,7 +1588,6 @@ function donwAndApp() {
   downloaded = false;
   window.localStorage.setItem("downloaded", downloaded);
 }
-opening();
 function onWindowResize() {
   let wWidth = window.innerWidth;
   let wHeight = window.innerHeight;
@@ -1633,3 +1636,14 @@ else if (downloaded && typeOfBro == "Web") {
     }
   }, 100);
 }
+document.addEventListener('DOMContentLoaded', (event) => {
+  opening();
+  if (typeOfBro == "mobile") {
+    try {
+      test = anyfun != undefined;
+      if (test) {
+        mobileAutoLogIn();
+      }
+    } catch (e) {} finally {}
+  }
+});

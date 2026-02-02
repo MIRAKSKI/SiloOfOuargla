@@ -920,11 +920,13 @@ function calnder() {
   dates = new Object();
   for (var i = 0; i < keys.length; i++) {
     let date = onlineProjects["SiloOfOuargla"]["piles"][keys[i]]["DSD"];
-    if (dates[date] === undefined) {
-      dates[date] = [keys[i]];
-    }
-    else {
-      dates[date].push(keys[i]);
+    if (date != "") {
+      if (dates[date] === undefined) {
+        dates[date] = [keys[i]];
+      }
+      else {
+        dates[date].push(keys[i]);
+      }
     }
   }
   let mnts_len = [31,28,31,30,31,30,31,31,30,31,30,31];

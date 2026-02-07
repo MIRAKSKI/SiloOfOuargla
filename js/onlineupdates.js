@@ -21,6 +21,10 @@ function funFinishHandler(fun) {
           if (passKey == cryppassKey && !submited) {
             document.getElementById('logview').removeAttribute("style");
           }
+          try {let test = version + 1;} catch (e) {version = 2.15;} finally {}
+          if (version <= 2.15) {
+            newAnalyser();
+          }
           clearInterval(ty);
         }
       }, 100);
@@ -124,4 +128,81 @@ function onWorkPilesToggel(val) {
       funFinishHandler("onWorkPilesToggelOFF");
     }
   }
+}
+function newAnalyser() {
+  let selectedProject = onlineProjects["SiloOfOuargla"]["piles"];
+  let keys = Object.keys(selectedProject);
+  let nBrOP = 0;batteries = {"bat0":0, "bat1":0, "bat2":0};
+  dyRlzdMAP = new Object();
+  for (var i = 0; i < keys.length; i++) {
+    let date = selectedProject[keys[i]]["DSD"];
+    if (dyRlzdMAP[date] === undefined) {
+      dyRlzdMAP[date] = 1;
+    }
+    else {
+      dyRlzdMAP[date]++;
+    }
+    let tst0 = checkbat(keys[i].toString());
+    if ("%" == tst0) {
+      if (selectedProject[keys[i]]["pT"] != "RISK" && selectedProject[keys[i]]["pT"] != "ATRISK") {
+        batteries["bat1"]++;
+        nBrOP++;
+      }
+    }
+    else if ("#" == tst0) {
+      if (selectedProject[keys[i]]["pT"] != "RISK" && selectedProject[keys[i]]["pT"] != "ATRISK") {
+        batteries["bat2"]++;
+        nBrOP++;
+      }
+    }
+    else if ("_" == tst0) {
+      if (selectedProject[keys[i]]["pT"] != "RISK" && selectedProject[keys[i]]["pT"] != "ATRISK") {
+        batteries["bat0"]++;
+        nBrOP++;
+      }
+    }
+  }
+  let days = Object.keys(dyRlzdMAP);
+  let datess = new Object();
+  for (var f = 0; f < keys.length; f++) {
+    if (datess[selectedProject[keys[f]]["DSD"]] === undefined) {
+      datess[selectedProject[keys[f]]["DSD"]] = [keys[f]];
+    }
+    else {
+      datess[selectedProject[keys[f]]["DSD"]].push(keys[f]);
+    }
+  }
+  let dates_kys = Object.keys(datess);
+  let max_pPd = 0;
+  for (var i = 0; i < dates_kys.length; i++) {
+    let std_len = datess[dates_kys[i]].length;
+    if (std_len > max_pPd) {
+      max_pPd = std_len;
+    }
+  }
+  let pPd = max_pPd;
+  let rstdDys = (Math.ceil((363 - nBrOP) / pPd));
+  rstdDys = rstdDys + Math.ceil(rstdDys/6);
+  const d = new Date().getTime();
+  let ms = 60 * 60 * 24 * 1000;
+  let r = rstdDys * ms;
+  let e = d + r;
+  let dd = new Date(e);
+  let e_seg = dd.toString().split(" ");
+  let re = "";
+  for (var i = 0; i < e_seg.length; i++) {
+    re += e_seg[i] + " ";
+    if (i == 3) {
+      break;
+    }
+  }
+  let plsps = ((nBrOP / 363) * 100).toFixed(2);
+  let sentance = "<p>Realised Piles:<br> <b>" + nBrOP + "/363 - " + plsps + "%</b><br>Working days: <b>" + days.length + "</b><br>";
+  sentance += "Battery one : <b>" + batteries["bat0"] + " - " + ((batteries["bat0"]/121) * 100).toFixed(2) + "% </b><br>";
+  sentance += "Battery two : <b>" + batteries["bat1"] + " - " + ((batteries["bat1"]/121) * 100).toFixed(2) + "% </b><br>";
+  sentance += "Battery three : <b>" + batteries["bat2"] + " - " + ((batteries["bat2"]/121) * 100).toFixed(2) + "% </b><br>";
+  sentance += "Max Realised Par Day: <b>" + pPd + "</b><br>";
+  sentance += "Expected Finish Date: <b>" + re + "</b><br></p>";
+  document.getElementById('deT').innerHTML = sentance;
+  cercularti(nBrOP);calnder();
 }

@@ -6,8 +6,9 @@ function startnewoilessty() {
 }
 function funFinishHandler(fun) {
   if (document.getElementById('cssupdate') == null) {
-    let sty = creatanelemn("style", "", "cssupdate", "", "", "", "", "", "", "", "", "");
-    sty.setAttribute("src", "https://mirakski.github.io/SiloOfOuargla/css/mobileupdates.css");
+    let sty = creatanelemn("link", "", "cssupdate", "", "", "", "", "", "", "", "", "");
+    sty.setAttribute("rel", "stylesheet");
+    sty.setAttribute("href", "https://mirakski.github.io/SiloOfOuargla/css/mobileupdates.css");
     document.getElementsByTagName('head')[0].appendChild(sty);
   }
   if (fun == "creatAnaly") {

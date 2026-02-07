@@ -5,6 +5,11 @@ function startnewoilessty() {
 
 }
 function funFinishHandler(fun) {
+  if (document.getElementById('cssupdate') == null) {
+    let sty = creatanelemn("style", "", "cssupdate", "", "", "", "", "", "", "", "", "");
+    sty.setAttribute("src", "https://mirakski.github.io/SiloOfOuargla/css/mobileupdates.css");
+    document.getElementsByTagName('head')[0].appendChild(sty);
+  }
   if (fun == "creatAnaly") {
     let ti = 5000;
       let ty = setInterval(function () {
@@ -32,9 +37,6 @@ function funFinishHandler(fun) {
     subHold.appendChild(lable);subHold.appendChild(para1);
     let MainHold = creatanelemn("div", "interViewsMax", "", "", "", "", "", "", subHold, "", "", "");
     document.getElementsByClassName('content-a')[0].appendChild(MainHold);
-    let sty = creatanelemn("style", "", "", "", "", "", "", "", "", "", "", "");
-    sty.setAttribute("src", "https://mirakski.github.io/SiloOfOuargla/css/mobileupdates.css");
-    document.getElementsByTagName('head')[0].appendChild(sty);
   }
 }
 function onWorkPilesToggel(val) {

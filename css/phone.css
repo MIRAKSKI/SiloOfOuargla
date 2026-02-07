@@ -45,4 +45,5 @@
     transform: translate(-50%, -50%);padding: 20px;place-items:center;max-width: 85%;max-height: 95%;
   }
   .hdiv p {margin: 1px 3px;font-size: 18px;}
+  .interViews {display: flex; justify-content: space-around;width: 85%;}
 }

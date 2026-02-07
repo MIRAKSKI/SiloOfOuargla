@@ -26,18 +26,20 @@ function funFinishHandler(fun) {
       }, 100);
   }
   if (fun == "opening") {
-    let br0 = document.createElement('br');
-    document.getElementsByClassName('content-a')[0].appendChild(br0);
-    let checkBox = creatanelemn("input", "", "myCheckBox", "", "", "", "checkbox", "", "", "onWorkPilesToggel(this.checked)", "", "");
-    let lable = creatanelemn("label", "switch", "", "", "", "", "", "", checkBox, "", "", "");
-    let apan = creatanelemn("span", "slider round", "", "", "", "", "", "", "", "", "", "");
-    lable.appendChild(apan);
-    let para0 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Global View");
-    let subHold = creatanelemn("div", "interViews", "", "", "", "", "", "", para0, "", "", "");
-    let para1 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Todays Work");
-    subHold.appendChild(lable);subHold.appendChild(para1);
-    let MainHold = creatanelemn("div", "interViewsMax", "", "", "", "", "", "", subHold, "", "", "");
-    document.getElementsByClassName('content-a')[0].appendChild(MainHold);
+    if (document.getElementById('interViewsMax') == null) {
+      let br0 = document.createElement('br');
+      document.getElementsByClassName('content-a')[0].appendChild(br0);
+      let checkBox = creatanelemn("input", "", "myCheckBox", "", "", "", "checkbox", "", "", "onWorkPilesToggel(this.checked)", "", "");
+      let lable = creatanelemn("label", "switch", "", "", "", "", "", "", checkBox, "", "", "");
+      let apan = creatanelemn("span", "slider round", "", "", "", "", "", "", "", "", "", "");
+      lable.appendChild(apan);
+      let para0 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Global View");
+      let subHold = creatanelemn("div", "interViews", "", "", "", "", "", "", para0, "", "", "");
+      let para1 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Todays Work");
+      subHold.appendChild(lable);subHold.appendChild(para1);
+      let MainHold = creatanelemn("div", "interViewsMax", "interViewsMax", "", "", "", "", "", subHold, "", "", "");
+      document.getElementsByClassName('content-a')[0].appendChild(MainHold);
+    }
   }
 }
 function onWorkPilesToggel(val) {

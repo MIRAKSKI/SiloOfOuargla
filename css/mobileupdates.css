@@ -10,3 +10,6 @@ input:checked + .slider:before {-webkit-transform: translateX(26px);-ms-transfor
 /* Rounded sliders */
 .slider.round {border-radius: 34px;}
 .slider.round:before {border-radius: 50%;}
+@media screen and (max-width: 600px) {
+  .interViews {display: flex; justify-content: space-around;width: 85%;}
+}

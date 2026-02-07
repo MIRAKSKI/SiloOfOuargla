@@ -304,7 +304,7 @@ function opening() {
   let subHold = creatanelemn("div", "interViews", "", "", "", "", "", "", para0, "", "", "");
   let para1 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Todays Work");
   subHold.appendChild(lable);subHold.appendChild(para1);
-  let MainHold = creatanelemn("div", "interViewsMax", "", "", "", "", "", "", subHold, "", "", "");
+  let MainHold = creatanelemn("div", "interViewsMax", "interViewsMax", "", "", "", "", "", subHold, "", "", "");
   document.getElementsByClassName('content-a')[0].appendChild(MainHold);
   let bdG = document.getElementsByClassName('body')[0];
   try {

@@ -47,8 +47,8 @@ function funFinishHandler(fun) {
       document.getElementsByClassName('content-a')[0].appendChild(br01);
       let btn5 = creatanelemn("input", "", "historyBtn", "", "", "", "button", "Show History Handler", "", "HistoryHand(this.id)", "", "");
       let subHoldx = creatanelemn("div", "secondCal", "", "", "", "", "", "", btn5, "", "", "");
-      let MainHold = creatanelemn("div", "secondCalMax", "secondCalMax", "", "", "", "", "", subHoldx, "", "", "");
-      document.getElementsByClassName('content-a')[0].appendChild(MainHold);
+      let MainHoldX = creatanelemn("div", "secondCalMax", "secondCalMax", "", "", "", "", "", subHoldx, "", "", "");
+      document.getElementsByClassName('content-a')[0].appendChild(MainHoldX);
     }
   }
 }

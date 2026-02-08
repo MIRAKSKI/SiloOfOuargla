@@ -43,6 +43,12 @@ function funFinishHandler(fun) {
       subHold.appendChild(lable);subHold.appendChild(para1);
       let MainHold = creatanelemn("div", "interViewsMax", "interViewsMax", "", "", "", "", "", subHold, "", "", "");
       document.getElementsByClassName('content-a')[0].appendChild(MainHold);
+      let br01 = document.createElement('br');
+      document.getElementsByClassName('content-a')[0].appendChild(br01);
+      let btn5 = creatanelemn("input", "", "historyBtn", "", "", "", "button", "Show History Handler", "", "HistoryHand(this.id)", "", "");
+      let subHold = creatanelemn("div", "secondCal", "", "", "", "", "", "", btn5, "", "", "");
+      let MainHold = creatanelemn("div", "secondCalMax", "secondCalMax", "", "", "", "", "", subHold, "", "", "");
+      document.getElementsByClassName('content-a')[0].appendChild(MainHold);
     }
   }
 }

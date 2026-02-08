@@ -93,3 +93,5 @@ input:checked + .slider:before {-webkit-transform: translateX(26px);-ms-transfor
 /* Rounded sliders */
 .slider.round {border-radius: 34px;}
 .slider.round:before {border-radius: 50%;}
+#historyBtn {border-radius: 10px; border: 1px dashed rgb(200,150,20);transition: 0.2s;padding: 5px 10px;font-weight: bold;font-size: 20px;}
+#historyBtn:hover {border: 1px solid rgb(200,150,20);color:white;background: rgb(200,150,20);}

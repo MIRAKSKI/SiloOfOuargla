@@ -23,15 +23,27 @@ function sendData() {
       try {
         window.localStorage.setItem("submited", submited);
       } catch (e) {} finally {}
+      let dekeys = Object.keys(dataElement);
       dataElement = "";
       window.localStorage.removeItem("dataElement");
+      let piles = "";
+      for (var i = 0; i < dekeys.length; i++) {
+        if (i != (dekeys.length-1)) {
+          piles += dekeys[i] + ",";
+        }
+        else {
+          piles += dekeys[i] + ".";
+        }
+      }
+      ayanotifiys("Success", "Data set for " + piles, "shoenotiynow");
     } else {
       document.getElementById('logview').style = "";
+      ayanotifiys("Err - 02", "Couldm't send Data check your conection", "shoenotiynow");
     }
   })
   .catch(error => {
     document.getElementById('logview').style = "";
-    console.error('Error:', error);
+    ayanotifiys("Err - 01", "Error:" + error, "shoenotiynow");
   });
 }
 function opendialog(idetion) {
@@ -313,7 +325,6 @@ function confirmDelete(id) {
   let stringedNSProjects = JSON.stringify(tempProject);
   let deleteProjects = new Object();
   deleteProjects["SiloOfOuargla"] = [id];
-  ayanotifiys("Success", "Pile Data Deleted successfully", "shoenotiynow");
   window.localStorage.setItem("dataElement", stringedNSProjects);
   window.localStorage.setItem("ProjectsData", stringedProjects);
   document.getElementById('logview').style = "";

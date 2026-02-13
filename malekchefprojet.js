@@ -71,16 +71,16 @@ function opendialog(idetion) {
       "A%1", "A%2", "A%10", "A%11", "B%1", "B%11", "D%4", "D%8", "F%5", "F%7", "H%4", "H%8", "J%1", "J%11", "K%1", "K%2", "K%10", "K%11",
       "A#1", "A#2", "A#10", "A#11", "B#1", "B#11", "D#4", "D#8", "F#5", "F#7", "H#4", "H#8", "J#1", "J#11", "K#1", "K#2", "K#10", "K#11"];
   let corPiles = ["A6","E6", "F1", "F11", "G6","K6", "A%6", "E%6", "F%1", "F%11", "G%6", "K%6", "A#6", "E#6", "F#1", "F#11", "G#6", "K#6"];
-  let ptis = "Normal";
+  let ptis = 0;
   if (checkIfIn(idetion, sncPiles)) {
-    ptis = "SONIC";
+    ptis = 1;
   }
   else if (checkIfIn(idetion, corPiles)) {
-    ptis = "CORE SAMPLE";
+    ptis = 2;
   }
   let typettl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Pile Type: ");
   let sRow = creatanelemn("div", "diagrow", "", "", "", "", "", "", typettl, "", "", "");
-  let select = creatanelemn("select", "", "pileType", "", "", "", "", ptis, "", "", "", "");
+  let select = creatanelemn("select", "", "pileType", "", "", "", "", "", "", "", "", "");
   let typsPile = ["Normal","SONIC", "CORE SAMPLE", "IMP", "RISK", "ATRISK"];
   for (var i = 0; i < typsPile.length; i++) {
     let option = creatanelemn("option", "", "", "", "", "", "", "", "", "", "", typsPile[i]);
@@ -117,6 +117,7 @@ function opendialog(idetion) {
   condiv.appendChild(footer);
   let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
   document.getElementsByTagName('body')[0].appendChild(bgdiv);
+  document.getElementById('pileType').value = typsPile[ptis];
 }
 function setitemx(idetion, fun) {
   if (cryppassKey != passKey) {
@@ -327,6 +328,7 @@ function confirmDelete(id) {
   deleteProjects["SiloOfOuargla"] = [id];
   window.localStorage.setItem("dataElement", stringedNSProjects);
   window.localStorage.setItem("ProjectsData", stringedProjects);
+  window.localStorage.setItem("dec", stringedProjects);
   document.getElementById('logview').style = "";
 }
 function dEleteIT(idetion) {

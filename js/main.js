@@ -73,24 +73,26 @@ function loaduphandler() {
     let tempProjectX = JSON.parse(dateaa);
     let keys = Object.keys(tempProjectX);
     for (var i = 0; i < keys.length; i++) {
-      document.getElementById(keys[i]).setAttribute("class", "eleypro");
-      if (tempProjectX[keys[i]]["pT"] == "RISK") {
-        document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
-      }
-      else if (tempProjectX[keys[i]]["pT"] == "ATRISK") {
-        document.getElementById(keys[i]).style.background = "rgb(255,100,65)";
-      }
-      else if (tempProjectX[keys[i]]["pT"] == "SONIC") {
-        document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
-      }
-      else if (tempProjectX[keys[i]]["pT"] == "CORE SAMPLE") {
-        document.getElementById(keys[i]).style.background = "coral";
-      }
-      if (keys[i] == "K#11A" || keys[i] == "K#11B" || keys[i] == "H8A" || keys[i] == "F#7A") {
-        document.getElementById(keys[i]).setAttribute("class", "addeleypro");
-      }
-      if (keys[i] == "H8A" || keys[i] == "F#7A") {
-        document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+      if (tempProjectX[keys[i]]["pT"] != "REMOVE") {
+        document.getElementById(keys[i]).setAttribute("class", "eleypro");
+        if (tempProjectX[keys[i]]["pT"] == "RISK") {
+          document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
+        }
+        else if (tempProjectX[keys[i]]["pT"] == "ATRISK") {
+          document.getElementById(keys[i]).style.background = "rgb(255,100,65)";
+        }
+        else if (tempProjectX[keys[i]]["pT"] == "SONIC") {
+          document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+        }
+        else if (tempProjectX[keys[i]]["pT"] == "CORE SAMPLE") {
+          document.getElementById(keys[i]).style.background = "coral";
+        }
+        if (keys[i] == "K#11A" || keys[i] == "K#11B" || keys[i] == "H8A" || keys[i] == "F#7A") {
+          document.getElementById(keys[i]).setAttribute("class", "addeleypro");
+        }
+        if (keys[i] == "H8A" || keys[i] == "F#7A") {
+          document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+        }
       }
     }
     creatAnaly();

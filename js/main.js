@@ -1,8 +1,8 @@
-/*  version:2.16  */
+/*  version:2.17  */
 let onlineProjects;let cryppassKey,passKey;let supportsaving = false;let saved = false;
 let dataElement = "";let submited = false, logedin = false;let moposition = 0, tapotition = 0;
 let crushing_notify = false, app_news = false, app_interval = 5000;downloaded = true;
-let version = 2.16;
+let version = 2.17;
 if (typeof(Storage) !== "undefined") {
   supportsaving = true;
   saved = window.localStorage.getItem("saved");
@@ -67,6 +67,33 @@ function loaduphandler() {
     try {
       document.getElementById('swipeview').style.display = "block";
     } catch (e) {} finally {}
+  }
+  let dateaa = window.localStorage.getItem("dataElement");
+  if (dateaa != null && dateaa != "") {
+    let tempProjectX = JSON.parse(dateaa);
+    let keys = Object.keys(tempProjectX);
+    for (var i = 0; i < keys.length; i++) {
+      document.getElementById(keys[i]).setAttribute("class", "eleypro");
+      if (tempProjectX[keys[i]]["pT"] == "RISK") {
+        document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
+      }
+      else if (tempProjectX[keys[i]]["pT"] == "ATRISK") {
+        document.getElementById(keys[i]).style.background = "rgb(255,100,65)";
+      }
+      else if (tempProjectX[keys[i]]["pT"] == "SONIC") {
+        document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+      }
+      else if (tempProjectX[keys[i]]["pT"] == "CORE SAMPLE") {
+        document.getElementById(keys[i]).style.background = "coral";
+      }
+      if (keys[i] == "K#11A" || keys[i] == "K#11B" || keys[i] == "H8A" || keys[i] == "F#7A") {
+        document.getElementById(keys[i]).setAttribute("class", "addeleypro");
+      }
+      if (keys[i] == "H8A" || keys[i] == "F#7A") {
+        document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+      }
+    }
+    creatAnaly();
   }
 }
 //creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
@@ -823,7 +850,7 @@ function viewer(idetion) {
   let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
   header.appendChild(clsbtn);
   let condiv = creatanelemn("div", "condiv", "", "", "", "", "", "", header, "", "", "");
-  let nmttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Coordanition");
+  let nmttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Coordanition 📍");
   let frow = creatanelemn("div", "diagcol", "", "", "", "", "", "", nmttl, "", "", "");
   let subrow = creatanelemn("div", "diagrowPro", "", "", "", "", "", "", "", "", "", "");
   let cords = ["X", "Y", "Z"];
@@ -842,7 +869,7 @@ function viewer(idetion) {
   if (basicDet[3] != undefined) {
     dataCarier = basicDet[3];
   }
-  let pTb = "Pile Type: " + dataCarier;
+  let pTb = "Pile Type ❕: " + dataCarier;
   let typettl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", pTb);
   let sRow = creatanelemn("div", "diagrow", "", "", "", "", "", "", typettl, "", "", "");
   let sty = "height: 90%;max-height: 90%;";
@@ -854,7 +881,7 @@ function viewer(idetion) {
   let drc_det = [[["DSD", "DSH"], ["DED", "DEH"]]
                 , [["RSD", "RSH"], ["RED", "REH"]]
                 , [["CSD", "CSH"], ["CED", "CEH"]]];
-  let titling = ["Drilling", "Reinforcment", "Concreting"];
+  let titling = ["Drilling⛏", "Reinforcment⛓", "Concreting⚫"];
   let functiling = [["SD", "SH"], ["ED", "EH"]];
   let namiling = [["Starting Date","Starting Hour"], ["Ending Date", "Ending Hour"]];
   for (var i = 0; i < titling.length; i++) {
@@ -888,10 +915,10 @@ function viewer(idetion) {
     }
   if (passKey == cryppassKey) {
     let onclik = "dEleteIT('" + idetion + "')";
-    let delBtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "DELETE!", "", onclik, "", "");
+    let delBtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "DELETE!🗑", "", onclik, "", "");
     let subFot = creatanelemn("div", "diagrow", "", "", "", "", "", "", delBtn, "", "", "");
     onclik = "editdialog('" + idetion + "')";
-    let editBtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "Edit", "", onclik, "", "");
+    let editBtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "Edit🔧", "", onclik, "", "");
     subFot.appendChild(editBtn)
     let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subFot, "", "", "");
     hdiv.appendChild(footer);
@@ -1153,12 +1180,12 @@ function creatAnaly() {
     }
   }
   let plsps = ((nBrOP / 363) * 100).toFixed(2);
-  let sentance = "<p>Realised Piles:<br> <b>" + nBrOP + "/363 - " + plsps + "%</b><br>Working days: <b>" + days.length + "</b><br>";
+  let sentance = "<p>Realised Piles✅:<br> <b>" + nBrOP + "/363 - " + plsps + "%</b><br>Working days🏗: <b>" + days.length + "</b><br>";
   sentance += "Battery one : <b>" + batteries["bat0"] + " - " + ((batteries["bat0"]/121) * 100).toFixed(2) + "% </b><br>";
   sentance += "Battery two : <b>" + batteries["bat1"] + " - " + ((batteries["bat1"]/121) * 100).toFixed(2) + "% </b><br>";
   sentance += "Battery three : <b>" + batteries["bat2"] + " - " + ((batteries["bat2"]/121) * 100).toFixed(2) + "% </b><br>";
-  sentance += "Max Realised Par Day: <b>" + pPd + "</b><br>";
-  sentance += "Expected Finish Date: <b>" + re + "</b><br></p>";
+  sentance += "Max Realised Par Day💹: <b>" + pPd + "</b><br>";
+  sentance += "Expected Finish Date🗓: <b>" + re + "</b><br></p>";
   document.getElementById('deT').innerHTML = sentance;
   cercularti(nBrOP);calnder();
   if (typeOfBro != "Web") {
@@ -1271,7 +1298,7 @@ function calnder() {
     if (getOutCal) {
       break;
     }
-    let h_th = creatanelemn("th", "", "", "", "", "", "", "", "", "", "", "Calendar");
+    let h_th = creatanelemn("th", "", "", "", "", "", "", "", "", "", "", "Calendar 📅");
     h_th.setAttribute("colspan", 8);
     let h_tr = creatanelemn("tr", "", "", "", "", "", "", "", h_th, "", "", "");
     let tab_ID = "cal_tab_" + d;

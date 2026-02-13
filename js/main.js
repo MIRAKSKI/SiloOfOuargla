@@ -286,6 +286,32 @@ function opening() {
     cryppassKey = "nbehzxz4";
   }
   addRePiles();
+<<<<<<< Updated upstream
+=======
+  addfastselectiontool(0);
+  try {
+    let br0 = document.createElement('br');
+    document.getElementsByClassName('content-a')[0].appendChild(br0);
+    let checkBox = creatanelemn("input", "", "myCheckBox", "", "", "", "checkbox", "", "", "onWorkPilesToggel(this.checked)", "", "");
+    let lable = creatanelemn("label", "switch", "", "", "", "", "", "", checkBox, "", "", "");
+    let apan = creatanelemn("span", "slider round", "", "", "", "", "", "", "", "", "", "");
+    lable.appendChild(apan);
+    let para0 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Global View");
+    let subHold = creatanelemn("div", "interViews", "interViews", "", "", "", "", "", para0, "", "", "");
+    let para1 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Todays Work");
+    subHold.appendChild(lable);subHold.appendChild(para1);
+    let MainHold = creatanelemn("div", "interViewsMax", "interViewsMax", "", "", "", "", "", subHold, "", "", "");
+    document.getElementsByClassName('content-a')[0].appendChild(MainHold);
+  } catch (e) {} finally {}
+  try {
+    let br0 = document.createElement('br');
+    document.getElementsByClassName('content-a')[0].appendChild(br0);
+    let btn5 = creatanelemn("input", "", "historyBtn", "", "", "", "button", "Show History Handler", "", "HistoryHand(this.id)", "", "");
+    let subHold = creatanelemn("div", "secondCal", "secondCal", "", "", "", "", "", btn5, "", "", "");
+    let MainHold = creatanelemn("div", "secondCalMax", "secondCalMax", "", "", "", "", "", subHold, "", "", "");
+    document.getElementsByClassName('content-a')[0].appendChild(MainHold);
+  } catch (e) {} finally {}
+>>>>>>> Stashed changes
   let bdG = document.getElementsByClassName('body')[0];
   try {
     let divlS = document.createElement('div');
@@ -356,6 +382,89 @@ function checkIfIn(nm, arr) {
     }
   }
   return false;
+}
+function addfastselectiontool(mod) {
+  if (mod == 0) {
+    let f1 = creatanelemn("div", "fsbdv", "", "", "", "", "", "", "", "", "", "");
+    let fil = "ABCDEFGHIJK";
+    fil = fil.split("");
+    let position = [[14.3, 62],[25.6,80.6],[44.9,89],[63.2,80.6],[78.5,70.3],[85.7,50],[78.5,29.7],[63.2,19.4],[44.9,11],[25.6,19.4],[14.3,38.1]];
+    for (var i = 0; i < 11; i++) {
+      let inp = creatanelemn("input", "", "id", "", "", "", "checkbox", "", "", "fastselechand(this.id)", "", "");
+      let sp = creatanelemn("span", "sliderFS roundFS", "id", "", "", "", "", "", "", "", "", "");sp.innerHTML = fil[i];
+      let sty = "position: absolute;top:"+position[10-i][0]+"%;right:"+position[10-i][1]+"%;transform: translate(-50%, -50%);";
+      let lab = creatanelemn("label", "switchFS", "", "", sty, "", "", "", inp, "", "", "");
+      lab.appendChild(sp);
+      f1.appendChild(lab);
+    }
+    let f2 = creatanelemn("div", "fsUbdv", "", "", "", "", "", "", f1, "", "", "");
+    //
+    let l1 = creatanelemn("div", "lsbdv", "", "", "", "", "", "", "", "", "", "");
+    for (var i = 1; i < 12; i++) {
+      let inp = creatanelemn("input", "", "id", "", "", "", "checkbox", "", "", "fastselechand(this.id)", "", "");
+      let sp = creatanelemn("span", "sliderFS roundFS", "id", "", "", "", "", "", "", "", "", "");sp.innerHTML = i;
+      let sty = "position: absolute;top:"+position[11-i][0]+"%;right:"+position[11-i][1]+"%;transform: translate(-50%, -50%);";
+      let lab = creatanelemn("label", "switchFS", "", "", sty, "", "", "", inp, "", "", "");
+      lab.appendChild(sp);
+      l1.appendChild(lab);
+    }
+    let l2 = creatanelemn("div", "lsUbdv", "", "", "", "", "", "", l1, "", "", "");
+    ///
+    let b1 = creatanelemn("div", "sbdv", "", "", "", "", "", "", "", "", "", "");
+    for (var i = 1; i < 4; i++) {
+      let inp = creatanelemn("input", "", "id", "", "", "", "checkbox", "", "", "fastselechand(this.id)", "", "");
+      let sp = creatanelemn("span", "sliderFS roundFS", "id", "", "", "", "", "", "", "", "", "");sp.innerHTML = i;
+      let lab = creatanelemn("label", "switchFS", "", "", "", "", "", "", inp, "", "", "");
+      lab.appendChild(sp);
+      b1.appendChild(lab);
+    }
+    let b2 = creatanelemn("div", "sUbdv", "", "", "", "", "", "", b1, "", "", "");
+    let did = creatanelemn("div", "quikmn", "", "", "", "", "", "", f2, "", "", "");
+    did.appendChild(l2);did.appendChild(b2);
+    let id = "Fastelect";
+    let header = creatanelemn("div", "diaghead", "", "", "", "", "", "", "", "", "", "");
+    let clsfun = "closeDialog('"+id+"')";
+    let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
+    header.appendChild(clsbtn);
+    let condiv = creatanelemn("div", "condiv", "", "", "max-height:90%;height:90%;", "", "", "", header, "", "", "");
+    let hdiv = creatanelemn("div", "hdiv", "newProHDiv", "", "", "", "", "", did, "", "", "");
+    condiv.appendChild(hdiv);
+    let onclk = "addfastselectiontool(2)";
+    let subbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "✔", "", onclk, "", "");
+    let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subbtn, "", "", "");
+    condiv.appendChild(footer);
+    let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
+    document.getElementsByTagName('body')[0].appendChild(bgdiv);
+  }
+  else if (mod == 2){
+    //
+    closeDialog('Fastelect');
+  }
+}
+function rearrangehandler(div, itm, ind) {
+  let chArr = div.children;
+  if (chArr.length <= ind) {
+    div.appendChild(itm);
+  }
+  else {
+    div.innerHTML = "";
+    let chInd = 0;
+    if (ind == 0) {
+      ind = 1;
+    }
+    for (var i = 0; i < chArr.length; i++) {
+      if (i == (ind-1)) {
+        div.appendChild(itm);
+      }
+      else {
+        div.appendChild(chArr[chInd].innerHTML);
+        chInd++
+      }
+    }
+  }
+}
+function fastselechand(id) {
+  //
 }
 function addRePiles() {
   document.getElementById('battey0').style.position = "relative";
@@ -1570,9 +1679,61 @@ function onWindowResize() {
   }
 }
 window.addEventListener('resize', onWindowResize);
+<<<<<<< Updated upstream
 document.getElementsByTagName('body')[0].addEventListener("keydown", function(event) {
   if (event.key === "F" || event.key === "f") {
     refreshFun();
+=======
+document.addEventListener('DOMContentLoaded', (event) => {
+  document.getElementsByTagName('body')[0].addEventListener("keydown", function(event) {
+    if (event.key === "F" || event.key === "f") {
+      refreshFun();
+    }
+  });
+  document.addEventListener('contextmenu', function(event) {
+      event.preventDefault(); // Prevents the default browser context menu from appearing
+      return false; // Ensures the event doesn't propagate further (for older browsers)
+  });
+  opening();
+  window.addEventListener('resize', onWindowResize);
+  let mybutton = document.getElementById("myBtn");
+  window.onscroll = function() {scrollFunction()};
+  if (typeOfBro == "mobile") {
+    try {
+      test = anyfun != undefined;
+      if (test) {
+        mobileAutoLogIn();
+      }
+    } catch (e) {} finally {}
+  }
+  if (!app_news && typeOfBro == "Web") {
+    let app_tkDWN = setInterval(function () {
+      if (app_interval > 0) {
+        app_interval = app_interval - 100;
+      }
+      else {
+        app_news = true;
+        window.localStorage.setItem("app_news", true);
+        clearInterval(app_tkDWN);
+        let content = "Our new android app is available download it down below.";
+        ayanotifiys("NEWS!", content, "shoenotiynow");
+      }
+    }, 100);
+  }
+  else if (downloaded && typeOfBro == "Web") {
+    let app_tkDWN = setInterval(function () {
+      if (app_interval > 0) {
+        app_interval = app_interval - 100;
+      }
+      else {
+        app_news = true;
+        window.localStorage.setItem("app_news", true);
+        clearInterval(app_tkDWN);
+        let content = "New version of android app is available download it from down below.";
+        ayanotifiys("UPDATE!", content, "shoenotiynow");
+      }
+    }, 100);
+>>>>>>> Stashed changes
   }
 });
 document.addEventListener('contextmenu', function(event) {

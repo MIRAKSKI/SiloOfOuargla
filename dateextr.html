@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+    .switchFS {position: relative;display: inline-block;width: 60px;height: 60px;}
+    .switchFS input {;width: 0;height: 0;}
+    .switchFS span {display: grid;text-align: center;place-items:center;}
+    .sliderFS {position: absolute;cursor: pointer;top: 0;left: 0;right: 0;bottom: 0;background-color: #ccc;-webkit-transition: .4s;transition: .4s;}
+    input:checked + .sliderFS {background-color: #2196F3;}
+    input:focus + .sliderFS {box-shadow: 0 0 1px #2196F3;}
+    .sliderFS.roundFS {border-radius: 50%;}
+    </style>
+  </head>
+  <body>
+    <input type="date" id="inp" name="" value="">
+    <label class="switchFS">
+      <input type="checkbox" onclick="anyfun(this.id)" checked>
+      <span class="sliderFS roundFS">1</span>
+    </label>
+    <label class="switchFS">
+      <input type="checkbox" onclick="anyfun(this.id)">
+      <span class="sliderFS roundFS">2</span>
+    </label>
+    <input type="checkbox" id="two" onclick="anyfun(this.id)">
+    <input type="checkbox" id="one" onclick="anyfun(this.id)" checked>
+  </body>
+  <script type="text/javascript">
+    document.getElementById('inp').value = 2025 +"-"+12+"-"+27;
+    function anyfun(val,lk) {
+      if (val == "one") {
+        document.getElementById("two").click()
+        console.log(val);
+      }
+      else if (val == "two") {
+        document.getElementById("one").click()
+        console.log(val);
+      }
+    }
+  </script>
+</html>

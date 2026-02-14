@@ -1,6 +1,8 @@
 /*  version:2.17  */
 let onlineProjects;let cryppassKey,passKey;let supportsaving = false;let saved = false;
 let dataElement = "";let submited = false, logedin = false;let moposition = 0, tapotition = 0;
+let crushing_notify = false, app_news = false, app_interval = 5000,downloaded = true;
+let version = 2.17,quickSelection;
 let crushing_notify = false, app_news = false, app_interval = 5000;downloaded = true;
 let version = 2.17;
 if (typeof(Storage) !== "undefined") {
@@ -324,6 +326,7 @@ function opening() {
     cryppassKey = "nbehzxz4";
   }
   addRePiles();
+  addfastselectiontool(0);
   try {
     let br0 = document.createElement('br');
     document.getElementsByClassName('content-a')[0].appendChild(br0);
@@ -1026,6 +1029,132 @@ function pilesNavi(mod, id) {
     }
   }
   viewer(id);
+}
+function addfastselectiontool(mod) {
+  let fil = "ABCDEFGHIJK";
+  fil = fil.split("");
+  if (mod == 0) {
+    let btn5 = creatanelemn("input", "", "Quickbtn", "", "", "", "button", "QUICK SELECTION", "", "addfastselectiontool(1)", "", "");
+    let subHold = creatanelemn("div", "quicksel", "", "", "", "", "", "", btn5, "", "", "");
+    let itm = creatanelemn("div", "quickselMAX", "", "", "", "", "", "", subHold, "", "", "");
+    let mndv = document.getElementsByClassName('content-a')[0];
+    rearrangehandler(mndv, itm, 3);
+  }
+  else if (mod == 1) {
+    let f1 = creatanelemn("div", "fsbdv", "", "", "", "", "", "", "", "", "", "");
+    let position = [[14.3, 62],[25.6,79.6],[44.9,88],[66.2,84.6],[81,72.3],[88,50],[81,27.7],[66.2,15.4],[44.9,12],[25.6,20.4],[14.3,38.1]];
+    for (var i = 0; i < 11; i++) {
+      let inp = creatanelemn("input", "", "fbtn"+i, "", "", "", "checkbox", "", "", "fastselechand(this.id,"+i+",'f')", "", "");
+      if (i == 0) {
+        inp.checked = true;
+      }
+      let sp = creatanelemn("span", "sliderFS roundFS", "", "", "", "", "", "", "", "", "", "");sp.innerHTML = fil[i];
+      let sty = "position: absolute;top:"+position[10-i][0]+"%;right:"+position[10-i][1]+"%;transform: translate(50%, -50%);";
+      let lab = creatanelemn("label", "switchFS", "", "", sty, "", "", "", inp, "", "", "");
+      lab.appendChild(sp);
+      f1.appendChild(lab);
+    }
+    let f2 = creatanelemn("div", "fsUbdv", "", "", "", "", "", "", f1, "", "", "");
+    let l1 = creatanelemn("div", "lsbdv", "", "", "", "", "", "", "", "", "", "");
+    for (var i = 1; i < 12; i++) {
+      let inp = creatanelemn("input", "", "lbtn"+i, "", "", "", "checkbox", "", "", "fastselechand(this.id,"+i+",'l')", "", "");
+      if (i == 1) {
+        inp.checked = true;
+      }
+      let sp = creatanelemn("span", "sliderFS roundFS", "", "", "", "", "", "", "", "", "", "");sp.innerHTML = i;
+      let sty = "position: absolute;top:"+position[11-i][0]+"%;right:"+position[11-i][1]+"%;transform: translate(50%, -50%);";
+      let lab = creatanelemn("label", "switchFS", "", "", sty, "", "", "", inp, "", "", "");
+      lab.appendChild(sp);
+      l1.appendChild(lab);
+    }
+    let l2 = creatanelemn("div", "lsUbdv", "", "", "", "", "", "", l1, "", "", "");
+    let bpost = [[22,50],[63,25],[63,75]];
+    let b1 = creatanelemn("div", "sbdv", "", "", "", "", "", "", "", "", "", "");
+    for (var i = 1; i < 4; i++) {
+      let inp = creatanelemn("input", "", "bbtn"+i, "", "", "", "checkbox", "", "", "fastselechand(this.id,"+i+",'b')", "", "");
+      if (i == 1) {
+        inp.checked = true;
+      }
+      let sp = creatanelemn("span", "sliderFS roundFS", "", "", "", "", "", "", "", "", "", "");sp.innerHTML = i;
+      let sty = "position: absolute;top:"+bpost[i-1][0]+"%;right:"+bpost[i-1][1]+"%;transform: translate(50%, -50%);";
+      let lab = creatanelemn("label", "switchFS", "", "", sty, "", "", "", inp, "", "", "");
+      lab.appendChild(sp);
+      b1.appendChild(lab);
+    }
+    let b2 = creatanelemn("div", "sUbdv", "", "", "", "", "", "", b1, "", "", "");
+    let id = "Fastelect";
+    let header = creatanelemn("div", "diagheadX", "", "", "", "", "", "", "", "", "", "");
+    let clsfun = "closeDialog('"+id+"')";
+    let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
+    header.appendChild(clsbtn);header.appendChild(f2);header.appendChild(l2);header.appendChild(b2);
+    let condiv = creatanelemn("div", "condiv", "", "", "max-height:90%;height:90%;", "", "", "", header, "", "", "");
+    let onclk = "addfastselectiontool(2)";
+    let subbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "✔", "", onclk, "", "");
+    let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subbtn, "", "", "");
+    condiv.appendChild(footer);
+    let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
+    quickSelection = {"b":1,"l":1,"f":0};
+    document.getElementsByTagName('body')[0].appendChild(bgdiv);
+  }
+  else if (mod == 2) {
+    let batrisel = {1:"", 2:"%", 3:"#"};
+    let id = fil[quickSelection['f']] + batrisel[quickSelection['b']] + quickSelection['l'];
+    document.getElementById(id).click();
+    closeDialog('Fastelect');
+  }
+}
+function rearrangehandler(div, itm, ind) {
+  let chArr = div.children;
+  if (chArr.length <= ind) {
+    div.appendChild(itm);
+  }
+  else {
+    if (ind == 0) {
+      ind = 1;
+    }
+    for (var i = 1; i < (chArr.length + 1); i++) {
+      chArr[i-1].setAttribute("data-order", i);
+    }
+    div.appendChild(itm);
+    for (var i = 0; i < chArr.length; i++) {
+      if (i >= (ind-1)) {
+        chArr[i].setAttribute("data-order", (i+2));
+      }
+    }
+    chArr[chArr.length-1].setAttribute("data-order", (ind));
+    const items = Array.from(chArr);
+    items.sort((a, b) => {
+      const orderA = parseInt(a.getAttribute('data-order'));
+      const orderB = parseInt(b.getAttribute('data-order'));
+      return orderA - orderB;
+    }).forEach(item => {
+      div.appendChild(item);
+    });
+  }
+}
+function fastselechand(id, ind, typ) {
+  if (typ == "b") {
+    for (var i = 1; i < 4; i++) {
+      if (i != ind) {
+        document.getElementById('bbtn'+i).checked = false;
+      }
+    }
+  }
+  else if (typ == "f") {
+    for (var i = 0; i < 11; i++) {
+      if (i != ind) {
+        document.getElementById('fbtn'+i).checked = false;
+      }
+    }
+  }
+  else if (typ == "l") {
+    for (var i = 1; i < 12; i++) {
+      if (i != ind) {
+        document.getElementById('lbtn'+i).checked = false;
+      }
+    }
+  }
+  quickSelection[typ] = ind;
 }
 function isThereHmm(elem, arr) {
   for (var i = 0; i < arr.length; i++) {

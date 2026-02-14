@@ -287,7 +287,10 @@ function opening() {
   }
   addRePiles();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
   addfastselectiontool(0);
   try {
     let br0 = document.createElement('br');

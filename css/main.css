@@ -111,4 +111,7 @@ input:focus + .sliderFS {box-shadow: 0 0 1px #2196F3;}
 .sUbdv, .lsUbdv, {position: absolute;top:50%;right:50%;transform: translate(-50%, -50%);display: flex;justify-content: center;}
 .fsUbdv {width: 405px;height: 405px;border-radius: 50%;}
 .lsUbdv {width: 305px;height: 305px;border-radius: 50%;}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes

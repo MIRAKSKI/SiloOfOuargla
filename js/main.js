@@ -286,11 +286,6 @@ function opening() {
     cryppassKey = "nbehzxz4";
   }
   addRePiles();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
   addfastselectiontool(0);
   try {
     let br0 = document.createElement('br');
@@ -314,7 +309,6 @@ function opening() {
     let MainHold = creatanelemn("div", "secondCalMax", "secondCalMax", "", "", "", "", "", subHold, "", "", "");
     document.getElementsByClassName('content-a')[0].appendChild(MainHold);
   } catch (e) {} finally {}
->>>>>>> Stashed changes
   let bdG = document.getElementsByClassName('body')[0];
   try {
     let divlS = document.createElement('div');

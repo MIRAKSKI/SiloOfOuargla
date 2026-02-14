@@ -40,6 +40,10 @@
   .swipeBTN:focus {border: 1px solid rgb(20,200,150);}
   .swipeBTN:active {border: 1px solid rgb(200,150,20);background: rgb(20,200,150);color: white;cursor: pointer;}
   .dayHSR {min-width: 100%;}
-  .dayHSRST {min-width: 100%;min-height: 80px;
+  .dayHSRST {min-width: 100%;min-height: 80px;}
+  .condiv {width: 95%;height: 85%;background: rgb(240,240,240);border-radius: 20px;position: absolute;top:50%;left:50%;
+    transform: translate(-50%, -50%);padding: 20px;place-items:center;max-width: 85%;max-height: 95%;
   }
+  .hdiv p {margin: 1px 3px;font-size: 18px;}
+  .interViews {display: flex; justify-content: space-around;width: 85%;}
 }

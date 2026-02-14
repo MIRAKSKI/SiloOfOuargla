@@ -284,7 +284,7 @@ function editdialog(idetion) {
   }
   condiv.appendChild(hdiv);
   let onclk = "setitemx('"+idetion+"', 'pileEditPlatform')";
-  let subbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "Set Data", "", onclk, "", "");
+  let subbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "Set Data ✔", "", onclk, "", "");
   let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subbtn, "", "", "");
   condiv.appendChild(footer);
   let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");

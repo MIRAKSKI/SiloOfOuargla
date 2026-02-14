@@ -11,6 +11,7 @@ function funFinishHandler(fun) {
     sty.setAttribute("href", "https://mirakski.github.io/SiloOfOuargla/css/mobileupdates.css");
     document.getElementsByTagName('head')[0].appendChild(sty);
   }
+  try {let test = version + 1;} catch (e) {version = 2.15;} finally {}
   if (fun == "creatAnaly") {
     let ti = 5000;
       let ty = setInterval(function () {
@@ -21,7 +22,6 @@ function funFinishHandler(fun) {
           if (passKey == cryppassKey && !submited) {
             document.getElementById('logview').removeAttribute("style");
           }
-          try {let test = version + 1;} catch (e) {version = 2.15;} finally {}
           if (version <= 2.15) {
             newAnalyser();
           }
@@ -30,25 +30,27 @@ function funFinishHandler(fun) {
       }, 100);
   }
   if (fun == "opening") {
-    if (document.getElementById('interViewsMax') == null) {
-      let br0 = document.createElement('br');
-      document.getElementsByClassName('content-a')[0].appendChild(br0);
-      let checkBox = creatanelemn("input", "", "myCheckBox", "", "", "", "checkbox", "", "", "onWorkPilesToggel(this.checked)", "", "");
-      let lable = creatanelemn("label", "switch", "", "", "", "", "", "", checkBox, "", "", "");
-      let apan = creatanelemn("span", "slider round", "", "", "", "", "", "", "", "", "", "");
-      lable.appendChild(apan);
-      let para0 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Global View");
-      let subHold = creatanelemn("div", "interViews", "", "", "", "", "", "", para0, "", "", "");
-      let para1 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Todays Work");
-      subHold.appendChild(lable);subHold.appendChild(para1);
-      let MainHold = creatanelemn("div", "interViewsMax", "interViewsMax", "", "", "", "", "", subHold, "", "", "");
-      document.getElementsByClassName('content-a')[0].appendChild(MainHold);
-      let br01 = document.createElement('br');
-      document.getElementsByClassName('content-a')[0].appendChild(br01);
-      let btn5 = creatanelemn("input", "", "historyBtn", "", "", "", "button", "Show History Handler", "", "HistoryHand(this.id)", "", "");
-      let subHoldx = creatanelemn("div", "secondCal", "secondCal", "", "", "", "", "", btn5, "", "", "");
-      let MainHoldX = creatanelemn("div", "secondCalMax", "secondCalMax", "", "", "", "", "", subHoldx, "", "", "");
-      document.getElementsByClassName('content-a')[0].appendChild(MainHoldX);
+    if (version <= 2.15) {
+      if (document.getElementById('interViewsMax') == null) {
+        let br0 = document.createElement('br');
+        document.getElementsByClassName('content-a')[0].appendChild(br0);
+        let checkBox = creatanelemn("input", "", "myCheckBox", "", "", "", "checkbox", "", "", "onWorkPilesToggel(this.checked)", "", "");
+        let lable = creatanelemn("label", "switch", "", "", "", "", "", "", checkBox, "", "", "");
+        let apan = creatanelemn("span", "slider round", "", "", "", "", "", "", "", "", "", "");
+        lable.appendChild(apan);
+        let para0 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Global View");
+        let subHold = creatanelemn("div", "interViews", "", "", "", "", "", "", para0, "", "", "");
+        let para1 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Todays Work");
+        subHold.appendChild(lable);subHold.appendChild(para1);
+        let MainHold = creatanelemn("div", "interViewsMax", "interViewsMax", "", "", "", "", "", subHold, "", "", "");
+        document.getElementsByClassName('content-a')[0].appendChild(MainHold);
+        let br01 = document.createElement('br');
+        document.getElementsByClassName('content-a')[0].appendChild(br01);
+        let btn5 = creatanelemn("input", "", "historyBtn", "", "", "", "button", "Show History Handler", "", "HistoryHand(this.id)", "", "");
+        let subHoldx = creatanelemn("div", "secondCal", "secondCal", "", "", "", "", "", btn5, "", "", "");
+        let MainHoldX = creatanelemn("div", "secondCalMax", "secondCalMax", "", "", "", "", "", subHoldx, "", "", "");
+        document.getElementsByClassName('content-a')[0].appendChild(MainHoldX);
+      }
       addfastselectiontool(0);
     }
   }

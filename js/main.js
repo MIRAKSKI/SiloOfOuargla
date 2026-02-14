@@ -2119,8 +2119,8 @@ function onWorkPilesToggel(val) {
 }
 window.addEventListener('resize', onWindowResize);
 document.addEventListener('DOMContentLoaded', (event) => {
+  opening();window.addEventListener('resize', onWindowResize);
   document.getElementsByTagName('body')[0].addEventListener("keydown", function(event) {
-    opening();window.addEventListener('resize', onWindowResize);
     if (event.key === "F" || event.key === "f") {
       refreshFun();
     }

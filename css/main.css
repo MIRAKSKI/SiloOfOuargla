@@ -81,8 +81,6 @@ td, th {border: 0.1rem solid #dddddd;text-align: center;word-wrap: break-word;pa
 .diagrowPro {display: flex;place-items:center;justify-content: space-around;margin: 2px;width: 100%;}
 .diagrow input, .diagrow select {border-radius: 5px; border: 1px solid #C55A11;font-size: 20px;text-align: center;}
 .diagcol {display: flex;flex-direction: column;place-items:center;justify-content: center;width: 100%;}
-<<<<<<< Updated upstream
-=======
 .interViews {display: flex; justify-content: space-around;width: 50%;}
 .interViewsMax {display: flex; justify-content: center;width: 100%;}
 .switch {position: relative;display: inline-block;width: 60px;height: 20px;}
@@ -111,7 +109,3 @@ input:focus + .sliderFS {box-shadow: 0 0 1px #2196F3;}
 .sUbdv, .lsUbdv, {position: absolute;top:50%;right:50%;transform: translate(-50%, -50%);display: flex;justify-content: center;}
 .fsUbdv {width: 405px;height: 405px;border-radius: 50%;}
 .lsUbdv {width: 305px;height: 305px;border-radius: 50%;}
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes

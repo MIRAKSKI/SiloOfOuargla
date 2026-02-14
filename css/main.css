@@ -64,8 +64,8 @@ td, th {border: 0.1rem solid #dddddd;text-align: center;word-wrap: break-word;pa
 .notifyclosy:hover{color: red;}
 .notifytitle{color: rgb(100,100,100);font-weight: bold;font-size: 18px;text-align: center;margin:  20px 0 5px 0;}
 .notifycontnt{color: rgba(100,100,100,0.95);margin:  5px 0 5px 0;}
-.clsbtn {border: none;background: transparent;font-size: 22px;font-weight: bold;position: absolute;top: 20px;right: 20px;transform: translate(-50%, -50%);transition: 0.2s;}
-.clsbtn:hover {color: red;}
+.clsbtn {border: none;background: transparent;z-index: 109;font-size: 22px;font-weight: bold;position: absolute;top: 20px;right: 20px;transform: translate(-50%, -50%);transition: 0.2s;}
+.clsbtn:hover {color: red;cursor: pointer;}
 .diaghead {display: grid;place-items:center;position: relative;width: 100%;}
 .diaghead p {}
 .condiv {width: 70%;height: 70%;background: rgb(240,240,240);border-radius: 20px;position: absolute;top:50%;left:50%;
@@ -103,9 +103,13 @@ input:checked + .sliderFS {background-color: #2196F3;}
 input:focus + .sliderFS {box-shadow: 0 0 1px #2196F3;}
 .sliderFS.roundFS {border-radius: 50%;}
 .quikmn {position: relative;height: 410px;display: block;}
-.sbdv, .lsbdv, .fsbdv {position: relative;width: 100%;height: 100%;}
+.sbdv, .lsbdv, .fsbdv {position: relative;width: 100%;height: 100%;border-radius: 50%;}
 .lsUbdv {z-index: 101;}
 .sUbdv {z-index: 102;}
-.sUbdv, .lsUbdv, {position: absolute;top:50%;right:50%;transform: translate(-50%, -50%);display: flex;justify-content: center;}
-.fsUbdv {width: 405px;height: 405px;border-radius: 50%;}
-.lsUbdv {width: 305px;height: 305px;border-radius: 50%;}
+.sUbdv, .lsUbdv, .fsUbdv {position: absolute;top:50%;left:50%;transform: translate(-50%, -50%);}
+.fsUbdv {width: 430px;height: 430px;border-radius: 50%;background: rgba(20,200,150,0.2);}
+.lsUbdv {width: 270px;height: 270px;border-radius: 50%;background: rgba(200,150,20,0.2);}
+.sUbdv {width: 120px;height: 120px;border-radius: 50%;background: rgba(150,20,200,0.2);}
+.diagheadX {display: grid;place-items:center;position: relative;width: 100%;height: 90%;}
+#Quickbtn {border-radius: 10px; border: 1px dashed rgb(20,200,150);transition: 0.2s;padding: 5px 10px;font-weight: bold;}
+#Quickbtn:hover {border: 1px solid rgb(20,200,150);color:white;background: rgb(20,200,150);}

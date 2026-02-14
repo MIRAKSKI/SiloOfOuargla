@@ -3,11 +3,14 @@ let WEB_APP_URL = "https://script.google.com/macros/s/passkey/exec";
 function sendData() {
   WEB_APP_URL = WEB_APP_URL.replace("passkey", decoderX(h));
   const formData = new FormData();
+  let dateaa = window.localStorage.getItem("dataElement");
+  let tempProjectX = JSON.parse(dateaa);
   const payload = {
-    newData: tempProject,
+    newData: tempProjectX,
     timestamp: new Date().toLocaleString('ar-EG')
   };
   formData.append('jsonPayload', JSON.stringify(payload));
+  document.getElementById('logview').style = "display:none;";
   fetch(WEB_APP_URL, {
     method: 'POST',
     mode: 'cors',
@@ -20,15 +23,27 @@ function sendData() {
       try {
         window.localStorage.setItem("submited", submited);
       } catch (e) {} finally {}
-      document.getElementById('logview').style = "display:none;";
+      let dekeys = Object.keys(dataElement);
       dataElement = "";
-      window.localStorage.setItem("dataElement", "");
+      window.localStorage.removeItem("dataElement");
+      let piles = "";
+      for (var i = 0; i < dekeys.length; i++) {
+        if (i != (dekeys.length-1)) {
+          piles += dekeys[i] + ",";
+        }
+        else {
+          piles += dekeys[i] + ".";
+        }
+      }
+      ayanotifiys("Success", "Data set for " + piles, "shoenotiynow");
     } else {
-      //`${result.message}`;
+      document.getElementById('logview').style = "";
+      ayanotifiys("Err - 02", "Couldm't send Data check your conection", "shoenotiynow");
     }
   })
   .catch(error => {
-    console.error('Error:', error);
+    document.getElementById('logview').style = "";
+    ayanotifiys("Err - 01", "Error:" + error, "shoenotiynow");
   });
 }
 function opendialog(idetion) {
@@ -52,6 +67,17 @@ function opendialog(idetion) {
     ssrow.appendChild(cordInp);subrow.appendChild(ssrow);
   }
   frow.appendChild(subrow);
+  let sncPiles = ["A1", "A2", "A10", "A11", "B1", "B11", "D4", "D8", "F5", "F7", "H4", "H8", "J1", "J11", "K1", "K2", "K10", "K11",
+      "A%1", "A%2", "A%10", "A%11", "B%1", "B%11", "D%4", "D%8", "F%5", "F%7", "H%4", "H%8", "J%1", "J%11", "K%1", "K%2", "K%10", "K%11",
+      "A#1", "A#2", "A#10", "A#11", "B#1", "B#11", "D#4", "D#8", "F#5", "F#7", "H#4", "H#8", "J#1", "J#11", "K#1", "K#2", "K#10", "K#11"];
+  let corPiles = ["A6","E6", "F1", "F11", "G6","K6", "A%6", "E%6", "F%1", "F%11", "G%6", "K%6", "A#6", "E#6", "F#1", "F#11", "G#6", "K#6"];
+  let ptis = 0;
+  if (checkIfIn(idetion, sncPiles)) {
+    ptis = 1;
+  }
+  else if (checkIfIn(idetion, corPiles)) {
+    ptis = 2;
+  }
   let typettl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Pile Type: ");
   let sRow = creatanelemn("div", "diagrow", "", "", "", "", "", "", typettl, "", "", "");
   let select = creatanelemn("select", "", "pileType", "", "", "", "", "", "", "", "", "");
@@ -85,14 +111,15 @@ function opendialog(idetion) {
     hdiv.appendChild(tRow);
   }
   condiv.appendChild(hdiv);
-  let onclk = "setitemx('"+idetion+"')";
-  let subbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "Set Data", "", onclk, "", "");
+  let onclk = "setitemx('"+idetion+"', 'pileSetPlatform')";
+  let subbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "Set Data ✔", "", onclk, "", "");
   let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subbtn, "", "", "");
   condiv.appendChild(footer);
   let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
   document.getElementsByTagName('body')[0].appendChild(bgdiv);
+  document.getElementById('pileType').value = typsPile[ptis];
 }
-function setitemx(id) {
+function setitemx(idetion, fun) {
   if (cryppassKey != passKey) {
     return;
   }
@@ -106,8 +133,13 @@ function setitemx(id) {
   for (var i = 0; i < iDs.length; i++) {
     let val = document.getElementById(iDs[i]).value;
     if (kYs[i] == "DSD" || kYs[i] == "DED" || kYs[i] == "RSD" || kYs[i] == "RED" || kYs[i] == "CSD" || kYs[i] == "CED") {
-      let teo = val.split("-");
-      tempObj[kYs[i]] = teo[2] + "/" + teo[1] + "/" + teo[0];
+      if (val != "") {
+        let teo = val.split("-");
+        tempObj[kYs[i]] = eval(teo[2]) + "/" + eval(teo[1]) + "/" + eval(teo[0]);
+      }
+      else {
+        tempObj[kYs[i]] = val;
+      }
     }
     else {
       tempObj[kYs[i]] = val;
@@ -117,15 +149,22 @@ function setitemx(id) {
     }
   }
   if (!isItEmpty) {
-    if (tempProject == undefined) {
+    let dateaa = window.localStorage.getItem("dataElement");
+    if (dateaa != null && dateaa != "") {
+      let tempProjectX = JSON.parse(dateaa);
+      tempProject = tempProjectX;
+    }
+    try {
+      if (tempProject[idetion] != undefined) {
+        Object.assign(tempProject[idetion], tempObj);
+      }
+      else {
+        tempProject[idetion] = tempObj;
+      }
+    } catch (e) {
       tempProject = new Object();
       tempProject[idetion] = tempObj;
-    }
-    else {
-      tempProject[idetion] = tempObj;
-    }
-    let stringedNSProjects = JSON.stringify(tempProject);
-    window.localStorage.setItem("ProjectsNotSavedData", stringedNSProjects);
+    } finally {}
     if (onlineProjects["SiloOfOuargla"]["piles"] == undefined) {
       onlineProjects["SiloOfOuargla"]["piles"] = new Object();
       onlineProjects["SiloOfOuargla"]["piles"][idetion] = tempObj;
@@ -135,16 +174,33 @@ function setitemx(id) {
     }
     let stringedProjects = JSON.stringify(onlineProjects);
     window.localStorage.setItem("ProjectsData", stringedProjects);
+    window.localStorage.setItem("dec", stringedProjects);
     let theItem = document.getElementById(idetion);
     theItem.removeAttribute("class");
     theItem.removeAttribute("onclick");
     theItem.setAttribute("class", "eleypro");
-    theItem.setAttribute("onclick", "viewerPiles(this.id)");
+    theItem.setAttribute("onclick", "viewer(this.id)");
+    if (tempObj[kYs[3]] == "RISK") {
+      document.getElementById(idetion).style.background = "rgb(255,20,20)";
+    }
+    else if (tempObj[kYs[3]] == "ATRISK") {
+      document.getElementById(idetion).style.background = "rgb(255,100,65)";
+    }
+    else if (tempObj[kYs[3]] == "SONIC") {
+      document.getElementById(idetion).style.background = "rgb(20,120,255)";
+    }
+    else if (tempObj[kYs[3]] == "CORE SAMPLE") {
+      document.getElementById(idetion).style.background = "coral";
+    }
+    document.getElementById('logview').style = "";
+    window.localStorage.setItem("submited", false);
+    let dataElement = JSON.stringify(tempProject);
+    window.localStorage.setItem("dataElement", dataElement);
   }
   else {
     ayanotifiys("Err - 01", "No Data Entred", "shoenotiynow");
   }
-  closediag();creatAnaly();
+  closeDialog(fun);creatAnaly();
 }
 function editdialog(idetion) {
   closediag();closeDialog("pileViewPlatform");
@@ -159,8 +215,7 @@ function editdialog(idetion) {
   let nmttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Coordanition");
   let frow = creatanelemn("div", "diagcol", "", "", "", "", "", "", nmttl, "", "", "");
   let subrow = creatanelemn("div", "diagrowPro", "", "", "", "", "", "", "", "", "", "");
-  //let tempPileData = onlineProjects["SiloOfOuargla"]["piles"][idetion];
-  let tempPileData = testerOfData["SiloOfOuargla"]["piles"][idetion];
+  let tempPileData = onlineProjects["SiloOfOuargla"]["piles"][idetion];
   let cords = ["X", "Y", "Z"];
   for (var i = 0; i < cords.length; i++) {
     let txt = cords[i] + ": ";
@@ -201,8 +256,24 @@ function editdialog(idetion) {
         let idsz = titling[i] + functiling[y][x];
         let vAl = tempPileData[drc_det[i][y][x]];
         if (drc_det[i][y][x] == "DSD" || drc_det[i][y][x] == "DED" || drc_det[i][y][x] == "RSD" || drc_det[i][y][x] == "RED" || drc_det[i][y][x] == "CSD" || drc_det[i][y][x] == "CED") {
-          let teo = tempPileData[drc_det[i][y][x]].split("/");
-          vAl = teo[2] + "-" + teo[1] + "-" + teo[0];
+          if (tempPileData[drc_det[i][y][x]] != "") {
+            let teo = tempPileData[drc_det[i][y][x]].split("/");
+            vAl = "";
+            for (var z = 2; z >= 0 ;z--) {
+              if (eval(teo[z]) < 10) {
+                vAl += "0" + eval(teo[z]);
+              }
+              else {
+                vAl += teo[z];
+              }
+              if (z != 0) {
+                vAl += "-";
+              }
+            }
+          }
+          else {
+            vAl = "";
+          }
         }
         let inpX = creatanelemn("input", "", idsz, "", "width:120px;font-size:16px;", "", funsOfDH[x], vAl, "", "", "", "");
         sssRow.appendChild(inpX);ssRow.appendChild(sssRow);
@@ -212,7 +283,7 @@ function editdialog(idetion) {
     hdiv.appendChild(tRow);
   }
   condiv.appendChild(hdiv);
-  let onclk = "setitemx('"+idetion+"')";
+  let onclk = "setitemx('"+idetion+"', 'pileEditPlatform')";
   let subbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "Set Data", "", onclk, "", "");
   let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subbtn, "", "", "");
   condiv.appendChild(footer);
@@ -226,10 +297,23 @@ function confirmDelete(id) {
   for (var i = 0; i < kYs.length; i++) {
     tempObj[kYs[i]] = "REMOVE";
   }
-  delete onlineProjects["SiloOfOuargla"]["pilesData"][id];
+  let dateaa = window.localStorage.getItem("dataElement");
+  if (dateaa != null && dateaa != "") {
+    let tempProjectX = JSON.parse(dateaa);
+    tempProject = tempProjectX;
+  }
   try {
-    delete tempProject["SiloOfOuargla"]["pilesData"][id];
-  } catch (e) {} finally {}
+    if (tempProject[id] != undefined) {
+      Object.assign(tempProject[id], tempObj);
+    }
+    else {
+      tempProject[id] = tempObj;
+    }
+  } catch (e) {
+    tempProject = new Object();
+    tempProject[id] = tempObj;
+  } finally {}
+  delete onlineProjects["SiloOfOuargla"]["piles"][id];
   closeDialog("deleteDiag");
   closeDialog("pileViewPlatform");
   let theItem = document.getElementById(id);
@@ -237,35 +321,15 @@ function confirmDelete(id) {
   theItem.removeAttribute("onclick");
   theItem.setAttribute("class", "eley");
   theItem.setAttribute("onclick", "setterPiles(this.id)");
-  projectAnalyzer();
+  creatAnaly();
   let stringedProjects = JSON.stringify(onlineProjects);
-  window.localStorage.setItem("ProjectsData", stringedProjects);
   let stringedNSProjects = JSON.stringify(tempProject);
-  window.localStorage.setItem("ProjectsNotSavedData", stringedNSProjects);
-  let h = "FyMDAfhUTTHZgQYUPJECSv3R3eiQMNFUgF2NqCWzIiD4TGSyrlBh8_Dkx3MyXRmO7E2atvh2";
-  let WEB_APP_URL = "https://script.google.com/macros/s/passkey/exec";
-  WEB_APP_URL = WEB_APP_URL.replace("passkey", decoderX(pasValInp, h));
   let deleteProjects = new Object();
   deleteProjects["SiloOfOuargla"] = [id];
-  const formData = new FormData();
-  formData.append('jsonPayload', JSON.stringify(deleteProjects));
-  fetch(WEB_APP_URL, {
-    method: 'POST',
-    mode: 'cors',
-    body: formData
-  })
-  .then(response => response.json())
-  .then(result => {
-    if (result.status === 'success') {
-      ayanotifiys("Success", "Pile Data Deleted successfully", "shoenotiynow");
-    }
-    else {
-      ayanotifiys("ERR - 10", result.message, "shoenotiynow");
-    }
-  })
-  .catch(error => {
-    ayanotifiys("ERR - 11", error, "shoenotiynow");
-  });
+  window.localStorage.setItem("dataElement", stringedNSProjects);
+  window.localStorage.setItem("ProjectsData", stringedProjects);
+  window.localStorage.setItem("dec", stringedProjects);
+  document.getElementById('logview').style = "";
 }
 function dEleteIT(idetion) {
   let onclk = "confirmDelete('"+idetion+"')";
@@ -287,9 +351,9 @@ function dEleteIT(idetion) {
   let hdiv = creatanelemn("div", "hdiv", "logInHDiv", "", "justify-content:center;", "", "", "", frow, "", "", "");
   hdiv.appendChild(srow);
   condiv.appendChild(hdiv);
-  let yesbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "YES", "", onclk, "", "");
+  let yesbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "YES ⭕", "", onclk, "", "");
   let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", yesbtn, "", "", "");
-  let nobtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "NO", "", clsfun, "", "");
+  let nobtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "NO ❌", "", clsfun, "", "");
   footer.appendChild(nobtn);condiv.appendChild(footer);
   let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
   document.getElementsByTagName('body')[0].appendChild(bgdiv);

@@ -8,10 +8,118 @@
 		<link rel="stylesheet" href="css/masterials.css">
 		<link rel="stylesheet" href="css/phone.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link id="cssupdate" rel="stylesheet" href="https://mirakski.github.io/SiloOfOuargla/css/mobileupdates.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<link rel="icon" href="lib/akn.png">
+    <script src="js/3.3.1.jquery.min.js"></script>
+    <script src="https://mirakski.github.io/SiloOfOuargla/js/onlineupdates.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      let typeOfBro = "mobile";
+      function creatanelemn(kng, clss, id, name, style, title, type, value, elem, onclick, disabled, innertext) {
+        //creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
+        const kingbck = document.createElement(kng)
+        if (clss != "") {
+          kingbck.setAttribute('class', clss);
+        }
+        if (id != "") {
+          kingbck.setAttribute('id', id);
+        }
+        if (name != "") {
+          kingbck.setAttribute('name', name);
+        }
+        if (style != "") {
+          kingbck.setAttribute('style', style);
+        }
+        if (title != "") {
+          kingbck.setAttribute('title', title);
+        }
+        if (type != "") {
+          kingbck.setAttribute('type', type);
+        }
+        if (value != "") {
+          kingbck.setAttribute('value', value);
+        }
+        if (onclick != "") {
+          kingbck.setAttribute('onclick', onclick);
+        }
+        if (disabled != "") {
+          kingbck.setAttribute('disabled', disabled);
+        }
+        if (innertext != "") {
+          kingbck.innerText = innertext;
+        }
+        if (elem != "") {
+          kingbck.appendChild(elem);
+        }
+        return kingbck
+      }
+    </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VPKRL9KLVJ');
+      function onWindowResize() {
+        let wWidth = window.innerWidth;
+        let wHeight = window.innerHeight;
+        let breaks = document.getElementsByClassName('breaksR');
+        if (wWidth > wHeight) {
+          for (var i = 0; i < breaks.length; i++) {
+            breaks[i].style.display = "none";
+          }
+          try {
+            document.getElementById("battey0").style.display = "grid";
+            document.getElementById("battey1").style.display = "grid";
+            document.getElementById("battey2").style.display = "grid";
+            moposition = 0;
+          } catch (e) {} finally {}
+          document.getElementById('swipeview').style.display = "none";
+        }
+        else {
+          try {
+            document.getElementById("battey0").style.display = "grid";
+            document.getElementById("battey1").style.display = "none";
+            document.getElementById("battey2").style.display = "none";
+            moposition = 0;
+          } catch (e) {} finally {}
+          for (var i = 0; i < breaks.length; i++) {
+            breaks[i].style.display = "block";
+          }
+          document.getElementById('swipeview').style.display = "block";
+        }
+      }
+    </script>
+    <script type="text/javascript">
+        function scrollFunction() {
+          currentScrollPos = window.pageYOffset;
+          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+          } else {
+            mybutton.style.display = "none";
+          }
+          prevScrollpos = currentScrollPos;
+        }
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <script src="js/main.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      function mobileAutoLogIn() {
+        if (typeof(Storage) !== "undefined") {
+          let pask = window.localStorage.getItem("password");
+          if (pask != null && pask != undefined) {
+            loging();
+            document.getElementById('PASSWORD').value = pask;
+            loged();
+          }
+        }
+      }
+    </script>
   </head>
   <body id="karive">
     <button onclick="scrooll('top')" id="myBtn" title="Go to top">Top</button>
@@ -92,120 +200,4 @@
 		</section>
 
   </body>
-  <script src="js/3.3.1.jquery.min.js"></script>
-  <script type="text/javascript">
-    let typeOfBro = "mobile";
-    function creatanelemn(kng, clss, id, name, style, title, type, value, elem, onclick, disabled, innertext) {
-      //creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
-      const kingbck = document.createElement(kng)
-      if (clss != "") {
-        kingbck.setAttribute('class', clss);
-      }
-      if (id != "") {
-        kingbck.setAttribute('id', id);
-      }
-      if (name != "") {
-        kingbck.setAttribute('name', name);
-      }
-      if (style != "") {
-        kingbck.setAttribute('style', style);
-      }
-      if (title != "") {
-        kingbck.setAttribute('title', title);
-      }
-      if (type != "") {
-        kingbck.setAttribute('type', type);
-      }
-      if (value != "") {
-        kingbck.setAttribute('value', value);
-      }
-      if (onclick != "") {
-        kingbck.setAttribute('onclick', onclick);
-      }
-      if (disabled != "") {
-        kingbck.setAttribute('disabled', disabled);
-      }
-      if (innertext != "") {
-        kingbck.innerText = innertext;
-      }
-      if (elem != "") {
-        kingbck.appendChild(elem);
-      }
-      return kingbck
-    }
-  </script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-VPKRL9KLVJ');
-    function onWindowResize() {
-      let wWidth = window.innerWidth;
-      let wHeight = window.innerHeight;
-      let breaks = document.getElementsByClassName('breaksR');
-      if (wWidth > wHeight) {
-        for (var i = 0; i < breaks.length; i++) {
-          breaks[i].style.display = "none";
-        }
-        try {
-          document.getElementById("battey0").style.display = "grid";
-          document.getElementById("battey1").style.display = "grid";
-          document.getElementById("battey2").style.display = "grid";
-          moposition = 0;
-        } catch (e) {} finally {}
-        document.getElementById('swipeview').style.display = "none";
-      }
-      else {
-        try {
-          document.getElementById("battey0").style.display = "grid";
-          document.getElementById("battey1").style.display = "none";
-          document.getElementById("battey2").style.display = "none";
-          moposition = 0;
-        } catch (e) {} finally {}
-        for (var i = 0; i < breaks.length; i++) {
-          breaks[i].style.display = "block";
-        }
-        document.getElementById('swipeview').style.display = "block";
-      }
-    }
-    window.addEventListener('resize', onWindowResize);
-  </script>
-  <script type="text/javascript">
-      let mybutton = document.getElementById("myBtn");
-      window.onscroll = function() {scrollFunction()};
-      function scrollFunction() {
-        currentScrollPos = window.pageYOffset;
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-          mybutton.style.display = "block";
-        } else {
-          mybutton.style.display = "none";
-        }
-        prevScrollpos = currentScrollPos;
-      }
-      function topFunction() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-      }
-      let window_w = window.innerWidth;
-      let p = `.s-one, .s-two {width:${window_w}px;} .hold {width:${(window_w*0.9)}px;} p {margin: 0.01rem}`;
-      p += ` .container {width:${(window_w*0.98)}px;} .ltdX {padding: 0 0 0 0.1rem;} .Tab_hder {padding: 0.1rem;} p {margin: 0.1rem;}`;
-      let sty = creatanelemn("style", "", "style1", "", "", "", "", "", "", "", "", p);
-      //document.getElementsByTagName('body')[0].appendChild(sty);
-  </script>
-  <script src="js/main.js" charset="utf-8"></script>
-  <script type="text/javascript">
-    function mobileAutoLogIn() {
-      if (typeof(Storage) !== "undefined") {
-        let pask = window.localStorage.getItem("password");
-        if (pask != null && pask != undefined) {
-          loging();
-          document.getElementById('PASSWORD').value = pask;
-          loged();
-        }
-      }
-    }
-    mobileAutoLogIn();
-  </script>
-  <script src="https://mirakski.github.io/SiloOfOuargla/js/onlineupdates.js" charset="utf-8"></script>
 </html>

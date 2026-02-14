@@ -1,13 +1,15 @@
-/*  version:2.12  */
-let dec = new Object();let cryppassKey,passKey;let supportsaving = false;let saved = false;
+/*  version:2.17  */
+let onlineProjects;let cryppassKey,passKey;let supportsaving = false;let saved = false;
 let dataElement = "";let submited = false, logedin = false;let moposition = 0, tapotition = 0;
-let crushing_notify = false, app_news = false, app_interval = 5000;
+let crushing_notify = false, app_news = false, app_interval = 5000,downloaded = true;
+let version = 2.17,quickSelection;
 if (typeof(Storage) !== "undefined") {
   supportsaving = true;
   saved = window.localStorage.getItem("saved");
   submited = window.localStorage.getItem("submited");
   dataElement = window.localStorage.getItem("dataElement");
   notecedApp = window.localStorage.getItem("app_news");
+  downloadedft = window.localStorage.getItem("downloaded");
   if (saved == "false") {
     saved = false;
   }
@@ -26,29 +28,36 @@ if (typeof(Storage) !== "undefined") {
   if (notecedApp != null && notecedApp != undefined) {
     app_news = true;
   }
+  if (downloadedft != null) {
+    downloaded = false;
+  }
 }
 function loaduphandler() {
   //startupset();return;
   let encr_dec = window.localStorage.getItem("dec");//key:i,i,i,i#
   if (supportsaving && encr_dec != null) {
-    let obj_items = Object.keys(JSON.parse(encr_dec));let securite = false;
-    if (obj_items.length >= 1) {
-      securite = true;
-    }
-    if (saved && securite) {
-      let last_update_ms = window.localStorage.getItem("lastUpdate");
-      let now_update = new Date().getTime();
-      let hr = Math.floor((now_update - last_update_ms) / (60 * 60 * 1000));
-      if (hr < 1) {
-        loaderfromOffData();
+    try {
+      let obj_items = Object.keys(JSON.parse(encr_dec));let securite = false;
+      if (obj_items.length >= 1) {
+        securite = true;
+      }
+      if (saved && securite) {
+        let last_update_ms = window.localStorage.getItem("lastUpdate");
+        let now_update = new Date().getTime();
+        let hr = Math.floor((now_update - last_update_ms) / (60 * 60 * 1000));
+        if (hr < 1) {
+          loaderfromOffData();
+        }
+        else {
+          startupset();
+        }
       }
       else {
         startupset();
       }
-    }
-    else {
-      startupset();
-    }
+    } catch (e) {
+      startupset()
+    } finally {}
   }
   else {
     startupset();
@@ -59,8 +68,34 @@ function loaduphandler() {
       document.getElementById('swipeview').style.display = "block";
     } catch (e) {} finally {}
   }
-  if (!submited && submited != null) {
-    document.getElementById('logview').style = "";
+  let dateaa = window.localStorage.getItem("dataElement");
+  if (dateaa != null && dateaa != "") {
+    let tempProjectX = JSON.parse(dateaa);
+    let keys = Object.keys(tempProjectX);
+    for (var i = 0; i < keys.length; i++) {
+      if (tempProjectX[keys[i]]["pT"] != "REMOVE") {
+        document.getElementById(keys[i]).setAttribute("class", "eleypro");
+        if (tempProjectX[keys[i]]["pT"] == "RISK") {
+          document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
+        }
+        else if (tempProjectX[keys[i]]["pT"] == "ATRISK") {
+          document.getElementById(keys[i]).style.background = "rgb(255,100,65)";
+        }
+        else if (tempProjectX[keys[i]]["pT"] == "SONIC") {
+          document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+        }
+        else if (tempProjectX[keys[i]]["pT"] == "CORE SAMPLE") {
+          document.getElementById(keys[i]).style.background = "coral";
+        }
+        if (keys[i] == "K#11A" || keys[i] == "K#11B" || keys[i] == "H8A" || keys[i] == "F#7A") {
+          document.getElementById(keys[i]).setAttribute("class", "addeleypro");
+        }
+        if (keys[i] == "H8A" || keys[i] == "F#7A") {
+          document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+        }
+      }
+    }
+    creatAnaly();
   }
 }
 //creatanelemn("kng", "clss", "id", "name", "style", "title", "type", "value", "elem", "onclick", "disabled", "innertext");
@@ -90,7 +125,7 @@ function loaderfromOffData() {
       document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
     }
   }
-  creatAnaly(keys);
+  creatAnaly();
 }
 function startupset() {
   const WEB_APP_URLS = "https://script.google.com/macros/s/AKfycbyKX3MQPGZS_6UrFaUk9WS7eiy2kwwBuLEGOW94AkxXHvc0nFO7CLFYG_4hONtMIbvjFw/exec";
@@ -108,6 +143,7 @@ function startupset() {
       jsonDataOBJ = result.content;let long_keys = "";
       dec  = result.content;
       long_keys = JSON.stringify(dec);
+      onlineProjects = jsonDataOBJ;
       selectedProject = jsonDataOBJ["SiloOfOuargla"];
       let keys = Object.keys(selectedProject["piles"]);
       for (var i = 0; i < keys.length; i++) {
@@ -139,7 +175,7 @@ function startupset() {
       window.localStorage.setItem("dataElement", "");
       let last_update_ms = new Date().getTime();
       window.localStorage.setItem("lastUpdate", last_update_ms);
-      creatAnaly(keys);
+      creatAnaly();
     } else {
       //`${result.message}`;
     }
@@ -154,7 +190,9 @@ function startupset() {
       document.getElementById('waitP').innerText = "Error Loading Check your internet conection!\nLoading Offline Data.";
       loaderfromOffData();
       setTimeout(function () {
-        document.getElementById('waitdiv').remove();
+        try {
+          document.getElementById('waitdiv').remove();
+        } catch (e) {} finally {}
       }, 3000);
     }
     catch (e) {} finally {}
@@ -273,7 +311,7 @@ function opening() {
         divz.setAttribute('id', id);
         divz.setAttribute("onclick", "viewer(this.id)");
         if (checkIfIn(id, expPiles)) {
-          divz.style = "background: rgb(60,60,60);"
+          divz.style = "background: rgb(60,60,60);";
         }
         divx.appendChild(divz);
       }
@@ -362,6 +400,261 @@ function opening() {
     }
   } catch (e) {} finally {}
   loaduphandler();
+  if (typeOfBro != "Web") {
+    funFinishHandler("opening");
+  }
+}
+function HistoryHand(id) {
+  let keys = Object.keys(onlineProjects["SiloOfOuargla"]["piles"]);
+  let expPiles = ["A1", "A2", "A6", "A10", "A11", "B1", "B11", "D4", "D8", "E6", "F1", "F5", "F7", "F11", "G6", "H4", "H8", "J1", "J11", "K1", "K2", "K6", "K10", "K11",
+  "A%1", "A%2", "A%6", "A%10", "A%11", "B%1", "B%11", "D%4", "D%8", "E%6", "F%1", "F%5", "F%7", "F%11", "G%6", "H%4", "H%8", "J%1", "J%11", "K%1", "K%2", "K%6", "K%10", "K%11",
+  "A#1", "A#2", "A#6", "A#10", "A#11", "B#1", "B#11", "D#4", "D#8", "E#6", "F#1", "F#5", "F#7", "F#11", "G#6", "H#4", "H#8", "J#1", "J#11", "K#1", "K#2", "K#6", "K#10", "K#11"];
+  for (var i = 0; i < keys.length; i++) {
+    if (keys[i] != "H8A" && keys[i] != "F#7A" && keys[i] != "K#11A" && keys[i] != "K#11B") {
+      document.getElementById(keys[i]).setAttribute("class", "eley");
+      document.getElementById(keys[i]).removeAttribute("style");
+    }
+    else if (keys[i] == "K#11A" || keys[i] == "K#11B") {
+      document.getElementById(keys[i]).setAttribute("class", "addeley");
+    }
+    else {
+      document.getElementById(keys[i]).setAttribute("class", "addeley");
+      if (keys[i] == "F#7A") {
+        document.getElementById(keys[i]).style = "position:absolute;right:46.5%;bottom:38%;background:rgb(60,60,60);";
+      }
+      else {
+        document.getElementById(keys[i]).style = "position:absolute;right:28%;bottom:22%;background:rgb(60,60,60);";
+      }
+    }
+    if (isThereHmm(keys[i], expPiles)) {
+      document.getElementById(keys[i]).style = "background: rgb(60,60,60);";
+    }
+  }
+  let kDate = Object.keys(dates);
+  kDate.sort(dateComparator);
+  let preselectedProject = onlineProjects["SiloOfOuargla"];
+  let tempdatobj = new Object();
+  for (var i = 0; i < keys.length; i++) {
+    let ty = onlineProjects["SiloOfOuargla"]["piles"][keys[i]]["DSD"];
+    if (tempdatobj[ty] === undefined) {
+      tempdatobj[ty] = 1;
+    }
+    else {
+      tempdatobj[ty]++;
+    }
+  }
+  if (id == "historyBtn") {
+    historyKeeper = 1;
+    document.getElementById('secondCalMax').style.display = "grid";
+    document.getElementById('interViewsMax').style.display = "none";
+    let dateKeeper = new Object();
+    let kkdate = new Array();
+    for (var i = 0; i < historyKeeper; i++) {
+      kkdate[i] = kDate[i];
+    }
+    for (var i = 0; i < kkdate.length; i++) {
+      dateKeeper[kkdate[i]] = dates[kkdate[i]];
+    }
+    subanalyser(dateKeeper);
+  }
+  else if (id == "plus") {
+    let dateKeeper = new Object();
+    let kkdate = new Array();
+    historyKeeper++;let tryu = Object.keys(tempdatobj);
+    if (historyKeeper > tryu.length) {
+      historyKeeper = tryu.length;
+    }
+    for (var i = 0; i < historyKeeper; i++) {
+      kkdate[i] = kDate[i];
+    }
+    for (var i = 0; i < kkdate.length; i++) {
+      dateKeeper[kkdate[i]] = dates[kkdate[i]];
+    }
+    subanalyser(dateKeeper);
+  }
+  else if (id == "mine") {
+    let dateKeeper = new Object();
+    let kkdate = new Array();
+    historyKeeper--;let tryu = Object.keys(tempdatobj);
+    if (historyKeeper < 1) {
+      historyKeeper = 1;
+    }
+    for (var i = 0; i < historyKeeper; i++) {
+      kkdate[i] = kDate[i];
+    }
+    for (var i = 0; i < kkdate.length; i++) {
+      dateKeeper[kkdate[i]] = dates[kkdate[i]];
+    }
+    subanalyser(dateKeeper);
+  }
+  else if (id == "clear") {
+    for (var i = 0; i < keys.length; i++) {
+      document.getElementById(keys[i]).setAttribute("class", "eleypro");
+      if (selectedProject["piles"][keys[i]]["pT"] == "RISK") {
+        document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
+      }
+      else if (selectedProject["piles"][keys[i]]["pT"] == "ATRISK") {
+        document.getElementById(keys[i]).style.background = "rgb(255,100,65)";
+      }
+      else if (selectedProject["piles"][keys[i]]["pT"] == "SONIC") {
+        document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+      }
+      else if (selectedProject["piles"][keys[i]]["pT"] == "CORE SAMPLE") {
+        document.getElementById(keys[i]).style.background = "coral";
+      }
+      if (keys[i] == "K#11A" || keys[i] == "K#11B" || keys[i] == "H8A" || keys[i] == "F#7A") {
+        document.getElementById(keys[i]).setAttribute("class", "addeleypro");
+      }
+      if (keys[i] == "H8A" || keys[i] == "F#7A") {
+        document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+      }
+    }
+    document.getElementById('historyInsight').remove();
+    document.getElementById('insghtBtns').remove();
+    document.getElementById('insghtclerBtn').remove();
+    document.getElementById('interViewsMax').removeAttribute("style");
+    let btn5 = creatanelemn("input", "", "historyBtn", "", "", "", "button", "Show History Handler", "", "HistoryHand(this.id)", "", "");
+    let subHold = creatanelemn("div", "secondCal", "secondCal", "", "", "", "", "", btn5, "", "", "");
+    document.getElementById('secondCalMax').appendChild(subHold);
+  }
+  if (id == "historyBtn" || id == "plus" || id == "mine") {
+    for (var u = 0; u < historyKeeper; u++) {
+      for (var i = 0; i < dates[kDate[u]].length; i++) {
+        document.getElementById(dates[kDate[u]][i]).setAttribute("class", "eleypro");
+        if (preselectedProject["piles"][dates[kDate[u]][i]]["pT"] == "RISK") {
+          document.getElementById(dates[kDate[u]][i]).style.background = "rgb(255,20,20)";
+        }
+        else if (preselectedProject["piles"][dates[kDate[u]][i]]["pT"] == "ATRISK") {
+          document.getElementById(dates[kDate[u]][i]).style.background = "rgb(255,100,65)";
+        }
+        else if (preselectedProject["piles"][dates[kDate[u]][i]]["pT"] == "SONIC") {
+          document.getElementById(dates[kDate[u]][i]).style.background = "rgb(20,120,255)";
+        }
+        else if (preselectedProject["piles"][dates[kDate[u]][i]]["pT"] == "CORE SAMPLE") {
+          document.getElementById(dates[kDate[u]][i]).style.background = "coral";
+        }
+        if (dates[kDate[u]][i] == "K#11A" || dates[kDate[u]][i] == "K#11B" || dates[kDate[u]][i] == "H8A" || dates[kDate[u]][i] == "F#7A") {
+          document.getElementById(dates[kDate[u]][i]).setAttribute("class", "addeleypro");
+        }
+        if (dates[kDate[u]][i] == "H8A" || dates[kDate[u]][i] == "F#7A") {
+          document.getElementById(dates[kDate[u]][i]).style.background = "rgb(20,120,255)";
+        }
+      }
+    }
+  }
+}
+function subanalyser(dateKeeper) {
+  let keys = Object.keys(onlineProjects["SiloOfOuargla"]["piles"]);
+  datekys = Object.keys(dateKeeper);
+  let nBrOP = 0;batteries = {"bat0":0, "bat1":0, "bat2":0};
+  let offdyRlzdMAP = new Object();
+  for (var i = 0; i < datekys.length; i++) {
+    let pil = dateKeeper[datekys[i]];
+    for (var u = 0; u < pil.length; u++) {
+      let date = datekys;
+      if (offdyRlzdMAP[date] === undefined) {
+        offdyRlzdMAP[date] = 1;
+      }
+      else {
+        offdyRlzdMAP[date]++;
+      }
+      let tst0 = checkbat(pil[u].toString());
+      if ("%" == tst0) {
+        if (selectedProject["piles"][keys[i]]["pT"] != "RISK" && selectedProject["piles"][keys[i]]["pT"] != "ATRISK") {
+          batteries["bat1"]++;
+          nBrOP++;
+        }
+      }
+      else if ("#" == tst0) {
+        if (selectedProject["piles"][keys[i]]["pT"] != "RISK" && selectedProject["piles"][keys[i]]["pT"] != "ATRISK") {
+          batteries["bat2"]++;
+          nBrOP++;
+        }
+      }
+      else if ("_" == tst0) {
+        if (selectedProject["piles"][keys[i]]["pT"] != "RISK" && selectedProject["piles"][keys[i]]["pT"] != "ATRISK") {
+          batteries["bat0"]++;
+          nBrOP++;
+        }
+      }
+    }
+  }
+  let days = Object.keys(offdyRlzdMAP);
+  let datess = new Object();
+  for (var f = 0; f < keys.length; f++) {
+    if (datess[selectedProject["piles"][keys[f]]["DSD"]] === undefined) {
+      datess[selectedProject["piles"][keys[f]]["DSD"]] = [keys[f]];
+    }
+    else {
+      datess[selectedProject["piles"][keys[f]]["DSD"]].push(keys[f]);
+    }
+  }
+  let dates_kys = Object.keys(datess);
+  let max_pPd = 0;
+  for (var i = 0; i < datekys.length; i++) {
+    let std_len = dateKeeper[datekys[i]].length;
+    if (std_len > max_pPd) {
+      max_pPd = std_len;
+    }
+  }
+  let pPd = max_pPd;
+  let rstdDys = (Math.ceil((363 - nBrOP) / pPd));
+  rstdDys = rstdDys + Math.ceil(rstdDys/6);
+  let frd = datekys[datekys.length-1].split("/");
+  const d = new Date(frd[2], frd[1], frd[0]).getTime();
+  let ms = 60 * 60 * 24 * 1000;
+  let r = rstdDys * ms;
+  let e = d + r;
+  let dd = new Date(e);
+  let e_seg = dd.toString().split(" ");
+  let re = "";
+  for (var i = 0; i < e_seg.length; i++) {
+    re += e_seg[i] + " ";
+    if (i == 3) {
+      break;
+    }
+  }
+  let plsps = ((nBrOP / 363) * 100).toFixed(2);
+  let sentance = "<p>Realised Piles:<br> <b>" + nBrOP + "/363 - " + plsps + "%</b><br>Working days: <b>" + datekys.length + " - " + datekys[datekys.length-1] + "</b><br>";
+  sentance += "Battery one : <b>" + batteries["bat0"] + " - " + ((batteries["bat0"]/121) * 100).toFixed(2) + "% </b><br>";
+  sentance += "Battery two : <b>" + batteries["bat1"] + " - " + ((batteries["bat1"]/121) * 100).toFixed(2) + "% </b><br>";
+  sentance += "Battery three : <b>" + batteries["bat2"] + " - " + ((batteries["bat2"]/121) * 100).toFixed(2) + "% </b><br>";
+  sentance += "Max Realised Par Day: <b>" + pPd + "</b><br>";
+  sentance += "Expected Finish Date: <b>" + re + "</b><br></p>";
+  const percentageValue = (nBrOP / 363) * 100
+  const angle = (percentageValue / 100) * 360;
+  const displayText = nBrOP + "/" + 363 + "\n" + percentageValue.toFixed(2) + '%';
+  const gradientStyle = `background:conic-gradient(#00ff7b ${angle}deg, #e0e0e0 ${angle}deg)`;
+  let p0 = creatanelemn("p", "percentage-text", "", "", "", "", "", "", "", "", "", displayText);
+  let dv0 = creatanelemn("div", "progress-circle", "", "", gradientStyle, "", "", "", p0, "", "", "");
+  let dv1 = creatanelemn("div", "progress-container", "", "", "", "", "", "", dv0, "", "", "");
+  let dv2 = creatanelemn("div", "itemViewer", "", "", "", "", "", "", dv1, "", "", "");
+  let dv3 = creatanelemn("div", "itemViewer", "", "", "", "", "", "", "", "", "", "");///////////////////////
+  let dv4 = creatanelemn("div", "horViewer", "", "", "", "", "", "", dv2, "", "", "");dv4.appendChild(dv3);
+  let dv5 = creatanelemn("div", "horViewer", "", "", "", "", "", "", "", "", "", "");
+  let dv6 = creatanelemn("div", "round_an", "", "", "", "", "", "", dv4, "", "", "");dv6.appendChild(dv5);
+  let dv7 = creatanelemn("div", "details", "", "", "", "", "", "", "", "", "", "");dv7.innerHTML = sentance;
+  let dv8 = creatanelemn("div", "hold", "historyInsight", "", "", "", "", "", dv7, "", "", "");dv8.appendChild(dv6);
+  let bn1 = creatanelemn("input", "submitBtn", "mine", "", "", "", "button", "-", "", "HistoryHand(this.id)", "", "");
+  let bn2 = creatanelemn("input", "submitBtn", "plus", "", "", "", "button", "+", "", "HistoryHand(this.id)", "", "");
+  let dv9 = creatanelemn("div", "axey", "insghtBtns", "", "", "", "", "", bn1, "", "", "");dv9.appendChild(bn2);
+  let bn3 = creatanelemn("input", "submitBtn", "clear", "", "", "", "button", "Clear", "", "HistoryHand(this.id)", "", "");
+  let dv10 = creatanelemn("div", "axey", "insghtclerBtn", "", "", "", "", "", bn3, "", "", "");
+  try {
+    document.getElementById('historyInsight').remove();
+  } catch (e) {} finally {}
+  try {
+    document.getElementById('insghtBtns').remove();
+  } catch (e) {} finally {}
+  try {
+    document.getElementById('secondCal').remove();
+  } catch (e) {} finally {}
+  try {
+    document.getElementById('insghtclerBtn').remove();
+  } catch (e) {} finally {}
+  document.getElementById('secondCalMax').appendChild(dv8);
+  document.getElementById('secondCalMax').appendChild(dv9);
+  document.getElementById('secondCalMax').appendChild(dv10);
 }
 function scrooll(sec) {
     if (sec != "top") {
@@ -380,89 +673,6 @@ function checkIfIn(nm, arr) {
   }
   return false;
 }
-function addfastselectiontool(mod) {
-  if (mod == 0) {
-    let f1 = creatanelemn("div", "fsbdv", "", "", "", "", "", "", "", "", "", "");
-    let fil = "ABCDEFGHIJK";
-    fil = fil.split("");
-    let position = [[14.3, 62],[25.6,80.6],[44.9,89],[63.2,80.6],[78.5,70.3],[85.7,50],[78.5,29.7],[63.2,19.4],[44.9,11],[25.6,19.4],[14.3,38.1]];
-    for (var i = 0; i < 11; i++) {
-      let inp = creatanelemn("input", "", "id", "", "", "", "checkbox", "", "", "fastselechand(this.id)", "", "");
-      let sp = creatanelemn("span", "sliderFS roundFS", "id", "", "", "", "", "", "", "", "", "");sp.innerHTML = fil[i];
-      let sty = "position: absolute;top:"+position[10-i][0]+"%;right:"+position[10-i][1]+"%;transform: translate(-50%, -50%);";
-      let lab = creatanelemn("label", "switchFS", "", "", sty, "", "", "", inp, "", "", "");
-      lab.appendChild(sp);
-      f1.appendChild(lab);
-    }
-    let f2 = creatanelemn("div", "fsUbdv", "", "", "", "", "", "", f1, "", "", "");
-    //
-    let l1 = creatanelemn("div", "lsbdv", "", "", "", "", "", "", "", "", "", "");
-    for (var i = 1; i < 12; i++) {
-      let inp = creatanelemn("input", "", "id", "", "", "", "checkbox", "", "", "fastselechand(this.id)", "", "");
-      let sp = creatanelemn("span", "sliderFS roundFS", "id", "", "", "", "", "", "", "", "", "");sp.innerHTML = i;
-      let sty = "position: absolute;top:"+position[11-i][0]+"%;right:"+position[11-i][1]+"%;transform: translate(-50%, -50%);";
-      let lab = creatanelemn("label", "switchFS", "", "", sty, "", "", "", inp, "", "", "");
-      lab.appendChild(sp);
-      l1.appendChild(lab);
-    }
-    let l2 = creatanelemn("div", "lsUbdv", "", "", "", "", "", "", l1, "", "", "");
-    ///
-    let b1 = creatanelemn("div", "sbdv", "", "", "", "", "", "", "", "", "", "");
-    for (var i = 1; i < 4; i++) {
-      let inp = creatanelemn("input", "", "id", "", "", "", "checkbox", "", "", "fastselechand(this.id)", "", "");
-      let sp = creatanelemn("span", "sliderFS roundFS", "id", "", "", "", "", "", "", "", "", "");sp.innerHTML = i;
-      let lab = creatanelemn("label", "switchFS", "", "", "", "", "", "", inp, "", "", "");
-      lab.appendChild(sp);
-      b1.appendChild(lab);
-    }
-    let b2 = creatanelemn("div", "sUbdv", "", "", "", "", "", "", b1, "", "", "");
-    let did = creatanelemn("div", "quikmn", "", "", "", "", "", "", f2, "", "", "");
-    did.appendChild(l2);did.appendChild(b2);
-    let id = "Fastelect";
-    let header = creatanelemn("div", "diaghead", "", "", "", "", "", "", "", "", "", "");
-    let clsfun = "closeDialog('"+id+"')";
-    let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
-    header.appendChild(clsbtn);
-    let condiv = creatanelemn("div", "condiv", "", "", "max-height:90%;height:90%;", "", "", "", header, "", "", "");
-    let hdiv = creatanelemn("div", "hdiv", "newProHDiv", "", "", "", "", "", did, "", "", "");
-    condiv.appendChild(hdiv);
-    let onclk = "addfastselectiontool(2)";
-    let subbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "✔", "", onclk, "", "");
-    let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subbtn, "", "", "");
-    condiv.appendChild(footer);
-    let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
-    document.getElementsByTagName('body')[0].appendChild(bgdiv);
-  }
-  else if (mod == 2){
-    //
-    closeDialog('Fastelect');
-  }
-}
-function rearrangehandler(div, itm, ind) {
-  let chArr = div.children;
-  if (chArr.length <= ind) {
-    div.appendChild(itm);
-  }
-  else {
-    div.innerHTML = "";
-    let chInd = 0;
-    if (ind == 0) {
-      ind = 1;
-    }
-    for (var i = 0; i < chArr.length; i++) {
-      if (i == (ind-1)) {
-        div.appendChild(itm);
-      }
-      else {
-        div.appendChild(chArr[chInd].innerHTML);
-        chInd++
-      }
-    }
-  }
-}
-function fastselechand(id) {
-  //
-}
 function addRePiles() {
   document.getElementById('battey0').style.position = "relative";
   document.getElementById('battey2').style.position = "relative";
@@ -479,7 +689,7 @@ function addRePiles() {
   }
   let additive = ["K#11A", "K#11B", "F#7A"];
   let pst = ["position:absolute;right:0.8%;bottom:6%;", "position:absolute;right:5%;bottom:1%;"
-            , "position:absolute;right:46.5%;bottom:31%;"];
+            , "position:absolute;right:46.5%;bottom:38%;"];
   for (var z = 0; z < additive.length; z++) {
     let divz = document.createElement('div');
     divz.setAttribute('class', "addeley");
@@ -597,7 +807,7 @@ function loged() {
       pieux[i].setAttribute("onclick", "opendialog(this.id)");
     }
     let xcode = "fse2dla20jmhc2p";
-    let link = "passkey.js";
+    let link = "https://mirakski.github.io/SiloOfOuargla/passkey.js";
     link = link.replace("passkey", decoderX(xcode));
     try {
       window.localStorage.setItem("xcode", decoderX(xcode));
@@ -605,21 +815,22 @@ function loged() {
     } catch (e) {} finally {}
     let js = document.createElement('script');
     js.setAttribute("charset", "utf-8");js.setAttribute("src", link);
-    document.getElementsByTagName('body')[0].appendChild(js);
-    document.getElementById('logview').style = "display:none;";
+    document.getElementsByTagName('head')[0].appendChild(js);
     document.getElementById('loginbtn').removeAttribute("onclick");
-    document.getElementById('loginbtn').setAttribute("onclick", "submithandlerT()");
+    document.getElementById('loginbtn').setAttribute("onclick", "sendData()");
     document.getElementById('loginbtn').value = "Submit Editing";
     closediag();
+    if (submited) {
+      document.getElementById('logview').style = "display:none;";
+    }
+    else {
+      document.getElementById('logview').style = "";
+    }
   }
   else {
     document.getElementById('passINC').innerText = "PASSWORD INCORRECT";
     document.getElementById('passINC').setAttribute("style", "color:red;font-weight: bold;");
   }
-}
-function submithandlerT() {
-  sendData();
-  document.getElementById('logview').style = "display:none;";
 }
 function viewer(idetion) {
   let tempPileData = selectedProject["piles"][idetion];
@@ -642,7 +853,7 @@ function viewer(idetion) {
   let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
   header.appendChild(clsbtn);
   let condiv = creatanelemn("div", "condiv", "", "", "", "", "", "", header, "", "", "");
-  let nmttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Coordanition");
+  let nmttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Coordanition 📍");
   let frow = creatanelemn("div", "diagcol", "", "", "", "", "", "", nmttl, "", "", "");
   let subrow = creatanelemn("div", "diagrowPro", "", "", "", "", "", "", "", "", "", "");
   let cords = ["X", "Y", "Z"];
@@ -661,7 +872,7 @@ function viewer(idetion) {
   if (basicDet[3] != undefined) {
     dataCarier = basicDet[3];
   }
-  let pTb = "Pile Type: " + dataCarier;
+  let pTb = "Pile Type ❕: " + dataCarier;
   let typettl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", pTb);
   let sRow = creatanelemn("div", "diagrow", "", "", "", "", "", "", typettl, "", "", "");
   let sty = "height: 90%;max-height: 90%;";
@@ -673,7 +884,7 @@ function viewer(idetion) {
   let drc_det = [[["DSD", "DSH"], ["DED", "DEH"]]
                 , [["RSD", "RSH"], ["RED", "REH"]]
                 , [["CSD", "CSH"], ["CED", "CEH"]]];
-  let titling = ["Drilling", "Reinforcment", "Concreting"];
+  let titling = ["Drilling⛏", "Reinforcment⛓", "Concreting⚫"];
   let functiling = [["SD", "SH"], ["ED", "EH"]];
   let namiling = [["Starting Date","Starting Hour"], ["Ending Date", "Ending Hour"]];
   for (var i = 0; i < titling.length; i++) {
@@ -707,10 +918,10 @@ function viewer(idetion) {
     }
   if (passKey == cryppassKey) {
     let onclik = "dEleteIT('" + idetion + "')";
-    let delBtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "DELETE!", "", onclik, "", "");
+    let delBtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "DELETE!🗑", "", onclik, "", "");
     let subFot = creatanelemn("div", "diagrow", "", "", "", "", "", "", delBtn, "", "", "");
     onclik = "editdialog('" + idetion + "')";
-    let editBtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "Edit", "", onclik, "", "");
+    let editBtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "Edit🔧", "", onclik, "", "");
     subFot.appendChild(editBtn)
     let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subFot, "", "", "");
     hdiv.appendChild(footer);
@@ -718,6 +929,9 @@ function viewer(idetion) {
   condiv.appendChild(hdiv);
   let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
   document.getElementsByTagName('body')[0].appendChild(bgdiv);
+  if (typeOfBro != "Web") {
+    funFinishHandler("viewer");
+  }
 }
 function pilesNavi(mod, id) {
   closediag();
@@ -814,6 +1028,132 @@ function pilesNavi(mod, id) {
   }
   viewer(id);
 }
+function addfastselectiontool(mod) {
+  let fil = "ABCDEFGHIJK";
+  fil = fil.split("");
+  if (mod == 0) {
+    let btn5 = creatanelemn("input", "", "Quickbtn", "", "", "", "button", "QUICK SELECTION", "", "addfastselectiontool(1)", "", "");
+    let subHold = creatanelemn("div", "quicksel", "", "", "", "", "", "", btn5, "", "", "");
+    let itm = creatanelemn("div", "quickselMAX", "", "", "", "", "", "", subHold, "", "", "");
+    let mndv = document.getElementsByClassName('content-a')[0];
+    rearrangehandler(mndv, itm, 3);
+  }
+  else if (mod == 1) {
+    let f1 = creatanelemn("div", "fsbdv", "", "", "", "", "", "", "", "", "", "");
+    let position = [[14.3, 62],[25.6,79.6],[44.9,88],[66.2,84.6],[81,72.3],[88,50],[81,27.7],[66.2,15.4],[44.9,12],[25.6,20.4],[14.3,38.1]];
+    for (var i = 0; i < 11; i++) {
+      let inp = creatanelemn("input", "", "fbtn"+i, "", "", "", "checkbox", "", "", "fastselechand(this.id,"+i+",'f')", "", "");
+      if (i == 0) {
+        inp.checked = true;
+      }
+      let sp = creatanelemn("span", "sliderFS roundFS", "", "", "", "", "", "", "", "", "", "");sp.innerHTML = fil[i];
+      let sty = "position: absolute;top:"+position[10-i][0]+"%;right:"+position[10-i][1]+"%;transform: translate(50%, -50%);";
+      let lab = creatanelemn("label", "switchFS", "", "", sty, "", "", "", inp, "", "", "");
+      lab.appendChild(sp);
+      f1.appendChild(lab);
+    }
+    let f2 = creatanelemn("div", "fsUbdv", "", "", "", "", "", "", f1, "", "", "");
+    let l1 = creatanelemn("div", "lsbdv", "", "", "", "", "", "", "", "", "", "");
+    for (var i = 1; i < 12; i++) {
+      let inp = creatanelemn("input", "", "lbtn"+i, "", "", "", "checkbox", "", "", "fastselechand(this.id,"+i+",'l')", "", "");
+      if (i == 1) {
+        inp.checked = true;
+      }
+      let sp = creatanelemn("span", "sliderFS roundFS", "", "", "", "", "", "", "", "", "", "");sp.innerHTML = i;
+      let sty = "position: absolute;top:"+position[11-i][0]+"%;right:"+position[11-i][1]+"%;transform: translate(50%, -50%);";
+      let lab = creatanelemn("label", "switchFS", "", "", sty, "", "", "", inp, "", "", "");
+      lab.appendChild(sp);
+      l1.appendChild(lab);
+    }
+    let l2 = creatanelemn("div", "lsUbdv", "", "", "", "", "", "", l1, "", "", "");
+    let bpost = [[22,50],[63,25],[63,75]];
+    let b1 = creatanelemn("div", "sbdv", "", "", "", "", "", "", "", "", "", "");
+    for (var i = 1; i < 4; i++) {
+      let inp = creatanelemn("input", "", "bbtn"+i, "", "", "", "checkbox", "", "", "fastselechand(this.id,"+i+",'b')", "", "");
+      if (i == 1) {
+        inp.checked = true;
+      }
+      let sp = creatanelemn("span", "sliderFS roundFS", "", "", "", "", "", "", "", "", "", "");sp.innerHTML = i;
+      let sty = "position: absolute;top:"+bpost[i-1][0]+"%;right:"+bpost[i-1][1]+"%;transform: translate(50%, -50%);";
+      let lab = creatanelemn("label", "switchFS", "", "", sty, "", "", "", inp, "", "", "");
+      lab.appendChild(sp);
+      b1.appendChild(lab);
+    }
+    let b2 = creatanelemn("div", "sUbdv", "", "", "", "", "", "", b1, "", "", "");
+    let id = "Fastelect";
+    let header = creatanelemn("div", "diagheadX", "", "", "", "", "", "", "", "", "", "");
+    let clsfun = "closeDialog('"+id+"')";
+    let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
+    header.appendChild(clsbtn);header.appendChild(f2);header.appendChild(l2);header.appendChild(b2);
+    let condiv = creatanelemn("div", "condiv", "", "", "max-height:90%;height:90%;", "", "", "", header, "", "", "");
+    let onclk = "addfastselectiontool(2)";
+    let subbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "✔", "", onclk, "", "");
+    let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subbtn, "", "", "");
+    condiv.appendChild(footer);
+    let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
+    quickSelection = {"b":1,"l":1,"f":0};
+    document.getElementsByTagName('body')[0].appendChild(bgdiv);
+  }
+  else if (mod == 2) {
+    let batrisel = {1:"", 2:"%", 3:"#"};
+    let id = fil[quickSelection['f']] + batrisel[quickSelection['b']] + quickSelection['l'];
+    document.getElementById(id).click();
+    closeDialog('Fastelect');
+  }
+}
+function rearrangehandler(div, itm, ind) {
+  let chArr = div.children;
+  if (chArr.length <= ind) {
+    div.appendChild(itm);
+  }
+  else {
+    if (ind == 0) {
+      ind = 1;
+    }
+    for (var i = 1; i < (chArr.length + 1); i++) {
+      chArr[i-1].setAttribute("data-order", i);
+    }
+    div.appendChild(itm);
+    for (var i = 0; i < chArr.length; i++) {
+      if (i >= (ind-1)) {
+        chArr[i].setAttribute("data-order", (i+2));
+      }
+    }
+    chArr[chArr.length-1].setAttribute("data-order", (ind));
+    const items = Array.from(chArr);
+    items.sort((a, b) => {
+      const orderA = parseInt(a.getAttribute('data-order'));
+      const orderB = parseInt(b.getAttribute('data-order'));
+      return orderA - orderB;
+    }).forEach(item => {
+      div.appendChild(item);
+    });
+  }
+}
+function fastselechand(id, ind, typ) {
+  if (typ == "b") {
+    for (var i = 1; i < 4; i++) {
+      if (i != ind) {
+        document.getElementById('bbtn'+i).checked = false;
+      }
+    }
+  }
+  else if (typ == "f") {
+    for (var i = 0; i < 11; i++) {
+      if (i != ind) {
+        document.getElementById('fbtn'+i).checked = false;
+      }
+    }
+  }
+  else if (typ == "l") {
+    for (var i = 1; i < 12; i++) {
+      if (i != ind) {
+        document.getElementById('lbtn'+i).checked = false;
+      }
+    }
+  }
+  quickSelection[typ] = ind;
+}
 function isThereHmm(elem, arr) {
   for (var i = 0; i < arr.length; i++) {
     if (arr[i] == elem) {
@@ -904,10 +1244,10 @@ function checkbat(key) {
 function creatAnaly() {
   let selectedProject = onlineProjects["SiloOfOuargla"]["piles"];
   let keys = Object.keys(selectedProject);
-  let nBrOP = keys.length,batteries = {"bat0":0, "bat1":0, "bat2":0};
+  let nBrOP = 0;batteries = {"bat0":0, "bat1":0, "bat2":0};
   dyRlzdMAP = new Object();
   for (var i = 0; i < keys.length; i++) {
-    let date = selectedProject[keys[i]][0];
+    let date = selectedProject[keys[i]]["DSD"];
     if (dyRlzdMAP[date] === undefined) {
       dyRlzdMAP[date] = 1;
     }
@@ -916,13 +1256,22 @@ function creatAnaly() {
     }
     let tst0 = checkbat(keys[i].toString());
     if ("%" == tst0) {
-      batteries["bat1"]++;
+      if (selectedProject[keys[i]]["pT"] != "RISK" && selectedProject[keys[i]]["pT"] != "ATRISK") {
+        batteries["bat1"]++;
+        nBrOP++;
+      }
     }
     else if ("#" == tst0) {
-      batteries["bat2"]++;
+      if (selectedProject[keys[i]]["pT"] != "RISK" && selectedProject[keys[i]]["pT"] != "ATRISK") {
+        batteries["bat2"]++;
+        nBrOP++;
+      }
     }
     else if ("_" == tst0) {
-      batteries["bat0"]++;
+      if (selectedProject[keys[i]]["pT"] != "RISK" && selectedProject[keys[i]]["pT"] != "ATRISK") {
+        batteries["bat0"]++;
+        nBrOP++;
+      }
     }
   }
   let days = Object.keys(dyRlzdMAP);
@@ -960,14 +1309,17 @@ function creatAnaly() {
     }
   }
   let plsps = ((nBrOP / 363) * 100).toFixed(2);
-  let sentance = "<p>Realised Piles:<br> <b>" + nBrOP + "/363 - " + plsps + "%</b><br>Working days: <b>" + days.length + "</b><br>";
+  let sentance = "<p>Realised Piles✅:<br> <b>" + nBrOP + "/363 - " + plsps + "%</b><br>Working days🏗: <b>" + days.length + "</b><br>";
   sentance += "Battery one : <b>" + batteries["bat0"] + " - " + ((batteries["bat0"]/121) * 100).toFixed(2) + "% </b><br>";
   sentance += "Battery two : <b>" + batteries["bat1"] + " - " + ((batteries["bat1"]/121) * 100).toFixed(2) + "% </b><br>";
   sentance += "Battery three : <b>" + batteries["bat2"] + " - " + ((batteries["bat2"]/121) * 100).toFixed(2) + "% </b><br>";
-  sentance += "Max Realised Par Day: <b>" + pPd + "</b><br>";
-  sentance += "Expected Finish Date: <b>" + re + "</b><br></p>";
+  sentance += "Max Realised Par Day💹: <b>" + pPd + "</b><br>";
+  sentance += "Expected Finish Date🗓: <b>" + re + "</b><br></p>";
   document.getElementById('deT').innerHTML = sentance;
   cercularti(nBrOP);calnder();
+  if (typeOfBro != "Web") {
+    funFinishHandler("creatAnaly");
+  }
 }
 function cercularti(nBrOP) {
   const percentageValue = (nBrOP / 363) * 100
@@ -999,11 +1351,13 @@ function calnder() {
   dates = new Object();
   for (var i = 0; i < keys.length; i++) {
     let date = onlineProjects["SiloOfOuargla"]["piles"][keys[i]]["DSD"];
-    if (dates[date] === undefined) {
-      dates[date] = [keys[i]];
-    }
-    else {
-      dates[date].push(keys[i]);
+    if (date != "") {
+      if (dates[date] === undefined) {
+        dates[date] = [keys[i]];
+      }
+      else {
+        dates[date].push(keys[i]);
+      }
     }
   }
   let mnts_len = [31,28,31,30,31,30,31,31,30,31,30,31];
@@ -1073,7 +1427,7 @@ function calnder() {
     if (getOutCal) {
       break;
     }
-    let h_th = creatanelemn("th", "", "", "", "", "", "", "", "", "", "", "Calendar");
+    let h_th = creatanelemn("th", "", "", "", "", "", "", "", "", "", "", "Calendar 📅");
     h_th.setAttribute("colspan", 8);
     let h_tr = creatanelemn("tr", "", "", "", "", "", "", "", h_th, "", "", "");
     let tab_ID = "cal_tab_" + d;
@@ -1664,7 +2018,11 @@ function closenotifi(btnid) {
     }
   }, 100);
 }
-opening();
+function donwAndApp() {
+  console.log("clicked");
+  downloaded = false;
+  window.localStorage.setItem("downloaded", downloaded);
+}
 function onWindowResize() {
   let wWidth = window.innerWidth;
   let wHeight = window.innerHeight;
@@ -1675,13 +2033,92 @@ function onWindowResize() {
     document.getElementById('swipeview').style.display = "block";
   }
 }
+function onWorkPilesToggel(val) {
+  let keys = Object.keys(onlineProjects["SiloOfOuargla"]["piles"]);
+  let expPiles = ["A1", "A2", "A6", "A10", "A11", "B1", "B11", "D4", "D8", "E6", "F1", "F5", "F7", "F11", "G6", "H4", "H8", "J1", "J11", "K1", "K2", "K6", "K10", "K11",
+                "A%1", "A%2", "A%6", "A%10", "A%11", "B%1", "B%11", "D%4", "D%8", "E%6", "F%1", "F%5", "F%7", "F%11", "G%6", "H%4", "H%8", "J%1", "J%11", "K%1", "K%2", "K%6", "K%10", "K%11",
+                "A#1", "A#2", "A#6", "A#10", "A#11", "B#1", "B#11", "D#4", "D#8", "E#6", "F#1", "F#5", "F#7", "F#11", "G#6", "H#4", "H#8", "J#1", "J#11", "K#1", "K#2", "K#6", "K#10", "K#11"];
+  if (val) {
+    for (var i = 0; i < keys.length; i++) {
+      if (keys[i] != "H8A" && keys[i] != "F#7A" && keys[i] != "K#11A" && keys[i] != "K#11B") {
+        document.getElementById(keys[i]).setAttribute("class", "eley");
+        document.getElementById(keys[i]).removeAttribute("style");
+      }
+      else if (keys[i] == "K#11A" || keys[i] == "K#11B") {
+        document.getElementById(keys[i]).setAttribute("class", "addeley");
+      }
+      else {
+        document.getElementById(keys[i]).setAttribute("class", "addeley");
+        if (keys[i] == "F#7A") {
+          document.getElementById(keys[i]).style = "position:absolute;right:46.5%;bottom:38%;background:rgb(60,60,60);";
+        }
+        else {
+          document.getElementById(keys[i]).style = "position:absolute;right:28%;bottom:22%;background:rgb(60,60,60);";
+        }
+      }
+      if (isThereHmm(keys[i], expPiles)) {
+        document.getElementById(keys[i]).style = "background: rgb(60,60,60);";
+      }
+    }
+    let td = new Date();
+    let jj = td.getDate();let mm = td.getMonth()+1;let yy = td.getFullYear();
+    let todayis = jj + "/" + mm + "/" + yy;
+    let temo = dates[todayis];
+    for (var i = 0; i < temo.length; i++) {
+      document.getElementById(temo[i]).setAttribute("class", "eleypro");
+      if (selectedProject["piles"][temo[i]]["pT"] == "RISK") {
+        document.getElementById(temo[i]).style.background = "rgb(255,20,20)";
+      }
+      else if (selectedProject["piles"][temo[i]]["pT"] == "ATRISK") {
+        document.getElementById(temo[i]).style.background = "rgb(255,100,65)";
+      }
+      else if (selectedProject["piles"][temo[i]]["pT"] == "SONIC") {
+        document.getElementById(temo[i]).style.background = "rgb(20,120,255)";
+      }
+      else if (selectedProject["piles"][temo[i]]["pT"] == "CORE SAMPLE") {
+        document.getElementById(temo[i]).style.background = "coral";
+      }
+      if (temo[i] == "K#11A" || temo[i] == "K#11B" || temo[i] == "H8A" || temo[i] == "F#7A") {
+        document.getElementById(temo[i]).setAttribute("class", "addeleypro");
+      }
+      if (temo[i] == "H8A" || temo[i] == "F#7A") {
+        document.getElementById(temo[i]).style.background = "rgb(20,120,255)";
+      }
+    }
+    if (typeOfBro != "Web") {
+      funFinishHandler("onWorkPilesToggelON");
+    }
+  }
+  else {
+    for (var i = 0; i < keys.length; i++) {
+      document.getElementById(keys[i]).setAttribute("class", "eleypro");
+      if (selectedProject["piles"][keys[i]]["pT"] == "RISK") {
+        document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
+      }
+      else if (selectedProject["piles"][keys[i]]["pT"] == "ATRISK") {
+        document.getElementById(keys[i]).style.background = "rgb(255,100,65)";
+      }
+      else if (selectedProject["piles"][keys[i]]["pT"] == "SONIC") {
+        document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+      }
+      else if (selectedProject["piles"][keys[i]]["pT"] == "CORE SAMPLE") {
+        document.getElementById(keys[i]).style.background = "coral";
+      }
+      if (keys[i] == "K#11A" || keys[i] == "K#11B" || keys[i] == "H8A" || keys[i] == "F#7A") {
+        document.getElementById(keys[i]).setAttribute("class", "addeleypro");
+      }
+      if (keys[i] == "H8A" || keys[i] == "F#7A") {
+        document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+      }
+    }
+    if (typeOfBro != "Web") {
+      funFinishHandler("onWorkPilesToggelOFF");
+    }
+  }
+}
 window.addEventListener('resize', onWindowResize);
-<<<<<<< Updated upstream
-document.getElementsByTagName('body')[0].addEventListener("keydown", function(event) {
-  if (event.key === "F" || event.key === "f") {
-    refreshFun();
-=======
 document.addEventListener('DOMContentLoaded', (event) => {
+  opening();window.addEventListener('resize', onWindowResize);
   document.getElementsByTagName('body')[0].addEventListener("keydown", function(event) {
     if (event.key === "F" || event.key === "f") {
       refreshFun();
@@ -1691,8 +2128,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
       event.preventDefault(); // Prevents the default browser context menu from appearing
       return false; // Ensures the event doesn't propagate further (for older browsers)
   });
-  opening();
-  window.addEventListener('resize', onWindowResize);
   let mybutton = document.getElementById("myBtn");
   window.onscroll = function() {scrollFunction()};
   if (typeOfBro == "mobile") {
@@ -1730,24 +2165,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
         ayanotifiys("UPDATE!", content, "shoenotiynow");
       }
     }, 100);
->>>>>>> Stashed changes
   }
 });
-document.addEventListener('contextmenu', function(event) {
-    event.preventDefault(); // Prevents the default browser context menu from appearing
-    return false; // Ensures the event doesn't propagate further (for older browsers)
-});
-if (!app_news && typeOfBro == "Web") {
-  let app_tkDWN = setInterval(function () {
-    if (app_interval > 0) {
-      app_interval = app_interval - 100;
-    }
-    else {
-      app_news = true;
-      window.localStorage.setItem("app_news", true);
-      clearInterval(app_tkDWN);
-      let content = "Our new android app is available download it down below.";
-      ayanotifiys("NEWS!", content, "shoenotiynow");
-    }
-  }, 100);
-}

@@ -28,6 +28,11 @@
   </body>
   <script type="text/javascript">
     document.getElementById('inp').value = 2025 +"-"+12+"-"+27;
+    let r = document.getElementsByTagName('body')[0].children;
+    for (var i = 0; i < r.length; i++) {
+      r[i].setAttribute("data-order", i);
+    }
+
     function anyfun(val,lk) {
       if (val == "one") {
         document.getElementById("two").click()

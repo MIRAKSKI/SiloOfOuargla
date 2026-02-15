@@ -106,6 +106,7 @@ function loaderfromOffData() {
   let keys = Object.keys(selectedProject["piles"]);
   for (var i = 0; i < keys.length; i++) {
     document.getElementById(keys[i]).setAttribute("class", "eleypro");
+    document.getElementById(keys[i]).setAttribute("onclik", "viewer(this.id)");
     if (selectedProject["piles"][keys[i]]["pT"] == "RISK") {
       document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
     }
@@ -149,6 +150,7 @@ function startupset() {
       for (var i = 0; i < keys.length; i++) {
         if (selectedProject["piles"][keys[i]]["DSD"] != "DELETE") {
           document.getElementById(keys[i]).setAttribute("class", "eleypro");
+          document.getElementById(keys[i]).setAttribute("onclik", "viewer(this.id)");
           if (selectedProject["piles"][keys[i]]["pT"] == "RISK") {
             document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
           }
@@ -176,24 +178,28 @@ function startupset() {
       let last_update_ms = new Date().getTime();
       window.localStorage.setItem("lastUpdate", last_update_ms);
       creatAnaly();
-    } else {
-      //`${result.message}`;
+    }
+    else {
+      loaderfromOffData();
     }
     if (typeOfBro != "Web") {
       startnewoilessty();
     }
   })
   .catch(error => {
-    console.error('Error:', error);
     try {
       clearInterval(waiterInt);
-      document.getElementById('waitP').innerText = "Error Loading Check your internet conection!\nLoading Offline Data.";
+      if (window.localStorage.getItem("dec") != null && window.localStorage.getItem("dec") != "") {
+        ayanotifiys("Erro - 05", "Error Loading Check your internet conection!\nLoading Offline Data.", "shoenotiynow");
+      }
+      else {
+        ayanotifiys("Erro - 06", "couldn't load Check your internet conection!.", "shoenotiynow");
+      }
       loaderfromOffData();
-      setTimeout(function () {
-        try {
-          document.getElementById('waitdiv').remove();
-        } catch (e) {} finally {}
-      }, 3000);
+      try {
+        document.getElementById('waitdiv').remove();
+      }
+      catch (e) {} finally {}
     }
     catch (e) {} finally {}
   });
@@ -2117,6 +2123,16 @@ function onWorkPilesToggel(val) {
     }
   }
 }
+function mobileAutoLogIn() {
+  if (typeof(Storage) !== "undefined") {
+    let pask = window.localStorage.getItem("password");
+    if (pask != null && pask != undefined) {
+      loging();
+      document.getElementById('PASSWORD').value = pask;
+      loged();
+    }
+  }
+}
 window.addEventListener('resize', onWindowResize);
 document.addEventListener('DOMContentLoaded', (event) => {
   opening();window.addEventListener('resize', onWindowResize);
@@ -2131,14 +2147,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
   let mybutton = document.getElementById("myBtn");
   window.onscroll = function() {scrollFunction()};
-  if (typeOfBro == "mobile") {
-    try {
-      test = anyfun != undefined;
-      if (test) {
-        mobileAutoLogIn();
-      }
-    } catch (e) {} finally {}
-  }
   if (!app_news && typeOfBro == "Web") {
     let app_tkDWN = setInterval(function () {
       if (app_interval > 0) {
@@ -2153,4 +2161,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
       }
     }, 100);
   }
+  mobileAutoLogIn();
 });

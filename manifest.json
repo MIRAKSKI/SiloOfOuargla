@@ -10,7 +10,8 @@
     {
       "src": "/lib/akn-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/lib/akn-512.png",

@@ -106,7 +106,10 @@ function loaderfromOffData() {
   let keys = Object.keys(selectedProject["piles"]);
   for (var i = 0; i < keys.length; i++) {
     document.getElementById(keys[i]).setAttribute("class", "eleypro");
-    document.getElementById(keys[i]).setAttribute("onclik", "viewer(this.id)");
+    if (passKey == cryppassKey) {
+      document.getElementById(keys[i]).removeAttribute("onclik");
+      document.getElementById(keys[i]).setAttribute("onclik", "viewer(this.id)");
+    }
     if (selectedProject["piles"][keys[i]]["pT"] == "RISK") {
       document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
     }
@@ -150,7 +153,10 @@ function startupset() {
       for (var i = 0; i < keys.length; i++) {
         if (selectedProject["piles"][keys[i]]["DSD"] != "DELETE") {
           document.getElementById(keys[i]).setAttribute("class", "eleypro");
-          document.getElementById(keys[i]).setAttribute("onclik", "viewer(this.id)");
+          if (passKey == cryppassKey) {
+            document.getElementById(keys[i]).removeAttribute("onclik");
+            document.getElementById(keys[i]).setAttribute("onclik", "viewer(this.id)");
+          }
           if (selectedProject["piles"][keys[i]]["pT"] == "RISK") {
             document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
           }

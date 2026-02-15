@@ -16,7 +16,7 @@ self.addEventListener('install', (e) => {
     })
   );
 });
-
+/*PWA V:1.01*/
 self.addEventListener('fetch', (e) => {
   e.respondWith(
     caches.match(e.request).then((response) => {

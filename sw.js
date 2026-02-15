@@ -2,7 +2,7 @@ self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open('my-cache').then((cache) => {
       return cache.addAll([
-        '/',
+        '/SiloOfOuargla/',
         '/SiloOfOuargla/index.html',
         '/SiloOfOuargla/css/main.css',
         '/SiloOfOuargla/css/main.css',

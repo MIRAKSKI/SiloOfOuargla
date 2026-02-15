@@ -3,15 +3,15 @@ self.addEventListener('install', (e) => {
     caches.open('my-cache').then((cache) => {
       return cache.addAll([
         '/',
-        '/index.html',
-        '/css/main.css',
-        '/css/main.css',
-        '/css/masterials.css',
-        '/css/phone.css',
-        '/css/styles.css',
-        '/js/1.0.21.jquery.scrollify.min.js',
-        '/js/3.3.1.jquery.min.js',
-        '/js/main.js'
+        '/SiloOfOuargla/index.html',
+        '/SiloOfOuargla/css/main.css',
+        '/SiloOfOuargla/css/main.css',
+        '/SiloOfOuargla/css/masterials.css',
+        '/SiloOfOuargla/css/phone.css',
+        '/SiloOfOuargla/css/styles.css',
+        '/SiloOfOuargla/js/1.0.21.jquery.scrollify.min.js',
+        '/SiloOfOuargla/js/3.3.1.jquery.min.js',
+        '/SiloOfOuargla/js/main.js'
       ]);
     })
   );

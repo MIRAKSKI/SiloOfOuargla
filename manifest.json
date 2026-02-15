@@ -1,8 +1,7 @@
 {
   "name": "Silo Ouargla",
   "short_name": "SiloOfOuargla",
-  "start_url": "/SiloOfOuargla/",
-  "scope": "/SiloOfOuargla/",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",

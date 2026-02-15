@@ -332,9 +332,9 @@ function opening() {
     let lable = creatanelemn("label", "switch", "", "", "", "", "", "", checkBox, "", "", "");
     let apan = creatanelemn("span", "slider round", "", "", "", "", "", "", "", "", "", "");
     lable.appendChild(apan);
-    let para0 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Global View");
+    let para0 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Global View🗺");
     let subHold = creatanelemn("div", "interViews", "interViews", "", "", "", "", "", para0, "", "", "");
-    let para1 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Todays Work");
+    let para1 = creatanelemn("div", "", "", "", "", "", "", "", "", "", "", "Todays Work🔍");
     subHold.appendChild(lable);subHold.appendChild(para1);
     let MainHold = creatanelemn("div", "interViewsMax", "interViewsMax", "", "", "", "", "", subHold, "", "", "");
     document.getElementsByClassName('content-a')[0].appendChild(MainHold);
@@ -2150,20 +2150,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         clearInterval(app_tkDWN);
         let content = "Our new android app is available download it down below.";
         ayanotifiys("NEWS!", content, "shoenotiynow");
-      }
-    }, 100);
-  }
-  else if (downloaded && typeOfBro == "Web") {
-    let app_tkDWN = setInterval(function () {
-      if (app_interval > 0) {
-        app_interval = app_interval - 100;
-      }
-      else {
-        app_news = true;
-        window.localStorage.setItem("app_news", true);
-        clearInterval(app_tkDWN);
-        let content = "New version of android app is available download it from down below.";
-        ayanotifiys("UPDATE!", content, "shoenotiynow");
       }
     }, 100);
   }

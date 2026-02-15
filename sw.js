@@ -5,7 +5,6 @@ self.addEventListener('install', (e) => {
         '/SiloOfOuargla/',
         '/SiloOfOuargla/index.html',
         '/SiloOfOuargla/css/main.css',
-        '/SiloOfOuargla/css/main.css',
         '/SiloOfOuargla/css/masterials.css',
         '/SiloOfOuargla/css/phone.css',
         '/SiloOfOuargla/css/styles.css',

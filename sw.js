@@ -1,6 +1,7 @@
+const myfilename = "my-cache-v2";
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open('my-cache-v2').then((cache) => {
+    caches.open(myfilename).then((cache) => {
       return cache.addAll([
         '/SiloOfOuargla/',
         '/SiloOfOuargla/index.html',

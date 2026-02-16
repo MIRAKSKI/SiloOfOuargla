@@ -56,7 +56,8 @@ function opendialog(idetion) {
   header.appendChild(clsbtn);
   let clas = "condiv";
   const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
-  if (darkmQ['matches']) {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (darkmQ['matches'] && !isMobile) {
     console.log(darkmQ['matches']);
     clas += " dark_mode";
   }
@@ -219,7 +220,8 @@ function editdialog(idetion) {
   header.appendChild(clsbtn);
   let clas = "condiv";
   const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
-  if (darkmQ['matches']) {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (darkmQ['matches'] && !isMobile) {
     console.log(darkmQ['matches']);
     clas += " dark_mode";
   }
@@ -353,7 +355,8 @@ function dEleteIT(idetion) {
   header.appendChild(clsbtn);
   let clas = "condiv";
   const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
-  if (darkmQ['matches']) {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (darkmQ['matches'] && !isMobile) {
     console.log(darkmQ['matches']);
     clas += " dark_mode";
   }

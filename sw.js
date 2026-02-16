@@ -1,4 +1,4 @@
-const myfilename = "my-cache-v2";
+const myfilename = "my-cache-v3";
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(myfilename).then((cache) => {

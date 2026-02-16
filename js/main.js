@@ -866,7 +866,8 @@ function viewer(idetion) {
   header.appendChild(clsbtn);
   let clas = "condiv";
   const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
-  if (darkmQ['matches']) {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (darkmQ['matches'] && !isMobile) {
     console.log(darkmQ['matches']);
     clas += " dark_mode";
   }
@@ -2195,5 +2196,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   if (isMobile) {
     mobileAutoLogIn();
   }
-  automod(0);
+  else {
+    automod(0);
+  }
 });

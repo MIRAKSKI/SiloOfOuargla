@@ -17,5 +17,21 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "screenshots": [
+    {
+      "src": "/SiloOfOuargla/lib/screenshot-mobile.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Silo Of Ouargla on Mobile"
+    },
+    {
+      "src": "/SiloOfOuargla/lib/screenshot-desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Silo Of Ouargla on Desktop"
+    }
   ]
 }

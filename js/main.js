@@ -107,8 +107,8 @@ function loaderfromOffData() {
   for (var i = 0; i < keys.length; i++) {
     document.getElementById(keys[i]).setAttribute("class", "eleypro");
     if (passKey == cryppassKey) {
-      document.getElementById(keys[i]).removeAttribute("onclik");
-      document.getElementById(keys[i]).setAttribute("onclik", "viewer(this.id)");
+      document.getElementById(keys[i]).removeAttribute("onclick");
+      document.getElementById(keys[i]).setAttribute("onclick", "viewer(this.id)");
     }
     if (selectedProject["piles"][keys[i]]["pT"] == "RISK") {
       document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
@@ -154,8 +154,8 @@ function startupset() {
         if (selectedProject["piles"][keys[i]]["DSD"] != "DELETE") {
           document.getElementById(keys[i]).setAttribute("class", "eleypro");
           if (passKey == cryppassKey) {
-            document.getElementById(keys[i]).removeAttribute("onclik");
-            document.getElementById(keys[i]).setAttribute("onclik", "viewer(this.id)");
+            document.getElementById(keys[i]).removeAttribute("onclick");
+            document.getElementById(keys[i]).setAttribute("onclick", "viewer(this.id)");
           }
           if (selectedProject["piles"][keys[i]]["pT"] == "RISK") {
             document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
@@ -2139,6 +2139,24 @@ function mobileAutoLogIn() {
     }
   }
 }
+function automod(mod) {
+  const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
+  if (mod == 0) {
+    if (darkmQ['matches']) {
+      document.getElementById('karive').setAttribute('class', 'dark_mode');
+    }
+    darkmQ.addEventListener('change', e => {
+      if (e.matches) {
+        document.document,getElementById('karive').setAttribute('class', 'dark_mode');
+      }
+      else {
+        try {
+          document.document,getElementById('karive').removeAttribute('class');
+        } catch (e) {} finally {}
+      }
+    });
+  }
+}
 window.addEventListener('resize', onWindowResize);
 document.addEventListener('DOMContentLoaded', (event) => {
   opening();window.addEventListener('resize', onWindowResize);
@@ -2167,5 +2185,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
       }
     }, 100);
   }
-  mobileAutoLogIn();
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    mobileAutoLogIn();
+  }
+  automod(0);
 });

@@ -1,8 +1,8 @@
 .container {height: 100%;width: 100%;display: grid;justify-content: space-around;place-items: center;margin: 0;padding: 1%;min-width: 100%;}
 section {width:100%;display: flex;}
 .row {align-items: center;text-align: center;height: 100%;width: 100%;}
-.s-one {color:#000;width: 100%;background-color: #f3f3f3;min-width: 100%;}
-.s-two {color:#000;width: 100%;background-color: #f3f3f3;}
+.s-one {width: 100%;min-width: 100%;}
+.s-two {width: 100%;}
 @media all and (max-width: 1023px) {.dot {  display: none;}}
 .footer {display: flex;justify-content: space-around;}
 .content-a {text-align: center;width: 100%;}
@@ -38,8 +38,8 @@ b {color: #00dd77;}
 #swipeview {display: block;}
 .nbrEL {display: flex;justify-content: center;place-items:center;}
 .view {margin: 4px 0;}
-table {font-family: arial;border-collapse: collapse;width: 100%;font-size: 0.9rem;background: white;}
-tr:nth-child(even) {background-color: #dddddd;}
+table {font-family: arial;border-collapse: collapse;width: 100%;font-size: 0.9rem;}
+tr:nth-child(even) {background-color: #bbbbbb;}
 td, th {border: 0.1rem solid #dddddd;text-align: center;word-wrap: break-word;padding: 0;padding: 0.2rem;height: 2rem;min-width: 7rem;text-align: center;}
 .Cal_Cls {font-weight: bold;background: transparent;border: none;transition: 0.2s;}
 .Cal_Cls:hover {color: red;}
@@ -113,3 +113,4 @@ input:focus + .sliderFS {box-shadow: 0 0 1px #2196F3;}
 .diagheadX {display: grid;place-items:center;position: relative;width: 100%;height: 90%;}
 #Quickbtn {border-radius: 10px; border: 1px dashed rgb(20,200,150);transition: 0.2s;padding: 5px 10px;font-weight: bold;}
 #Quickbtn:hover {border: 1px solid rgb(20,200,150);color:white;background: rgb(20,200,150);}
+.dark_mode {background-color: #212121;color: #fefefe;}

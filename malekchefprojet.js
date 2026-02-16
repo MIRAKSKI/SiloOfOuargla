@@ -23,7 +23,7 @@ function sendData() {
       try {
         window.localStorage.setItem("submited", submited);
       } catch (e) {} finally {}
-      let dekeys = Object.keys(dataElement);
+      let dekeys = Object.keys(dateaa);
       dataElement = "";
       window.localStorage.removeItem("dataElement");
       let piles = "";

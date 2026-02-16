@@ -4,8 +4,8 @@
   "start_url": "/SiloOfOuargla/",
   "scope": "/SiloOfOuargla/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "background_color": "#212121",
+  "theme_color": "#fefefe",
   "icons": [
     {
       "src": "/SiloOfOuargla/lib/akn-192-v3.png",

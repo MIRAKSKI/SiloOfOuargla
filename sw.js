@@ -1,4 +1,4 @@
-const myfilename = "my-cache-v4";
+const myfilename = "my-cache-v5";
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(myfilename).then((cache) => {
@@ -23,22 +23,4 @@ self.addEventListener('fetch', (e) => {
       return response || fetch(e.request);
     })
   );
-});
-self.addEventListener('periodicsync', (event) => {
-  if (event.tag === 'daily-check') {
-    const now = new Date();
-    const hour = now.getHours();
-    const minutes = now.getMinutes();
-
-    // 6:15 PM is hour 18 and minute 15
-    // We check a small range (15-20) because sync timing isn't always perfect
-    if (hour === 18 && (minutes >= 25 && minutes <= 30)) {
-      event.waitUntil(
-        self.registration.showNotification('Evening Update', {
-          body: 'It is 6:15 PM. Time for your evening check-in!',
-          icon: '/SiloOfOuargla/lib/akn-192-v3.png'
-        })
-      );
-    }
-  }
 });

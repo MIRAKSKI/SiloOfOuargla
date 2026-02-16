@@ -114,3 +114,5 @@ input:focus + .sliderFS {box-shadow: 0 0 1px #2196F3;}
 #Quickbtn {border-radius: 10px; border: 1px dashed rgb(20,200,150);transition: 0.2s;padding: 5px 10px;font-weight: bold;}
 #Quickbtn:hover {border: 1px solid rgb(20,200,150);color:white;background: rgb(20,200,150);}
 .dark_mode {background-color: #212121;color: #fefefe;}
+.notifBtn input {border-radius: 10px; border: 1px dashed rgb(20,200,150);transition: 0.2s;padding: 5px 10px;font-weight: bold;}
+.notifBtn input:hover {border: 1px solid rgb(20,200,150);color:white;background: rgb(20,200,150);}

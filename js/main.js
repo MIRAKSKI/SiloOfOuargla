@@ -2164,6 +2164,22 @@ function automod(mod) {
     });
   }
 }
+async function registerPeriodicCheck() {
+  const registration = await navigator.serviceWorker.ready;
+  try {
+    await registration.periodicSync.register('daily-check', {
+      minInterval: 12 * 60 * 60 * 1000, // Try to check every 12 hours
+    });
+  } catch {
+    console.log('Periodic Sync could not be registered.');
+  }
+}
+async function requestNotificationPermission() {
+  const permission = await Notification.requestPermission();
+  if (permission === 'granted') {
+    console.log('Notification permission granted.');
+  }
+}
 window.addEventListener('resize', onWindowResize);
 document.addEventListener('DOMContentLoaded', (event) => {
   opening();window.addEventListener('resize', onWindowResize);

@@ -32,7 +32,7 @@ self.addEventListener('periodicsync', (event) => {
 
     // 6:15 PM is hour 18 and minute 15
     // We check a small range (15-20) because sync timing isn't always perfect
-    if (hour === 18 && (minutes >= 15 && minutes <= 20)) {
+    if (hour === 18 && (minutes >= 25 && minutes <= 30)) {
       event.waitUntil(
         self.registration.showNotification('Evening Update', {
           body: 'It is 6:15 PM. Time for your evening check-in!',

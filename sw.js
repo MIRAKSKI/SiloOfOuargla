@@ -1,6 +1,6 @@
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open('my-cache').then((cache) => {
+    caches.open('my-cache-v2').then((cache) => {
       return cache.addAll([
         '/SiloOfOuargla/',
         '/SiloOfOuargla/index.html',
@@ -15,7 +15,7 @@ self.addEventListener('install', (e) => {
     })
   );
 });
-/*PWA V:1.01*/
+/*PWA V:1.02*/
 self.addEventListener('fetch', (e) => {
   e.respondWith(
     caches.match(e.request).then((response) => {

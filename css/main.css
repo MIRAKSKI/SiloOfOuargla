@@ -63,8 +63,8 @@ td, th {border: 0.1rem solid #dddddd;text-align: center;word-wrap: break-word;pa
 .notifyclosy{background: transparent;font-weight: bolder;font-size: 20px;color: black;transition: 0.2s;position: absolute;top: 10px;left: 10px;cursor: pointer;border: none;}
 .notifyclosy:hover{color: red;}
 .notifytitle{color: rgb(100,100,100);font-weight: bold;font-size: 18px;text-align: center;margin:  20px 0 5px 0;}
-.notifycontnt{color: rgba(100,100,100,0.95);margin:  5px 0 5px 0;}
-.clsbtn {border: none;background: transparent;z-index: 109;font-size: 22px;font-weight: bold;position: absolute;top: 20px;right: 20px;transform: translate(-50%, -50%);transition: 0.2s;}
+.notifycontnt{margin:  5px 0 5px 0;}
+.clsbtn {border: none;background: transparent;text-shadow: 2px 2px 5px red;z-index: 109;font-size: 22px;font-weight: bold;position: absolute;top: 20px;right: 20px;transform: translate(-50%, -50%);transition: 0.2s;}
 .clsbtn:hover {color: red;cursor: pointer;}
 .diaghead {display: grid;place-items:center;position: relative;width: 100%;}
 .diaghead p {}

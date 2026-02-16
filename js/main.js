@@ -864,7 +864,13 @@ function viewer(idetion) {
   let clsfun = "closeDialog('"+id+"')";
   let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
   header.appendChild(clsbtn);
-  let condiv = creatanelemn("div", "condiv", "", "", "", "", "", "", header, "", "", "");
+  let clas = "condiv";
+  const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
+  if (darkmQ['matches']) {
+    console.log(darkmQ['matches']);
+    clas += " dark_mode";
+  }
+  let condiv = creatanelemn("div", clas, "", "", "", "", "", "", header, "", "", "");
   let nmttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Coordanition 📍");
   let frow = creatanelemn("div", "diagcol", "", "", "", "", "", "", nmttl, "", "", "");
   let subrow = creatanelemn("div", "diagrowPro", "", "", "", "", "", "", "", "", "", "");

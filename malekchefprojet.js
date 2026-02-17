@@ -23,7 +23,7 @@ function sendData() {
       try {
         window.localStorage.setItem("submited", submited);
       } catch (e) {} finally {}
-      let dekeys = Object.keys(dateaa);
+      let dekeys = Object.keys(tempProjectX);
       dataElement = "";
       window.localStorage.removeItem("dataElement");
       let piles = "";
@@ -35,7 +35,7 @@ function sendData() {
           piles += dekeys[i] + ".";
         }
       }
-      ayanotifiys("Success", "Data set for " + piles, "shoenotiynow");
+      ayanotifiys("Success", "Data set for \n" + piles, "shoenotiynow");
     } else {
       document.getElementById('logview').style = "";
       ayanotifiys("Err - 02", "Couldm't send Data check your conection", "shoenotiynow");

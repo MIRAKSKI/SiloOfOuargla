@@ -29,10 +29,14 @@ function sendData() {
       let piles = "";
       for (var i = 0; i < dekeys.length; i++) {
         if (i != (dekeys.length-1)) {
-          piles += dekeys[i] + ",";
+          let tmsurname = dekeys[i].replace("#", "\"");
+          tmsurname = tmsurname.replace("%", "'");
+          piles += tmsurname + ",";
         }
         else {
-          piles += dekeys[i] + ".";
+          let tmsurname = dekeys[i].replace("#", "\"");
+          tmsurname = tmsurname.replace("%", "'");
+          piles += tmsurname + ".";
         }
       }
       ayanotifiys("Success", "Data set for \n" + piles, "shoenotiynow");
@@ -58,7 +62,6 @@ function opendialog(idetion) {
   const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   if (darkmQ['matches'] && !isMobile) {
-    console.log(darkmQ['matches']);
     clas += " dark_mode";
   }
   let condiv = creatanelemn("div", clas, "", "", "", "", "", "", header, "", "", "");
@@ -222,7 +225,6 @@ function editdialog(idetion) {
   const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   if (darkmQ['matches'] && !isMobile) {
-    console.log(darkmQ['matches']);
     clas += " dark_mode";
   }
   let condiv = creatanelemn("div", clas, "", "", "", "", "", "", header, "", "", "");
@@ -357,7 +359,6 @@ function dEleteIT(idetion) {
   const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   if (darkmQ['matches'] && !isMobile) {
-    console.log(darkmQ['matches']);
     clas += " dark_mode";
   }
   let condiv = creatanelemn("div", clas, "logingCon", "", "", "", "", "", header, "", "", "");

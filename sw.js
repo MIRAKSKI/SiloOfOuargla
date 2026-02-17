@@ -1,4 +1,4 @@
-const myfilename = "my-cache-v7";
+const myfilename = "my-cache-v8";
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(myfilename).then((cache) => {

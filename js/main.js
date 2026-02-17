@@ -105,28 +105,33 @@ function loaderfromOffData() {
   selectedProject = onlineProjects["SiloOfOuargla"];
   let keys = Object.keys(selectedProject["piles"]);
   for (var i = 0; i < keys.length; i++) {
-    document.getElementById(keys[i]).setAttribute("class", "eleypro");
-    if (passKey == cryppassKey) {
-      document.getElementById(keys[i]).removeAttribute("onclick");
-      document.getElementById(keys[i]).setAttribute("onclick", "viewer(this.id)");
+    if (selectedProject["piles"][keys[i]]["pT"] != "REMOVE") {
+      document.getElementById(keys[i]).setAttribute("class", "eleypro");
+      if (passKey == cryppassKey) {
+        document.getElementById(keys[i]).removeAttribute("onclick");
+        document.getElementById(keys[i]).setAttribute("onclick", "viewer(this.id)");
+      }
+      if (selectedProject["piles"][keys[i]]["pT"] == "RISK") {
+        document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
+      }
+      else if (selectedProject["piles"][keys[i]]["pT"] == "ATRISK") {
+        document.getElementById(keys[i]).style.background = "rgb(255,100,65)";
+      }
+      else if (selectedProject["piles"][keys[i]]["pT"] == "SONIC") {
+        document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+      }
+      else if (selectedProject["piles"][keys[i]]["pT"] == "CORE SAMPLE") {
+        document.getElementById(keys[i]).style.background = "coral";
+      }
+      if (keys[i] == "K#11A" || keys[i] == "K#11B" || keys[i] == "H8A" || keys[i] == "F#7A") {
+        document.getElementById(keys[i]).setAttribute("class", "addeleypro");
+      }
+      if (keys[i] == "H8A" || keys[i] == "F#7A") {
+        document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+      }
     }
-    if (selectedProject["piles"][keys[i]]["pT"] == "RISK") {
-      document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
-    }
-    else if (selectedProject["piles"][keys[i]]["pT"] == "ATRISK") {
-      document.getElementById(keys[i]).style.background = "rgb(255,100,65)";
-    }
-    else if (selectedProject["piles"][keys[i]]["pT"] == "SONIC") {
-      document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
-    }
-    else if (selectedProject["piles"][keys[i]]["pT"] == "CORE SAMPLE") {
-      document.getElementById(keys[i]).style.background = "coral";
-    }
-    if (keys[i] == "K#11A" || keys[i] == "K#11B" || keys[i] == "H8A" || keys[i] == "F#7A") {
-      document.getElementById(keys[i]).setAttribute("class", "addeleypro");
-    }
-    if (keys[i] == "H8A" || keys[i] == "F#7A") {
-      document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
+    else {
+      delete selectedProject["piles"][keys[i]];
     }
   }
   creatAnaly();
@@ -149,9 +154,17 @@ function startupset() {
       long_keys = JSON.stringify(dec);
       onlineProjects = jsonDataOBJ;
       selectedProject = jsonDataOBJ["SiloOfOuargla"];
+      let dateaa = window.localStorage.getItem("dataElement");
+      if (dateaa != null && dateaa != "") {
+        let tempProjectX = JSON.parse(dateaa);
+        let nsubKys = Object.keys(tempProjectX);
+        for (var i = 0; i < nsubKys.length; i++) {
+          selectedProject["piles"][nsubKys[i]] = tempProjectX[nsubKys[i]];
+        }
+      }
       let keys = Object.keys(selectedProject["piles"]);
       for (var i = 0; i < keys.length; i++) {
-        if (selectedProject["piles"][keys[i]]["DSD"] != "DELETE") {
+        if (selectedProject["piles"][keys[i]]["DSD"] != "REMOVE") {
           document.getElementById(keys[i]).setAttribute("class", "eleypro");
           if (passKey == cryppassKey) {
             document.getElementById(keys[i]).removeAttribute("onclick");
@@ -176,17 +189,24 @@ function startupset() {
             document.getElementById(keys[i]).style.background = "rgb(20,120,255)";
           }
         }
+        else {
+          delete selectedProject["piles"][keys[i]];
+        }
       }
       window.localStorage.setItem("dec", long_keys);
       window.localStorage.setItem("saved", true);
-      window.localStorage.setItem("submited", true);
-      window.localStorage.setItem("dataElement", "");
       let last_update_ms = new Date().getTime();
       window.localStorage.setItem("lastUpdate", last_update_ms);
       creatAnaly();
     }
     else {
       loaderfromOffData();
+      if (window.localStorage.getItem("dec") != null && window.localStorage.getItem("dec") != "") {
+        ayanotifiys("Erro - 07", "Bad response Loading Offline Data.", "shoenotiynow");
+      }
+      else {
+        ayanotifiys("Erro - 08", "Bad response can't load data Data.", "shoenotiynow");
+      }
     }
     if (typeOfBro != "Web") {
       startnewoilessty();
@@ -196,6 +216,7 @@ function startupset() {
     try {
       clearInterval(waiterInt);
       if (window.localStorage.getItem("dec") != null && window.localStorage.getItem("dec") != "") {
+        ayanotifiys("Erro - 04", error, "shoenotiynow");
         ayanotifiys("Erro - 05", "Error Loading Check your internet conection!\nLoading Offline Data.", "shoenotiynow");
       }
       else {
@@ -868,7 +889,6 @@ function viewer(idetion) {
   const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   if (darkmQ['matches'] && !isMobile) {
-    console.log(darkmQ['matches']);
     clas += " dark_mode";
   }
   let condiv = creatanelemn("div", clas, "", "", "", "", "", "", header, "", "", "");
@@ -2038,7 +2058,6 @@ function closenotifi(btnid) {
   }, 100);
 }
 function donwAndApp() {
-  console.log("clicked");
   return
   downloaded = false;
   window.localStorage.setItem("downloaded", downloaded);

@@ -1,4 +1,4 @@
-const myfilename = "my-cache-v6";
+const myfilename = "my-cache-v7";
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(myfilename).then((cache) => {
@@ -22,7 +22,7 @@ self.addEventListener('fetch', (event) => {
     fetch(event.request)
       .then((response) => {
         // If the network works, save the new version to cache and return it
-        return caches.open('my-cache-v3').then((cache) => {
+        return caches.open(myfilename).then((cache) => {
           cache.put(event.request, response.clone());
           return response;
         });
@@ -34,7 +34,7 @@ self.addEventListener('fetch', (event) => {
   );
 });
 self.addEventListener('activate', (event) => {
-  const cacheWhitelist = ['my-cache-v3']; // Only keep the newest cache
+  const cacheWhitelist = [myfilename]; // Only keep the newest cache
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(

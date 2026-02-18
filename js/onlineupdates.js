@@ -52,7 +52,15 @@ function funFinishHandler(fun) {
         document.getElementsByClassName('content-a')[0].appendChild(MainHoldX);
       }
       addfastselectiontool(0);
+      const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
+      if (darkmQ['matches']) {
+        document.getElementById('karive').setAttribute("class", "dark_mode");
+      }
     }
+  }
+  if (fun == "viewer") {
+    document.getElementsByClassName('condiv')[0].classList.add('dark_mode');
+    document.getElementsByClassName('condiv')[0].style = "background-color: #212121;color: #fefefe;";
   }
 }
 function onWorkPilesToggel(val) {

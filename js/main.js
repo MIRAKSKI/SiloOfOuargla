@@ -777,7 +777,14 @@ function mobi(mod) {
 }
 function loging() {
   let holder = document.createElement('div');
-  holder.setAttribute("class", "hdiag");
+  let clas = "hdiag", stly = "";
+  const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
+  if (darkmQ['matches']) {
+    clas += ' dark_mode';
+    stly = "background-color: #212121;color: #fefefe;";
+  }
+  holder.setAttribute("class", clas);
+  holder.setAttribute("style", stly);
   for (var i = 0; i < 4; i++) {
     let hl = document.createElement('div');
     hl.setAttribute("class", "hhldiag");
@@ -885,13 +892,13 @@ function viewer(idetion) {
   let clsfun = "closeDialog('"+id+"')";
   let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
   header.appendChild(clsbtn);
-  let clas = "condiv";
+  let clas = "condiv", stly = "";
   const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  if (darkmQ['matches'] && !isMobile) {
+  if (darkmQ['matches']) {
     clas += " dark_mode";
+    stly = "background-color: #212121;color: #fefefe;";
   }
-  let condiv = creatanelemn("div", clas, "", "", "", "", "", "", header, "", "", "");
+  let condiv = creatanelemn("div", clas, "", "", stly, "", "", "", header, "", "", "");
   let nmttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Coordanition 📍");
   let frow = creatanelemn("div", "diagcol", "", "", "", "", "", "", nmttl, "", "", "");
   let subrow = creatanelemn("div", "diagrowPro", "", "", "", "", "", "", "", "", "", "");
@@ -2192,8 +2199,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
   });
   document.addEventListener('contextmenu', function(event) {
-      event.preventDefault(); // Prevents the default browser context menu from appearing
-      return false; // Ensures the event doesn't propagate further (for older browsers)
+      event.preventDefault();
+      return false;
   });
   let mybutton = document.getElementById("myBtn");
   window.onscroll = function() {scrollFunction()};
@@ -2214,8 +2221,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   if (isMobile) {
     mobileAutoLogIn();
-  }
-  else {
   }
   automod(0);
 });

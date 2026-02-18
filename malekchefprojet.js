@@ -58,13 +58,13 @@ function opendialog(idetion) {
   let clsfun = "closeDialog('"+id+"')";
   let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
   header.appendChild(clsbtn);
-  let clas = "condiv";
+  let clas = "condiv", stly = "";
   const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  if (darkmQ['matches'] && !isMobile) {
+  if (darkmQ['matches']) {
     clas += " dark_mode";
+    stly = "background-color: #212121;color: #fefefe;";
   }
-  let condiv = creatanelemn("div", clas, "", "", "", "", "", "", header, "", "", "");
+  let condiv = creatanelemn("div", clas, "", "", stly, "", "", "", header, "", "", "");
   let nmttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Coordanition");
   let frow = creatanelemn("div", "diagcol", "", "", "", "", "", "", nmttl, "", "", "");
   let subrow = creatanelemn("div", "diagrowPro", "", "", "", "", "", "", "", "", "", "");
@@ -221,13 +221,13 @@ function editdialog(idetion) {
   let clsfun = "closeDialog('"+id+"')";
   let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
   header.appendChild(clsbtn);
-  let clas = "condiv";
+  let clas = "condiv", stly = "";
   const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  if (darkmQ['matches'] && !isMobile) {
+  if (darkmQ['matches']) {
     clas += " dark_mode";
+    stly = "background-color: #212121;color: #fefefe;";
   }
-  let condiv = creatanelemn("div", clas, "", "", "", "", "", "", header, "", "", "");
+  let condiv = creatanelemn("div", clas, "", "", stly, "", "", "", header, "", "", "");
   let nmttl = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "Coordanition");
   let frow = creatanelemn("div", "diagcol", "", "", "", "", "", "", nmttl, "", "", "");
   let subrow = creatanelemn("div", "diagrowPro", "", "", "", "", "", "", "", "", "", "");
@@ -355,13 +355,13 @@ function dEleteIT(idetion) {
   let clsfun = "closeDialog('"+id+"')";
   let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
   header.appendChild(clsbtn);
-  let clas = "condiv";
+  let clas = "condiv", stly = "";
   const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  if (darkmQ['matches'] && !isMobile) {
+  if (darkmQ['matches']) {
     clas += " dark_mode";
+    stly = "background-color: #212121;color: #fefefe;";
   }
-  let condiv = creatanelemn("div", clas, "logingCon", "", "", "", "", "", header, "", "", "");
+  let condiv = creatanelemn("div", clas, "logingCon", "", stly, "", "", "", header, "", "", "");
   let nmttl = creatanelemn("p", "", "", "", "margin-bottom: 10px;", "", "", "", "", "", "", "BEREP");
   let frow = creatanelemn("div", "diagrow", "", "", "", "", "", "", nmttl, "", "", "");
   ///add grid

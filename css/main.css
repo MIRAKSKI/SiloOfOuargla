@@ -13,12 +13,6 @@ a:hover {text-decoration: underline;color: #C55A11;}
 #myBtn {display: none;position: fixed;bottom: 20px;right: 30px;z-index: 99;font-size: 18px;border: none;outline: none;background-color:  #C55A11;color:  white;cursor: pointer;padding: 15px;border-radius: 50%;transition: all 0.5s;}
 #myBtn:hover {background-color: white;color:  #C55A11;border: 1px solid  #C55A11;}
 ol, ul {list-style: none;}
-.pagination {position:fixed;right:20px;display: grid;top: 50%;height: 20px;transform: translateY(-50%);font-size:1.4em;z-index: 10;}
-.pagination a {display:block;height:20px;margin-bottom:5px;color:white;position:relative;padding:4px;}
-.pagination a.active:after {box-shadow:inset 0 0 0 5px;}
-.pagination a .hover-text {position:absolute;right:15px;top:1px;opacity:0;font-size: 12px;-webkit-transition: opacity 0.5s ease;transition: opacity 0.5s ease;padding-right: 15px;}
-.pagination a:hover .hover-text {opacity: 1;}
-.pagination a:after {-webkit-transition:box-shadow 0.5s ease;transition:box-shadow 0.5s ease;width:10px;height:10px;display: block;border:1px solid;border-radius:50%;content:'';position: absolute;margin:auto;top:0;right:4px;bottom:0;}
 span {margin: 0;padding: 0;border: 0;max-width: 250px;font-size: 9px;font: inherit;vertical-align: baseline;}
 .hold {display: flex;justify-content: space-around;width: 100%;}
 .details {}
@@ -64,7 +58,7 @@ td, th {border: 0.1rem solid #dddddd;text-align: center;word-wrap: break-word;pa
 .notifyclosy:hover{color: red;}
 .notifytitle{color: rgb(100,100,100);font-weight: bold;font-size: 18px;text-align: center;margin:  20px 0 5px 0;}
 .notifycontnt{margin:  5px 0 5px 0;}
-.clsbtn {border: none;background: transparent;text-shadow: 2px 2px 5px red;z-index: 109;font-size: 22px;font-weight: bold;position: absolute;top: 20px;right: 20px;transform: translate(-50%, -50%);transition: 0.2s;}
+.clsbtn {border: none;background: transparent;z-index: 109;font-size: 22px;font-weight: bold;position: absolute;top: 20px;right: 20px;transform: translate(-50%, -50%);transition: 0.2s;}
 .clsbtn:hover {color: red;cursor: pointer;}
 .diaghead {display: grid;place-items:center;position: relative;width: 100%;}
 .diaghead p {}
@@ -114,5 +108,7 @@ input:focus + .sliderFS {box-shadow: 0 0 1px #2196F3;}
 #Quickbtn {border-radius: 10px; border: 1px dashed rgb(20,200,150);transition: 0.2s;padding: 5px 10px;font-weight: bold;}
 #Quickbtn:hover {border: 1px solid rgb(20,200,150);color:white;background: rgb(20,200,150);}
 .dark_mode {background-color: #212121;color: #fefefe;}
+.dark_mode .clsbtn {border: none;background: transparent;color: white;z-index: 109;font-size: 22px;font-weight: bold;position: absolute;top: 20px;right: 20px;transform: translate(-50%, -50%);transition: 0.2s;}
+.dark_mode .clsbtn:hover {color: red;cursor: pointer;}
 .notifBtn input {border-radius: 10px; border: 1px dashed rgb(20,200,150);transition: 0.2s;padding: 5px 10px;font-weight: bold;}
 .notifBtn input:hover {border: 1px solid rgb(20,200,150);color:white;background: rgb(20,200,150);}

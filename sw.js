@@ -1,4 +1,4 @@
-const myfilename = "my-cache-v8";
+const myfilename = "my-cache-v9";
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(myfilename).then((cache) => {
@@ -16,19 +16,22 @@ self.addEventListener('install', (e) => {
     })
   );
 });
-/*PWA V:1.03*/
+/*PWA V:1.04*/
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // If the network works, save the new version to cache and return it
-        return caches.open(myfilename).then((cache) => {
-          cache.put(event.request, response.clone());
-          return response;
-        });
+        // CHECK IF IT'S A GET REQUEST BEFORE CACHING
+        if (event.request.method === 'GET') {
+          return caches.open(myfilename).then((cache) => {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        }
+        // If it's POST, just return the response without caching it
+        return response;
       })
       .catch(() => {
-        // If the internet is DOWN, only then use the cache
         return caches.match(event.request);
       })
   );

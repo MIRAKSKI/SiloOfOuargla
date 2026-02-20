@@ -1,3 +1,4 @@
+#karive {background-image: url('https://mirakski.github.io/SiloOfOuargla/lib/wide.png');background-position: top;background-repeat: no-repeat;background-size: cover;background-color: none;}
 .container {height: 100%;width: 100%;display: grid;justify-content: space-around;place-items: center;margin: 0;padding: 1%;min-width: 100%;}
 section {width:100%;display: flex;}
 .row {align-items: center;text-align: center;height: 100%;width: 100%;}

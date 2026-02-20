@@ -1933,7 +1933,7 @@ function shoenotiynow(monteris, idiv, callback) {
     }, 10);
     return hidentermnite("deletenotify")
   }
-  mksound("lib/finished.mp3");
+  mksound("https://mirakski.github.io/SiloOfOuargla/lib/finished.mp3");
 }
 function mksound(arg) {
   const audio = new Audio(arg);

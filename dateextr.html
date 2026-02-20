@@ -27,14 +27,17 @@
       <input type="checkbox" onclick="anyfun(this.id)">
       <span class="sliderFS roundFS">2</span>
     </label>
-    <input type="checkbox" id="two" onclick="anyfun(this.id)">
-    <input type="checkbox" id="one" onclick="anyfun(this.id)" checked>
+    <input type="checkbox" id="two" onclick="mksound('lib/finished.mp3');">
   </body>
   <script type="text/javascript">
     document.getElementById('inp').value = 2025 +"-"+12+"-"+27;
     let r = document.getElementsByTagName('body')[0].children;
     for (var i = 0; i < r.length; i++) {
       r[i].setAttribute("data-order", i);
+    }
+    function mksound(arg) {
+      const audio = new Audio(arg);
+      audio.play();
     }
   </script>
 </html>

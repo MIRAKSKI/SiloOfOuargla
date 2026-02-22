@@ -1131,7 +1131,13 @@ function addfastselectiontool(mod) {
     let clsfun = "closeDialog('"+id+"')";
     let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
     header.appendChild(clsbtn);header.appendChild(f2);header.appendChild(l2);header.appendChild(b2);
-    let condiv = creatanelemn("div", "condiv", "", "", "max-height:90%;height:90%;", "", "", "", header, "", "", "");
+    let clas = "condiv", stly = "max-height:90%;height:90%;";
+    const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
+    if (darkmQ['matches']) {
+      clas += " dark_mode";
+      stly += "background-color: #212121;color: #fefefe;";
+    }
+    let condiv = creatanelemn("div", clas, "", "", stly, "", "", "", header, "", "", "");
     let onclk = "addfastselectiontool(2)";
     let subbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "✔", "", onclk, "", "");
     let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subbtn, "", "", "");

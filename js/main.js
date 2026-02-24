@@ -615,11 +615,11 @@ function subanalyser(dateKeeper) {
   let days = Object.keys(offdyRlzdMAP);
   let datess = new Object();
   for (var f = 0; f < keys.length; f++) {
-    if (datess[selectedProject["piles"][keys[f]]["DSD"]] === undefined) {
-      datess[selectedProject["piles"][keys[f]]["DSD"]] = [keys[f]];
+    if (datess[selectedProject["piles"][keys[f]]["DED"]] === undefined) {
+      datess[selectedProject["piles"][keys[f]]["DED"]] = [keys[f]];
     }
     else {
-      datess[selectedProject["piles"][keys[f]]["DSD"]].push(keys[f]);
+      datess[selectedProject["piles"][keys[f]]["DED"]].push(keys[f]);
     }
   }
   let dates_kys = Object.keys(datess);
@@ -1402,7 +1402,7 @@ function calnder() {
   let keys = Object.keys(onlineProjects["SiloOfOuargla"]["piles"]);
   dates = new Object();
   for (var i = 0; i < keys.length; i++) {
-    let date = onlineProjects["SiloOfOuargla"]["piles"][keys[i]]["DSD"];
+    let date = onlineProjects["SiloOfOuargla"]["piles"][keys[i]]["DED"];
     if (date != "") {
       if (dates[date] === undefined) {
         dates[date] = [keys[i]];

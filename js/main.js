@@ -2,7 +2,7 @@
 let onlineProjects;let cryppassKey,passKey;let supportsaving = false;let saved = false;
 let dataElement = "";let submited = false, logedin = false;let moposition = 0, tapotition = 0;
 let crushing_notify = false, app_news = false, app_interval = 5000,downloaded = true;
-let version = 2.17,quickSelection;
+let version = 2.18,quickSelection;
 if (typeof(Storage) !== "undefined") {
   supportsaving = true;
   saved = window.localStorage.getItem("saved");
@@ -45,7 +45,7 @@ function loaduphandler() {
         let last_update_ms = window.localStorage.getItem("lastUpdate");
         let now_update = new Date().getTime();
         let hr = Math.floor((now_update - last_update_ms) / (60 * 60 * 1000));
-        if (hr < 1) {
+        if (hr < 0.16) {
           loaderfromOffData();
         }
         else {
@@ -74,6 +74,7 @@ function loaduphandler() {
     let keys = Object.keys(tempProjectX);
     for (var i = 0; i < keys.length; i++) {
       if (tempProjectX[keys[i]]["pT"] != "REMOVE") {
+        selectedProject["piles"][keys[i]] = tempProjectX[keys[i]];
         document.getElementById(keys[i]).setAttribute("class", "eleypro");
         if (tempProjectX[keys[i]]["pT"] == "RISK") {
           document.getElementById(keys[i]).style.background = "rgb(255,20,20)";
@@ -1509,6 +1510,7 @@ function calnder() {
         }
         else {
           let td_nm = "";
+          let callout = "jurnalView('" +cal_dates[ind]+"', "+ind+")";
           if (dates[cal_dates[ind]] === undefined) {
             if (cal_dates[ind] === undefined) {
               getOutCal = true;
@@ -1532,7 +1534,7 @@ function calnder() {
               }
             }
           }
-          let r_td = creatanelemn("td", "", "", "", "", "", "", "", "", "", "", td_nm);
+          let r_td = creatanelemn("td", "", "", "", "cursor: pointer;", "", "", "", "", callout, "", td_nm);
           r_tr.appendChild(r_td);
           ind++;
         }
@@ -1566,6 +1568,89 @@ function calnder() {
     document.getElementById('swpanels').appendChild(diLSV);
   } catch (e) {} finally {}
   seveneight();
+}
+function jurnalView(dt, ind) {
+  if (dates[dt] == undefined) {
+    ayanotifiys("Err", "No DATA Journal Found.", "shoenotiynow");
+    return;
+  }
+  let id = "JournalView";
+  let ttr = creatanelemn("p", "", "", "", "", "", "", "", "", "", "", "JOURNAL");
+  let header = creatanelemn("div", "diaghead", "", "", "", "", "", "", ttr, "", "", "");
+  let clsfun = "closeDialog('"+id+"')";
+  let clsbtn = creatanelemn("input", "clsbtn", "", "", "", "", "button", "X", "", clsfun, "", "");
+  header.appendChild(clsbtn);
+  let clas = "condiv", stly = "max-height:90%;height:90%;";
+  const darkmQ = window.matchMedia('(prefers-color-scheme: dark)');
+  if (darkmQ['matches']) {
+    clas += " dark_mode";
+    stly += "background-color: #212121;color: #fefefe;";
+  }
+  let condiv = creatanelemn("div", clas, "", "", stly, "", "", "", header, "", "", "");
+  let hdiv = creatanelemn("div", "hdiv", "newProHDiv", "", "", "", "", "", "", "", "", "");
+  let pilesArr = dates[dt];
+  let dDay = new Date();
+  dDay = dDay.getDate() + "/" + (eval(dDay.getMonth()) + 1) + "/" + dDay.getFullYear();
+  let jornalName = dt + " Journal";
+  if (dDay == dt) {
+    jornalName = "Today's Journal";
+  }
+  jornalName += "\nNumber Of Piles Realized: " + pilesArr.length;
+  let nmttl = creatanelemn("p", "", "", "", "margin-bottom: 10px;text-align: center;", "", "", "", "", "", "", jornalName);
+  let frow = creatanelemn("div", "diagrow", "", "", "", "", "", "", nmttl, "", "", "");
+  hdiv.appendChild(frow);
+  for (var i = 0; i < pilesArr.length; i++) {
+    let pieu = pilesArr[i].replace("#","\"");
+    pieu = pieu.replace("%","'");
+    let pileDetails = "Pile Name: " + pieu + " 📍";
+    let sDates = ["DSD", "RSD", "CSD"];
+    let eDates = ["DED", "RED", "CED"];
+    let sHours = ["DSH", "RSH", "CSH"];
+    let eHours = ["DEH", "REH", "CEH"];
+    let stDate = ["Drilling Starting Date: ", "Caging Starting Date: ", "Concreting Starting Date: "];
+    let enDate = ["Drilling Ending Date: ", "Caging Ending Date: ", "Concreting Ending Date: "];
+    let smDate = ["Drilling Date: ", "Caging Date: ", "Concreting Date: "];
+    let stHour = ["Drilling Starting Hour: ", "Caging Starting Hour: ", "Concreting Starting Hour: "];
+    let enHour = ["Drilling Ending Hour: ", "Caging Ending Hour: ", "Concreting Ending Hour: "];
+    let emojy = ["⛏", "⛓", "⚫"];
+    for (var u = 0; u < sDates.length; u++) {
+      pileDetails += "\n" + emojy[u];
+      if (selectedProject["piles"][pilesArr[i]][sDates[u]] == selectedProject["piles"][pilesArr[i]][eDates[u]]) {
+        pileDetails += "\n" + smDate[u] + selectedProject["piles"][pilesArr[i]][sDates[u]];
+        pileDetails += "\n" + stHour[u] + selectedProject["piles"][pilesArr[i]][sHours[u]];
+        if (selectedProject["piles"][pilesArr[i]][eHours[u]] != "") {
+          pileDetails += "\n" + enHour[u] + selectedProject["piles"][pilesArr[i]][eHours[u]];
+        }
+      }
+      else {
+        pileDetails += "\n" + stDate[u] + selectedProject["piles"][pilesArr[i]][sDates[u]];
+        pileDetails += "\n" + stHour[u] + selectedProject["piles"][pilesArr[i]][sHours[u]];
+        if (selectedProject["piles"][pilesArr[i]][eHours[u]] != "") {
+          pileDetails += "\n" + enDate[u] + selectedProject["piles"][pilesArr[i]][eDates[u]];
+          pileDetails += "\n" + enHour[u] + selectedProject["piles"][pilesArr[i]][eHours[u]];
+        }
+      }
+    }
+    let pdt = creatanelemn("p", "", "", "", "margin-bottom: 10px;text-align: center;", "", "", "", "", "", "", pileDetails);
+    let srow = creatanelemn("div", "diagrow", "", "", "", "", "", "", pdt, "", "", "");
+    hdiv.appendChild(srow);
+    if (i != (pilesArr.length-1)) {
+      let divd = "_____________________________";
+      let divider = creatanelemn("p", "", "", "", "margin-bottom: 0px;text-align: center;", "", "", "", "", "", "", divd);
+      let drow = creatanelemn("div", "diagrow", "", "", "", "", "", "", divider, "", "", "");
+      hdiv.appendChild(drow);
+    }
+  }
+  //
+  // console.log(ind);
+  // hdiv.appendChild(trow);
+  //
+  condiv.appendChild(hdiv);
+  let subbtn = creatanelemn("input", "submitBtn", "", "", "", "", "button", "✔", "", clsfun, "", "");
+  let footer = creatanelemn("div", "diaghead", "", "", "", "", "", "", subbtn, "", "", "");
+  condiv.appendChild(footer);
+  let bgdiv = creatanelemn("div", "bgdiv", id, "", "", "", "", "", condiv, "", "", "");
+  document.getElementsByTagName('body')[0].appendChild(bgdiv);
 }
 function seveneight() {
   //dates[dd/mm/yyyy] = [obj1, obj2, obj3, ....];
@@ -2210,20 +2295,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
   let mybutton = document.getElementById("myBtn");
   window.onscroll = function() {scrollFunction()};
-  if (!app_news && typeOfBro == "Web") {
-    let app_tkDWN = setInterval(function () {
-      if (app_interval > 0) {
-        app_interval = app_interval - 100;
-      }
-      else {
-        app_news = true;
-        window.localStorage.setItem("app_news", true);
-        clearInterval(app_tkDWN);
-        let content = "Our new android app is available download it down below.";
-        ayanotifiys("NEWS!", content, "shoenotiynow");
-      }
-    }, 100);
-  }
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   if (isMobile) {
     mobileAutoLogIn();

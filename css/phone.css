@@ -1,5 +1,4 @@
 @media screen and (max-width: 600px) {
-  #karive {background-image: url('https://mirakski.github.io/SiloOfOuargla/lib/morrow.png');background-position: top;background-repeat: no-repeat;background-size: 100%;background-color: none;}
   .dark_mode {background-color: #212121;color: #fefefe;}
   .container {
     height: 100%;width: 100%;display: grid;justify-content: space-around;place-items: center;
